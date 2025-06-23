@@ -57,7 +57,7 @@ const Kids = () => {
         <>
             <div className="flex flex-column md:flex-row">
                 {/* Sidebar */}
-                <div className="p-4 shadow-2 surface-50" style={{ width: "250px" }}>
+                <div className="p-4 shadow-2 surface-50 ml-7" style={{ width: "250px" }}>
                     <h5>PRICE RANGE</h5>
                     <div className="mb-4">
                         <Slider
@@ -103,7 +103,7 @@ const Kids = () => {
 
                 {/* Products Section */}
                 <div className="flex-1 p-4">
-                    <div className="flex flex-wrap justify-content-center gap-3">
+                    <div className="flex flex-wrap justify-content-center gap-3 mr-5">
                         {paginatedProducts.map((product) => (
                             <Card key={product.id} style={{ width: '350px', minWidth: '250px' }}>
                                 <img

@@ -133,9 +133,22 @@ export default function HomePage() {
                                     </span>
                                 </div>
 
-                                <p style={{ fontSize: '10px', color: '#6b7280', marginTop: '0.25rem', lineHeight: '1.2' }}>
+                                <p
+                                    style={{
+                                        fontSize: '10px',
+                                        color: '#6b7280',
+                                        marginTop: '0.25rem',
+                                        lineHeight: '1.2',
+                                        width: '200px',
+                                        minHeight: '2.4em',
+                                        whiteSpace: 'normal',
+                                        wordBreak: 'break-word',
+                                        textAlign: 'left',
+                                    }}
+                                >
                                     {product.cashbackInfo}
                                 </p>
+
 
                                 <div className="flex gap-2 mt-2">
                                     {product.colors.map((color, i) => (
@@ -307,7 +320,19 @@ export default function HomePage() {
                                     </span>
                                 </div>
 
-                                <p style={{ fontSize: '10px', color: '#6b7280', marginTop: '0.25rem', lineHeight: '1.2' }}>
+                                <p
+                                    style={{
+                                        fontSize: '10px',
+                                        color: '#6b7280',
+                                        marginTop: '0.25rem',
+                                        lineHeight: '1.2',
+                                        width: '200px',
+                                        minHeight: '2.4em',
+                                        whiteSpace: 'normal',
+                                        wordBreak: 'break-word',
+                                        textAlign: 'left',
+                                    }}
+                                >
                                     {product.cashbackInfo}
                                 </p>
 
@@ -404,7 +429,7 @@ export default function HomePage() {
                                         height="200"
                                         className="border-round"
                                     />
-                                    <div className="flex flex-column gap-1" style={{ fontFamily: 'Aboreto'}}>
+                                    <div className="flex flex-column gap-1" style={{ fontFamily: 'Aboreto' }}>
                                         <span className="font-bold text-lg mb-1 ml-3">{post.title}</span>
                                         <span className="text-mb mb-2 ml-3">{post.description}</span>
                                         <Button label="READ MORE" link className="button-md text-left" />
