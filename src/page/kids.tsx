@@ -6,13 +6,22 @@ import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import { Paginator } from "primereact/paginator";
 import { Slider } from "primereact/slider";
-import "primereact/resources/themes/lara-light-indigo/theme.css";
-import "primereact/resources/primereact.min.css";
-import "primeflex/primeflex.css";
+import { useCart } from "../context/cartContext";
+import TopBar from "../component/topbar";
+import Footer from "../component/footer";
 
 const products = [
     {
-        id: 1,
+        id: 'K01',
+        name: "",
+        price: "",
+        originalPrice: "",
+        image: "",
+        sizes: ["S", "M", "L", "XL"],
+        colors: ["#5B1E1E", "#EAD6D6", "#F3E1DC"]
+    },
+    {
+        id: 'K02',
         name: "",
         price: "",
         originalPrice: "",
@@ -24,21 +33,34 @@ const products = [
 ];
 
 const Kids = () => {
-
     const [first, setFirst] = useState(0);
     const rows = 12;
     const [priceRange, setPriceRange] = useState<[number, number]>([0, 20000]);
+    const { addToCart} = useCart();
 
-    const parsePrice = (str: string) => {
-        const numeric = str.replace(/[^\d.]/g, "").replace(/,/g, "");
-        return parseFloat(numeric);
+    const addToCartHandler = (product: any) => {
+        const price = Number(product.price.replace(/[^0-9.]/g, ""));
+        const originalPrice = Number(product.originalPrice.replace(/[^0-9.]/g, ""));
+
+        const cartItem = {
+            id: product.id,
+            name: product.name,
+            size: product.sizes[0],
+            color: product.colors[0],
+            price,
+            originalPrice,
+            discount: `${Math.round(((originalPrice - price) / originalPrice) * 100)}%`,
+            quantity: 1,
+            image: product.image
+        };
+        addToCart(cartItem);
     };
 
-    const filteredProducts = products.filter((product) => {
-        const price = parsePrice(product.price);
-        return price >= priceRange[0] && price <= priceRange[1];
-    });
 
+    const filteredProducts = products.filter(product => {
+        const priceNum = Number(product.price.replace(/[^0-9.]/g, ""));
+        return priceNum >= priceRange[0] && priceNum <= priceRange[1];
+    });
 
     interface PageChangeEvent {
         first: number;
@@ -55,6 +77,7 @@ const Kids = () => {
 
     return (
         <>
+            <TopBar />
             <div className="flex flex-column md:flex-row">
                 {/* Sidebar */}
                 <div className="p-4 shadow-0 surface-50 ml-6 mt-4" style={{ width: "250px" }}>
@@ -164,15 +187,11 @@ const Kids = () => {
 
                                     <Button
                                         label="ADD TO CART"
-                                        size="small"
-                                        severity="contrast"
+                                        size="small" severity="contrast"
                                         className="mt-3"
                                         rounded
-                                        style={{
-                                            width: '100%',
-                                            fontSize: '12px',
-                                            marginTop: '0.75rem'
-                                        }}
+                                        style={{ width: '100%', fontSize: '12px', marginTop: '0.75rem' }}
+                                        onClick={() => addToCartHandler(product)}
                                     />
                                 </div>
                             </Card>
@@ -216,6 +235,8 @@ const Kids = () => {
             </div>
 
             <Divider />
+
+            <Footer />
         </>
     );
 };

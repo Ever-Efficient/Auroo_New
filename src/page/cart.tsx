@@ -1,0 +1,294 @@
+import { Button } from 'primereact/button';
+import { Checkbox } from 'primereact/checkbox';
+import { useRef, useState } from 'react';
+import { Image } from 'primereact/image';
+import { Toast } from 'primereact/toast';
+import { useCart } from "../context/cartContext";
+import { Card } from 'primereact/card';
+import Footer from '../component/footer';
+import TopBar from '../component/topbar';
+import { Divider } from 'primereact/divider';
+
+export default function Cart() {
+    const [checked, setChecked] = useState(false);
+    const toast = useRef<Toast>(null);
+    const { cartItems, updateQuantity, addToCart, removeFromCart } = useCart();
+
+    const products = [
+        {
+            id: 1,
+            name: "UTILITY JACKET",
+            price: "18999.00",
+            oldPrice: null,
+            image: "/images/product1.jpg",
+            cashbackInfo: "3 x Rs 6,333 or 4.5% cashback with or pay 3 x Rs 6,333 with",
+            colors: ['#000000', '#D4B4AF', '#F6EAE1'],
+        },
+        {
+            id: 2,
+            name: "CORT WITH WOOL WRAPAROUND COLLAR",
+            price: "10099.00",
+            oldPrice: "18999.00",
+            image: "/images/product2.jpg",
+            cashbackInfo: "3 x Rs 3,366.33 or 4.5% cashback with or pay 3 x Rs 3,366.33 with",
+            colors: ['#000000', '#D4B4AF', '#F6EAE1'],
+        },
+        {
+            id: 3,
+            name: "HANDMADE FLARED JACKET",
+            price: "18999.00",
+            oldPrice: null,
+            image: "/images/product3.jpg",
+            cashbackInfo: "3 x Rs 6,333 or 4.5% cashback with or pay 3 x Rs 6,333 with",
+            colors: ['#000000', '#D4B4AF', '#F6EAE1'],
+        },
+        {
+            id: 4,
+            name: "UTILITY JACKET",
+            price: "18999.00",
+            oldPrice: null,
+            image: "/images/product4.jpg",
+            cashbackInfo: "3 x Rs 6,333 or 4.5% cashback with or pay 3 x Rs 6,333 with",
+            colors: ['#000000', '#D4B4AF', '#F6EAE1'],
+        },
+    ];
+
+    const calculateSubtotal = () => {
+        return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    };
+
+    const addToCartHandler = (product: any) => {
+        const price = Number(product.price.replace(/[^0-9.]/g, ""));
+        const originalPrice = Number((product.oldPrice ?? product.price).replace(/[^0-9.]/g, ""));
+
+        const discountPercentage = originalPrice > price
+            ? `${Math.round(((originalPrice - price) / originalPrice) * 100)}%`
+            : "0%";
+
+        const cartItem = {
+            id: product.id,
+            name: product.name,
+            size: product.sizes?.[0] ?? 'M',
+            color: product.colors?.[0] ?? '#000000',
+            price,
+            originalPrice,
+            discount: discountPercentage,
+            quantity: 1,
+            image: product.image
+        };
+
+        addToCart(cartItem);
+    };
+
+    return (
+        <div>
+            <TopBar />
+            <Toast ref={toast} />
+
+            <div className="flex flex-column justify-content-between mt-4">
+                <div className="grid justify-content-center gap-4">
+
+                    {/* Header Row */}
+                    <div className="col-10 flex justify-content-between px-3 py-2 border-bottom-1 surface-border text-sm font-semibold text-color-secondary">
+                        <div style={{ flex: 2 }}>Item</div>
+                        <div style={{ flex: 1, textAlign: 'center' }}>Quantity</div>
+                        <div style={{ flex: 1, textAlign: 'right' }}>Total</div>
+                    </div>
+
+                    {/* Cart Items */}
+                    {cartItems.map((item) => (
+                        <div
+                            key={item.id}
+                            className="col-10 surface-card p-3 border-round shadow-2 flex align-items-center justify-content-between gap-4"
+                        >
+                            <div className="flex gap-3 align-items-center" style={{ flex: 2 }}>
+                                <Image
+                                    src={item.image}
+                                    alt={item.name}
+                                    width="80"
+                                    height="100"
+                                    className="border-round"
+                                />
+                                <div>
+                                    <div className="text-sm font-bold mb-1">{item.name}</div>
+                                    <div className="text-xs text-color-secondary mb-1">
+                                        {item.size} | {item.color}
+                                    </div>
+                                    <div className="text-xs text-color-secondary line-through mb-1">
+                                        RS {item.originalPrice.toFixed(2)}
+                                    </div>
+                                    <div className="text-sm font-bold mb-1">RS {item.price.toFixed(2)}</div>
+                                    <div className="text-xs text-pink-500 font-bold">({item.discount})</div>
+                                </div>
+                            </div>
+
+                            <div className="flex align-items-center gap-3 justify-content-center ml-8" style={{ flex: 1 }}>
+                                <Button
+                                    icon="pi pi-minus"
+                                    size="small"
+                                    className="surface-border"
+                                    text
+                                    onClick={() => updateQuantity(item.id, -1)}
+                                />
+                                <span className="text-base font-medium">{item.quantity}</span>
+                                <Button
+                                    icon="pi pi-plus"
+                                    size="small"
+                                    className="surface-border"
+                                    text
+                                    onClick={() => updateQuantity(item.id, 1)}
+                                />
+                                <Button
+                                    icon="pi pi-trash"
+                                    size="small"
+                                    severity="danger"
+                                    text
+                                    onClick={() => removeFromCart(item.id)}
+                                    tooltip="Remove item"
+                                />
+                            </div>
+
+                            <div className="text-right" style={{ flex: 1 }}>
+                                <div className="text-xs text-color-secondary">Total</div>
+                                <div className="text-lg font-bold">RS {(item.price * item.quantity).toFixed(2)}</div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="mt-4 mr-8 ml-8">
+                    <Divider />
+                    <div className="flex justify-content-between text-sm mb-1">
+                        <span className='text-xl ml-4'>Subtotal ({cartItems.length} items)</span>
+                        <span className='mr-5' style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>RS {calculateSubtotal().toFixed(2)}</span>
+                    </div>
+                    <div className="text-sm text-color-secondary mb-3 ml-4">
+                        Taxes and shipping calculated at checkout
+                    </div>
+                    <Divider />
+                    <div className="flex align-items-center gap-2 mb-3 ml-4">
+                        <Checkbox inputId="agree" checked={checked} onChange={e => setChecked(e.checked ?? false)} />
+                        <label htmlFor="agree" className="text-md mb-1">I agree with the terms and conditions.</label>
+                    </div>
+
+                    <div className="flex justify-content-center mb-2">
+                        <Button
+                            label="CHECKOUT"
+                            disabled={!checked}
+                            style={{ background: 'black', width: '250px' }}
+                            onClick={() => {
+                                if (checked) {
+                                    alert("Proceeding to checkout...");
+                                }
+                            }}
+                        />
+                    </div>
+                </div>
+            </div>
+            <div className="p-4">
+                <div className="text-center">
+                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>YOU MAY ALSO LIKE</h2>
+                </div>
+
+                <div className="flex flex-wrap justify-content-center gap-2">
+                    {products.map((product: any) => (
+                        <Card
+                            key={product.id}
+                            className="relative"
+                            style={{ width: '310px', minWidth: '190px' }}
+                        >
+                            <img
+                                src={product.image}
+                                alt={product.name}
+                                style={{
+                                    width: '100%',
+                                    height: '25rem',
+                                    objectFit: 'cover',
+                                    borderRadius: '6px'
+                                }}
+                            />
+
+                            <div className="p-2" style={{ fontSize: '12px' }}>
+                                <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>
+                                    {product.name}
+                                </p>
+
+                                <div className="flex align-items-center gap-2 mt-1">
+                                    {product.oldPrice && (
+                                        <span style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>
+                                            Rs {product.oldPrice}
+                                        </span>
+                                    )}
+                                    <span style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>
+                                        Rs {product.price}
+                                    </span>
+                                </div>
+
+                                <p
+                                    style={{
+                                        fontSize: '10px',
+                                        color: '#6b7280',
+                                        marginTop: '0.25rem',
+                                        lineHeight: '1.2',
+                                        width: '200px',
+                                        minHeight: '2.4em',
+                                        whiteSpace: 'normal',
+                                        wordBreak: 'break-word',
+                                        textAlign: 'left',
+                                    }}
+                                >
+                                    {product.cashbackInfo}
+                                </p>
+
+
+                                <div className="flex gap-2 mt-2">
+                                    {product.colors.map((color: any, i: any) => (
+                                        <div
+                                            key={i}
+                                            className="border-circle"
+                                            style={{
+                                                width: '16px',
+                                                height: '16px',
+                                                borderRadius: '50%',
+                                                border: '1px solid #ccc',
+                                                backgroundColor: color
+                                            }}
+                                        />
+                                    ))}
+                                </div>
+
+                                <div className="flex gap-2 mt-2">
+                                    {['S', 'M', 'L', 'XL'].map((size) => (
+                                        <Button
+                                            key={size}
+                                            label={size}
+                                            size="small"
+                                            severity="secondary"
+                                            outlined
+                                            style={{
+                                                fontSize: '10px',
+                                                padding: '0.25rem 0.5rem',
+                                                height: '2rem'
+                                            }}
+                                        />
+                                    ))}
+                                </div>
+
+                                <Button
+                                    label="ADD TO CART"
+                                    size="small"
+                                    severity="contrast"
+                                    className="mt-3"
+                                    rounded
+                                    style={{ width: '100%', fontSize: '12px', marginTop: '0.75rem' }}
+                                    onClick={() => addToCartHandler(product)}
+                                />
+                            </div>
+                        </Card>
+                    ))}
+                </div>
+            </div>
+            <Footer />
+        </div>
+    );
+}

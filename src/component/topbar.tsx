@@ -4,7 +4,7 @@ export default function TopBar() {
     const navigate = useNavigate();
 
     return ( 
-        <div className="relative surface-100 border-bottom px-4 py-3">
+        <div className="surface-100 border-bottom px-2 py-3">
             <div className="flex items-center justify-content-center text-center justify-content-between mr-8 ml-6">
                 <div className="flex gap-4 font-bold text-md mt-3 cursor-pointer">
                     <span onClick={() => navigate("/womens")}>WOMENS</span>
