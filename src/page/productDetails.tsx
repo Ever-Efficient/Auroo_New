@@ -1,150 +1,141 @@
-import { useState } from 'react';
-import { Image } from 'primereact/image';
-import { Button } from 'primereact/button';
-import { Rating } from 'primereact/rating';
-import { Divider } from 'primereact/divider';
-import { Card } from 'primereact/card';
-import TopBar from '../component/topbar';
-import Footer from '../component/footer';
-import { products } from "../data/womensProduct";
+import { useLocation } from "react-router-dom";
+import { Button } from "primereact/button";
+import { Divider } from "primereact/divider";
+import { Image } from "primereact/image";
+import { Rating } from "primereact/rating";
+import TopBar from "../component/topbar";
+import Footer from "../component/footer";
+import Reviews from "../component/Review";
+import { useCart } from "../context/cartContext";
+import { useEffect, useState } from "react";
 
-export default function ProductDetailPage() {
-    const [selectedSize, setSelectedSize] = useState('M');
-    const [selectedColor, setSelectedColor] = useState('#1D2D5A');
+export default function ProductView() {
+    const { state } = useLocation();
+    const product = state?.product;
+    const { addToCart } = useCart();
+    const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
 
-    const sizes = ['S', 'M', 'L', 'XL'];
-    const colors = ['#1D2D5A', '#C9A068', '#6A4C2B'];
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    if (!product) {
+        return <div className="text-center mt-6">Product not found. Go back to <a href="/womens" className="text-blue-500">Womens</a></div>;
+    }
+
+    const addToCartHandler = (product: any) => {
+        const price = Number(product.price.replace(/[^0-9.]/g, ""));
+        const originalPrice = Number((product.oldPrice ?? product.price).replace(/[^0-9.]/g, ""));
+        const selectedSize = selectedSizes[product.id] || product.sizes[0];
+
+        const discountPercentage = originalPrice > price
+            ? `${Math.round(((originalPrice - price) / originalPrice) * 100)}%`
+            : "0%";
+
+        const cartItem = {
+            id: product.id,
+            name: product.name,
+            size: selectedSize,
+            color: product.colors?.[0] ?? '#000000',
+            price,
+            originalPrice,
+            discount: discountPercentage,
+            quantity: 1,
+            image: product.image
+        };
+
+        addToCart(cartItem);
+    };
+
+    const handleSizeSelect = (productId: string, size: string) => {
+        setSelectedSizes((prev) => ({
+            ...prev,
+            [productId]: size
+        }));
+    };
 
     return (
-        <div className="flex flex-column min-h-screen">
+        <main className="flex flex-column min-h-screen">
             <TopBar />
-
-            <div className="grid p-4">
-                <div className="col-12 md:col-7 grid">
-                    {[1, 2, 3, 4, 5, 6].map((_, idx) => (
-                        <div key={idx} className="col-6 p-2">
-                            <Image src="/images/model.jpg" alt="product" imageClassName="w-full border-round" />
-                        </div>
-                    ))}
+            
+            <div className="flex flex-row gap-7 p-4 max-w-6xl mx-auto mt-4">
+                <div className="relative w-6 ml-7">
+                    <Image
+                        src={product.image}
+                        alt={product.name}
+                        imageClassName="w-full border-round-xl object-cover"
+                        preview
+                    />
                 </div>
 
-                <div className="col-12 md:col-5 p-4">
-                    <h2 className="text-xl font-semibold mb-2">CORT WITH WOOL WRAPAROUND COLLAR</h2>
-                    <div className="flex align-items-center gap-2 mb-2">
-                        <Rating value={5} readOnly stars={5} cancel={false} />
-                        <span className="text-sm text-gray-500">(30 Reviews)</span>
-                    </div>
-                    <div className="mb-3">
-                        <span className="line-through text-gray-400 mr-2">RS 18999.00</span>
-                        <span className="text-pink-500 font-semibold">RS 10099.00</span>
-                    </div>
+                <div className="flex flex-column justify-content-between w-6 mr-6">
+                    <div>
+                        <h2 className="text-2xl font-bold mt-4">{product.name}</h2>
+                        <div className="flex align-items-center gap-2 text-sm text-500">
+                            <Rating value={5} readOnly cancel={false} />
+                            <span>(5 Reviews)</span>
+                        </div>
 
-                    <div className="mb-3">
-                        <span className="font-medium mr-3">Color</span>
-                        <div className="flex gap-2 mt-2">
-                            {colors.map((color) => (
-                                <button
-                                    key={color}
-                                    onClick={() => setSelectedColor(color)}
-                                    className={`w-2rem h-2rem border-circle border-2 ${selectedColor === color ? 'border-black' : 'border-300'}`}
-                                    style={{ backgroundColor: color }}
-                                    aria-label={`Select color ${color}`}
+                        <div className="mt-4 text-lg font-bold">
+                            <span className="line-through mr-2 text-400">Rs {product.originalPrice}</span>
+                            <span className="text-red-600">Rs {product.price}</span>
+                        </div>
+
+                        <div className="flex gap-2 mt-4">
+                            {product.colors.map((color: any, i: any) => (
+                                <div
+                                    key={i}
+                                    style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
                                 />
                             ))}
                         </div>
-                    </div>
 
-                    <div className="mb-4">
-                        <span className="font-medium mr-3">Size</span>
-                        <div className="flex gap-2 mt-2">
-                            {sizes.map((size) => (
+                        <div className="flex gap-2 mt-4">
+                            {product.sizes.map((size: string) => (
                                 <Button
                                     key={size}
                                     label={size}
-                                    onClick={() => setSelectedSize(size)}
-                                    className={`text-sm px-3 py-2 ${selectedSize === size ? 'bg-black text-white' : 'bg-white text-black border-1 border-300'}`}
+                                    size="small"
+                                    severity={selectedSizes[product.id] === size ? "secondary" : "secondary"}
+                                    outlined={selectedSizes[product.id] !== size}
+                                    style={{
+                                        fontSize: '15px',
+                                        padding: '0.25rem 0.5rem',
+                                        height: '40px',
+                                        width: '50px',
+                                        borderColor: selectedSizes[product.id] === size ? '#FFE1E2' : '#000000',
+                                        backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
+                                    }}
+                                    onClick={() => handleSizeSelect(product.id, size)}
                                 />
                             ))}
                         </div>
-                        <div className="mt-1 text-xs underline text-gray-500">Size Guide</div>
-                    </div>
 
-                    <Button label="ADD TO BAG" className="bg-black text-white w-full border-round text-sm mb-3" />
+                        <Button
+                            label="ADD TO BAG"
+                            className="w-full mt-4 p-button-sm" style={{ background: 'black' }}
+                            onClick={() => addToCartHandler(product)}
+                        />
 
-                    <ul className="list-none text-sm mt-4 pl-0">
-                        <li className="mb-2">Free Shipping on all U.S. orders over $100</li>
-                        <li className="mb-2">Free Returns through January 31</li>
-                        <li>Add as a Gift: Personalize during checkout</li>
-                    </ul>
-
-                    <Divider />
-
-                    <p className="text-sm primary-color">
-                        <strong>Model:</strong> 6’2”, wearing a size M<br />
-                        <strong>Fit:</strong> Questions about fit? <span className="underline">Contact us</span>
-                    </p>
-
-                    <p className="text-sm mt-3">
-                        <strong>Sustainability</strong><br />
-                        Recycled Materials<br />
-                        Cleaner Chemistry
-                    </p>
-                </div>
-            </div>
-
-            <div className="p-4">
-                <h3 className="text-lg font-semibold mb-3">Recommended Products</h3>
-                <div className="grid">
-                    {products.map((item, idx) => (
-                        <div key={idx} className="col-6 md:col-3">
-                            <Card className="border-none shadow-none">
-                                <div className="relative">
-                                    <Image src={item.image} alt={item.name} imageClassName="w-full border-round" />
-                                    {item.price && (
-                                        <span className="absolute top-0 left-0 bg-red-500 text-white text-xs px-2 py-1 border-round m-2">
-                                            {item.price}
-                                        </span>
-                                    )}
-                                </div>
-                                <div className="mt-2 text-sm">
-                                    <div className="font-medium">{item.name}</div>
-                                    {item.originalPrice ? (
-                                        <div>
-                                            <span className="line-through text-gray-400 mr-2">{item.originalPrice}</span>
-                                            <span>{item.price}</span>
-                                        </div>
-                                    ) : (
-                                        <div>{item.price}</div>
-                                    )}
-                                    <div className="text-xs text-gray-500">3 X Rs 3,666 or 4.5% cashback with card</div>
-                                </div>
-                            </Card>
+                        <div className="mt-5 text-sm text-700">
+                            <div className="flex align-items-center gap-3">
+                                <img src="https://cdn-icons-png.flaticon.com/512/71/71222.png" className="w-2rem" alt="Shipping" />
+                                <span>Free Shipping on all U.S. orders over $100</span>
+                            </div>
+                            <div className="flex align-items-center gap-3 mt-3">
+                                <img src="https://cdn-icons-png.flaticon.com/512/150/150519.png" className="w-2rem" alt="Returns" />
+                                <span>Easy Returns through January 31</span>
+                            </div>
                         </div>
-                    ))}
+                    </div>
                 </div>
             </div>
 
-            <div className="p-4">
-                <h3 className="text-lg font-semibold mb-3">Reviews</h3>
-                <div className="mb-4 flex align-items-center gap-2">
-                    <Rating value={5} readOnly stars={5} cancel={false} />
-                    <span className="text-sm">5.0 Overall Rating</span>
-                </div>
-
-                <div className="mb-3">
-                    <strong>ElizabethR8klyn</strong> <span className="text-xs">Verified</span>
-                    <p className="text-sm mt-1">Got this to keep my husband warm on those chilly late fall days. Looks great and fits well.</p>
-                </div>
-
-                <Divider />
-
-                <div className="mb-3">
-                    <strong>Anonymous</strong> <span className="text-xs">Verified</span>
-                    <p className="text-sm mt-1">Great quality, warm and super comfy. The XL fits perfectly. Slightly oversized.</p>
-                </div>
+            <Divider className="my-5" />
+            <div className="flex justify-content-center">
+                <Reviews />
             </div>
-
             <Footer />
-        </div>
+        </main>
     );
 }

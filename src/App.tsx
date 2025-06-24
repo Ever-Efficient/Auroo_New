@@ -5,6 +5,7 @@ import Kids from './page/kids';
 import Cart from './page/cart';
 import Contact from './page/contact';
 import Sale from './page/sale';
+import Product from './page/productDetails';
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
         <Route path='/cart' element={<Cart />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/sale' element={<Sale />} />
+        <Route path="/product/:id" element={<Product />} />
       </Routes>
     </Router>
   );
