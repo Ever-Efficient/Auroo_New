@@ -215,21 +215,13 @@ export default function Cart() {
 
 
                                 <div className="flex gap-2 mt-2">
-                                    {product.colors.map((color: any, i: any) => (
+                                    {product.colors.map((color, i) => (
                                         <div
                                             key={i}
-                                            className="border-circle"
-                                            style={{
-                                                width: '16px',
-                                                height: '16px',
-                                                borderRadius: '50%',
-                                                border: '1px solid #ccc',
-                                                backgroundColor: color
-                                            }}
+                                            style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
                                         />
                                     ))}
                                 </div>
-
                                 <div className="flex gap-2 mt-2">
                                     {product.sizes.map((size: string) => (
                                         <Button
@@ -241,9 +233,10 @@ export default function Cart() {
                                             style={{
                                                 fontSize: '10px',
                                                 padding: '0.25rem 0.5rem',
-                                                height: '2rem',
-                                                borderColor: selectedSizes[product.id] === size ? '#000' : undefined,
-                                                backgroundColor: selectedSizes[product.id] === size ? '#000' : undefined,
+                                                height: '30px',
+                                                width: '40px',
+                                                borderColor: selectedSizes[product.id] === size ? '#FFE1E2' : '#000000',
+                                                backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
                                             }}
                                             onClick={() => handleSizeSelect(product.id, size)}
                                         />
@@ -256,7 +249,7 @@ export default function Cart() {
                                     severity="contrast"
                                     className="mt-3"
                                     rounded
-                                    style={{ width: '100%', fontSize: '12px', marginTop: '0.75rem' }}
+                                    style={{ width: '65%', fontSize: '12px', marginTop: '0.75rem', background: '#000000' }}
                                     onClick={() => addToCartHandler(product)}
                                 />
                             </div>

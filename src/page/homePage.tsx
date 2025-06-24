@@ -11,6 +11,7 @@ import { useState } from 'react';
 export default function HomePage() {
     const { addToCart } = useCart();
     const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
+    const [isHovered, setIsHovered] = useState(false);
 
     const blogPosts = [
         {
@@ -60,7 +61,7 @@ export default function HomePage() {
 
 
     return (
-        <div className="p-fluid">
+        <div>
             <TopBar />
             <div
                 className="relative flex align-items-center justify-content-center text-center"
@@ -89,8 +90,15 @@ export default function HomePage() {
                     <h1 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem' }}>YOUR DRESS UP CLOTHES FIRST</h1>
                     <Button
                         label="SHOP NOW"
-                        className="p-button-rounded"
-                        style={{ backgroundColor: 'black', borderColor: 'black' }}
+                        className="p-button-rounded p-button-secondary"
+                        style={{
+                            backgroundColor: isHovered ? '#FFE1E2' : '#000000',
+                            color: isHovered ? '#000000' : '#FFE1E2',
+                            border: '1px solid black',
+                            transition: 'all 0.3s ease',
+                        }}
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
                     />
                 </div>
             </div>
@@ -124,7 +132,7 @@ export default function HomePage() {
                                     {product.colors.map((color, i) => (
                                         <div
                                             key={i}
-                                            style={{ width: '16px', height: '16px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
+                                            style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
                                         />
                                     ))}
                                 </div>
@@ -139,9 +147,10 @@ export default function HomePage() {
                                             style={{
                                                 fontSize: '10px',
                                                 padding: '0.25rem 0.5rem',
-                                                height: '2rem',
-                                                borderColor: selectedSizes[product.id] === size ? '#000' : undefined,
-                                                backgroundColor: selectedSizes[product.id] === size ? '#000' : undefined,
+                                                height: '30px',
+                                                width: '40px',
+                                                borderColor: selectedSizes[product.id] === size ? '#FFE1E2' : '#000000',
+                                                backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
                                             }}
                                             onClick={() => handleSizeSelect(product.id, size)}
                                         />
@@ -154,7 +163,7 @@ export default function HomePage() {
                                     severity="contrast"
                                     className="mt-3"
                                     rounded
-                                    style={{ width: '100%', fontSize: '12px', marginTop: '0.75rem', background: '#000000' }}
+                                    style={{ width: '65%', fontSize: '12px', marginTop: '0.75rem', background: '#000000' }}
                                     onClick={() => addToCartHandler(product)}
                                 />
                             </div>
@@ -174,7 +183,7 @@ export default function HomePage() {
                 <p className="mb-4" style={{ fontFamily: 'Aboreto', fontSize: '1.5rem' }}>Get the latest news & updates from Aurao</p>
                 <div className="flex flex-column sm:flex-row gap-2">
                     <InputText placeholder="Your email address" className="p-inputtext-sm w-20rem text-center" style={{ borderRadius: '25rem' }} />
-                    <Button label="SUBSCRIBE" className="p-button-sm p-button-secondary" style={{ background: 'black', borderRadius: '25rem' }} />
+                    <Button label="SUBSCRIBE" className="p-button-sm p-button-secondary" style={{ background: 'black', borderRadius: '25rem', height: '50px', width: '150px' }} />
                 </div>
             </div>
 
@@ -224,8 +233,8 @@ export default function HomePage() {
                         key={idx}
                         className="flex-grow-0"
                         style={{
-                            backgroundColor: '#000',
-                            color: '#fff',
+                            backgroundColor: '#000000',
+                            color: '#FFE1E2',
                             textAlign: 'center',
                             width: '400px',
                         }}
@@ -302,18 +311,10 @@ export default function HomePage() {
                                     {product.colors.map((color, i) => (
                                         <div
                                             key={i}
-                                            className="border-circle"
-                                            style={{
-                                                width: '16px',
-                                                height: '16px',
-                                                borderRadius: '50%',
-                                                border: '1px solid #ccc',
-                                                backgroundColor: color
-                                            }}
+                                            style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
                                         />
                                     ))}
                                 </div>
-
                                 <div className="flex gap-2 mt-2">
                                     {product.sizes.map((size: string) => (
                                         <Button
@@ -325,27 +326,22 @@ export default function HomePage() {
                                             style={{
                                                 fontSize: '10px',
                                                 padding: '0.25rem 0.5rem',
-                                                height: '2rem',
-                                                borderColor: selectedSizes[product.id] === size ? '#000' : undefined,
+                                                height: '30px',
+                                                width: '40px',
+                                                borderColor: selectedSizes[product.id] === size ? '#FFE1E2' : '#000000',
                                                 backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
                                             }}
                                             onClick={() => handleSizeSelect(product.id, size)}
                                         />
                                     ))}
                                 </div>
-                                
                                 <Button
                                     label="ADD TO CART"
                                     size="small"
                                     severity="contrast"
                                     className="mt-3"
                                     rounded
-                                    style={{
-                                        width: '100%',
-                                        fontSize: '12px',
-                                        marginTop: '0.75rem',
-                                        background: '#000000'
-                                    }}
+                                    style={{ width: '65%', fontSize: '12px', marginTop: '0.75rem', background: '#000000' }}
                                     onClick={() => addToCartHandler(product)}
                                 />
                             </div>
@@ -376,7 +372,15 @@ export default function HomePage() {
                     <Button
                         label="SHOP NOW"
                         className="p-button-rounded p-button-secondary"
-                        style={{ background: '#000000', borderColor: '#000000' }}
+                        style={{
+                            backgroundColor: isHovered ? '#FFE1E2' : '#000000',
+                            color: isHovered ? '#000000' : '#FFE1E2',
+                            border: '1px solid black',
+                            transition: 'all 0.3s ease',
+                            width: '250px'
+                        }}
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
                     />
                 </div>
             </div>
@@ -397,9 +401,9 @@ export default function HomePage() {
                                         className="border-round"
                                     />
                                     <div className="flex flex-column gap-1" style={{ fontFamily: 'Aboreto' }}>
-                                        <span className="font-bold text-lg mb-1 ml-3" style={{color: '#000000'}}>{post.title}</span>
-                                        <span className="text-mb mb-2 ml-3" style={{color: '#000000'}}>{post.description}</span>
-                                        <Button label="READ MORE" link className="button-md text-left" style={{color: '#A03F3F'}}/>
+                                        <span className="font-bold text-lg mb-1 ml-3" style={{ color: '#000000' }}>{post.title}</span>
+                                        <span className="text-mb mb-2 ml-3" style={{ color: '#000000' }}>{post.description}</span>
+                                        <Button label="READ MORE" link className="button-md text-left" style={{ color: '#A03F3F' }} />
                                     </div>
                                 </div>
                             </Card>
