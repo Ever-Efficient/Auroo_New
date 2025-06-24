@@ -89,7 +89,7 @@ export default function HomePage() {
                     <h1 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem' }}>YOUR DRESS UP CLOTHES FIRST</h1>
                     <Button
                         label="SHOP NOW"
-                        className="p-button-rounded p-button-secondary"
+                        className="p-button-rounded"
                         style={{ backgroundColor: 'black', borderColor: 'black' }}
                     />
                 </div>
@@ -141,7 +141,7 @@ export default function HomePage() {
                                                 padding: '0.25rem 0.5rem',
                                                 height: '2rem',
                                                 borderColor: selectedSizes[product.id] === size ? '#000' : undefined,
-                                                backgroundColor: selectedSizes[product.id] === size ? '#e5e5e5' : undefined,
+                                                backgroundColor: selectedSizes[product.id] === size ? '#000' : undefined,
                                             }}
                                             onClick={() => handleSizeSelect(product.id, size)}
                                         />
@@ -154,7 +154,7 @@ export default function HomePage() {
                                     severity="contrast"
                                     className="mt-3"
                                     rounded
-                                    style={{ width: '100%', fontSize: '12px', marginTop: '0.75rem' }}
+                                    style={{ width: '100%', fontSize: '12px', marginTop: '0.75rem', background: '#000000' }}
                                     onClick={() => addToCartHandler(product)}
                                 />
                             </div>
@@ -327,7 +327,7 @@ export default function HomePage() {
                                                 padding: '0.25rem 0.5rem',
                                                 height: '2rem',
                                                 borderColor: selectedSizes[product.id] === size ? '#000' : undefined,
-                                                backgroundColor: selectedSizes[product.id] === size ? '#e5e5e5' : undefined,
+                                                backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
                                             }}
                                             onClick={() => handleSizeSelect(product.id, size)}
                                         />
@@ -343,7 +343,8 @@ export default function HomePage() {
                                     style={{
                                         width: '100%',
                                         fontSize: '12px',
-                                        marginTop: '0.75rem'
+                                        marginTop: '0.75rem',
+                                        background: '#000000'
                                     }}
                                     onClick={() => addToCartHandler(product)}
                                 />
@@ -375,7 +376,7 @@ export default function HomePage() {
                     <Button
                         label="SHOP NOW"
                         className="p-button-rounded p-button-secondary"
-                        style={{ background: 'black', borderColor: 'black' }}
+                        style={{ background: '#000000', borderColor: '#000000' }}
                     />
                 </div>
             </div>
@@ -396,9 +397,9 @@ export default function HomePage() {
                                         className="border-round"
                                     />
                                     <div className="flex flex-column gap-1" style={{ fontFamily: 'Aboreto' }}>
-                                        <span className="font-bold text-lg mb-1 ml-3">{post.title}</span>
-                                        <span className="text-mb mb-2 ml-3">{post.description}</span>
-                                        <Button label="READ MORE" link className="button-md text-left" />
+                                        <span className="font-bold text-lg mb-1 ml-3" style={{color: '#000000'}}>{post.title}</span>
+                                        <span className="text-mb mb-2 ml-3" style={{color: '#000000'}}>{post.description}</span>
+                                        <Button label="READ MORE" link className="button-md text-left" style={{color: '#A03F3F'}}/>
                                     </div>
                                 </div>
                             </Card>

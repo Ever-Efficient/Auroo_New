@@ -109,7 +109,7 @@ export default function SalePage() {
                                                 padding: '0.25rem 0.5rem',
                                                 height: '2rem',
                                                 borderColor: selectedSizes[product.id] === size ? '#000' : undefined,
-                                                backgroundColor: selectedSizes[product.id] === size ? '#e5e5e5' : undefined,
+                                                backgroundColor: selectedSizes[product.id] === size ? '#000' : undefined,
                                             }}
                                             onClick={() => handleSizeSelect(product.id, size)}
                                         />
