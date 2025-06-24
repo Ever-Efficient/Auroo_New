@@ -6,34 +6,7 @@ import { Divider } from 'primereact/divider';
 import { Card } from 'primereact/card';
 import TopBar from '../component/topbar';
 import Footer from '../component/footer';
-
-const recommendedProducts = [
-    {
-        name: "UTILITY JACKET",
-        price: "RS 18999.00",
-        discount: "SAVE 50%",
-        image: "/images/product1.jpg"
-    },
-    {
-        name: "CORT WITH WOOL WRAPAROUND COLLAR",
-        price: "RS 10999.00",
-        originalPrice: "RS 18999.00",
-        discount: "SAVE 50%",
-        image: "/images/product2.jpg"
-    },
-    {
-        name: "HANDMADE FLARED JACKET",
-        price: "RS 18999.00",
-        discount: "SAVE 50%",
-        image: "/images/product3.jpg"
-    },
-    {
-        name: "UTILITY JACKET",
-        price: "RS 18999.00",
-        discount: "SAVE 50%",
-        image: "/images/product4.jpg"
-    }
-];
+import { products } from "../data/womensProduct";
 
 export default function ProductDetailPage() {
     const [selectedSize, setSelectedSize] = useState('M');
@@ -106,7 +79,7 @@ export default function ProductDetailPage() {
 
                     <Divider />
 
-                    <p className="text-sm text-gray-800">
+                    <p className="text-sm primary-color">
                         <strong>Model:</strong> 6’2”, wearing a size M<br />
                         <strong>Fit:</strong> Questions about fit? <span className="underline">Contact us</span>
                     </p>
@@ -122,14 +95,14 @@ export default function ProductDetailPage() {
             <div className="p-4">
                 <h3 className="text-lg font-semibold mb-3">Recommended Products</h3>
                 <div className="grid">
-                    {recommendedProducts.map((item, idx) => (
+                    {products.map((item, idx) => (
                         <div key={idx} className="col-6 md:col-3">
                             <Card className="border-none shadow-none">
                                 <div className="relative">
                                     <Image src={item.image} alt={item.name} imageClassName="w-full border-round" />
-                                    {item.discount && (
+                                    {item.price && (
                                         <span className="absolute top-0 left-0 bg-red-500 text-white text-xs px-2 py-1 border-round m-2">
-                                            {item.discount}
+                                            {item.price}
                                         </span>
                                     )}
                                 </div>

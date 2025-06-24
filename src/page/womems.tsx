@@ -16,16 +16,19 @@ const Womens = () => {
     const [first, setFirst] = useState(0);
     const rows = 12;
     const [priceRange, setPriceRange] = useState<[number, number]>([0, 20000]);
-    const { addToCart} = useCart();
+    const { addToCart } = useCart();
+    const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
+
 
     const addToCartHandler = (product: any) => {
         const price = Number(product.price.replace(/[^0-9.]/g, ""));
         const originalPrice = Number(product.originalPrice.replace(/[^0-9.]/g, ""));
+        const selectedSize = selectedSizes[product.id] || product.sizes[0];
 
         const cartItem = {
             id: product.id,
             name: product.name,
-            size: product.sizes[0],
+            size: selectedSize,
             color: product.colors[0],
             price,
             originalPrice,
@@ -35,6 +38,14 @@ const Womens = () => {
         };
         addToCart(cartItem);
     };
+
+    const handleSizeSelect = (productId: string, size: string) => {
+        setSelectedSizes((prev) => ({
+            ...prev,
+            [productId]: size
+        }));
+    };
+
 
     const filteredProducts = products.filter(product => {
         const priceNum = Number(product.price.replace(/[^0-9.]/g, ""));
@@ -132,17 +143,25 @@ const Womens = () => {
                                         ))}
                                     </div>
                                     <div className="flex gap-2 mt-2">
-                                        {product.sizes.map((size) => (
+                                        {product.sizes.map((size: string) => (
                                             <Button
                                                 key={size}
                                                 label={size}
                                                 size="small"
-                                                severity="secondary"
-                                                outlined
-                                                style={{ fontSize: '10px', padding: '0.25rem 0.5rem', height: '2rem' }}
+                                                severity={selectedSizes[product.id] === size ? "secondary" : "secondary"}
+                                                outlined={selectedSizes[product.id] !== size}
+                                                style={{
+                                                    fontSize: '10px',
+                                                    padding: '0.25rem 0.5rem',
+                                                    height: '2rem',
+                                                    borderColor: selectedSizes[product.id] === size ? '#000' : undefined,
+                                                    backgroundColor: selectedSizes[product.id] === size ? '#e5e5e5' : undefined,
+                                                }}
+                                                onClick={() => handleSizeSelect(product.id, size)}
                                             />
                                         ))}
                                     </div>
+
                                     <Button
                                         label="ADD TO CART"
                                         size="small"

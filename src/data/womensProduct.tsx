@@ -1,4 +1,4 @@
-export interface WomensProduct {
+export interface Product {
     id: string;
     name: string;
     price: string;
@@ -8,7 +8,7 @@ export interface WomensProduct {
     colors: string[];
 }
 
-export const products: WomensProduct[] = [
+export const products: Product[] = [
     {
         id: 'W1',
         name: "CORT WITH WOOL WRAPAROUND COLLAR",

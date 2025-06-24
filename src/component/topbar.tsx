@@ -6,7 +6,8 @@ export default function TopBar() {
     return ( 
         <div className="surface-100 border-bottom px-2 py-3">
             <div className="flex items-center justify-content-center text-center justify-content-between mr-8 ml-6">
-                <div className="flex gap-4 font-bold text-md mt-3 cursor-pointer">
+                <div className="flex gap-4 font-bold text-md mt-3 cursor-pointer ml-5">
+                    <span onClick={() => navigate("/")}>HOME</span>
                     <span onClick={() => navigate("/womens")}>WOMENS</span>
                     <span onClick={() => navigate("/kids")}>KIDS</span>
                     <span onClick={() => navigate("/sale")}>SALE</span>
@@ -17,7 +18,7 @@ export default function TopBar() {
                 <img
                     src="/logos/Auro_o_fashion_01.png"
                     alt="Auroo Fashion Logo"
-                    className="mx-auto mr-8 cursor-pointer"
+                    className="mr-8 cursor-pointer"
                     style={{ width: '150px', height: '50px' }}
                     onClick={() => navigate("/")}
                 />

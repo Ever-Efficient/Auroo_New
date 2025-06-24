@@ -8,50 +8,14 @@ import { Card } from 'primereact/card';
 import Footer from '../component/footer';
 import TopBar from '../component/topbar';
 import { Divider } from 'primereact/divider';
+import { products } from '../data/womensProduct';
 
 export default function Cart() {
     const [checked, setChecked] = useState(false);
     const toast = useRef<Toast>(null);
     const { cartItems, updateQuantity, addToCart, removeFromCart } = useCart();
+    const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
 
-    const products = [
-        {
-            id: 1,
-            name: "UTILITY JACKET",
-            price: "18999.00",
-            oldPrice: null,
-            image: "/images/product1.jpg",
-            cashbackInfo: "3 x Rs 6,333 or 4.5% cashback with or pay 3 x Rs 6,333 with",
-            colors: ['#000000', '#D4B4AF', '#F6EAE1'],
-        },
-        {
-            id: 2,
-            name: "CORT WITH WOOL WRAPAROUND COLLAR",
-            price: "10099.00",
-            oldPrice: "18999.00",
-            image: "/images/product2.jpg",
-            cashbackInfo: "3 x Rs 3,366.33 or 4.5% cashback with or pay 3 x Rs 3,366.33 with",
-            colors: ['#000000', '#D4B4AF', '#F6EAE1'],
-        },
-        {
-            id: 3,
-            name: "HANDMADE FLARED JACKET",
-            price: "18999.00",
-            oldPrice: null,
-            image: "/images/product3.jpg",
-            cashbackInfo: "3 x Rs 6,333 or 4.5% cashback with or pay 3 x Rs 6,333 with",
-            colors: ['#000000', '#D4B4AF', '#F6EAE1'],
-        },
-        {
-            id: 4,
-            name: "UTILITY JACKET",
-            price: "18999.00",
-            oldPrice: null,
-            image: "/images/product4.jpg",
-            cashbackInfo: "3 x Rs 6,333 or 4.5% cashback with or pay 3 x Rs 6,333 with",
-            colors: ['#000000', '#D4B4AF', '#F6EAE1'],
-        },
-    ];
 
     const calculateSubtotal = () => {
         return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -60,6 +24,7 @@ export default function Cart() {
     const addToCartHandler = (product: any) => {
         const price = Number(product.price.replace(/[^0-9.]/g, ""));
         const originalPrice = Number((product.oldPrice ?? product.price).replace(/[^0-9.]/g, ""));
+        const selectedSize = selectedSizes[product.id] || product.sizes[0];
 
         const discountPercentage = originalPrice > price
             ? `${Math.round(((originalPrice - price) / originalPrice) * 100)}%`
@@ -68,7 +33,7 @@ export default function Cart() {
         const cartItem = {
             id: product.id,
             name: product.name,
-            size: product.sizes?.[0] ?? 'M',
+            size: selectedSize,
             color: product.colors?.[0] ?? '#000000',
             price,
             originalPrice,
@@ -79,6 +44,14 @@ export default function Cart() {
 
         addToCart(cartItem);
     };
+
+    const handleSizeSelect = (productId: string, size: string) => {
+        setSelectedSizes((prev) => ({
+            ...prev,
+            [productId]: size
+        }));
+    };
+
 
     return (
         <div>
@@ -191,7 +164,7 @@ export default function Cart() {
                 </div>
 
                 <div className="flex flex-wrap justify-content-center gap-2">
-                    {products.map((product: any) => (
+                    {products.slice(11, 15).map((product) => (
                         <Card
                             key={product.id}
                             className="relative"
@@ -214,9 +187,9 @@ export default function Cart() {
                                 </p>
 
                                 <div className="flex align-items-center gap-2 mt-1">
-                                    {product.oldPrice && (
+                                    {product.originalPrice && (
                                         <span style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>
-                                            Rs {product.oldPrice}
+                                            Rs {product.originalPrice}
                                         </span>
                                     )}
                                     <span style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>
@@ -237,7 +210,7 @@ export default function Cart() {
                                         textAlign: 'left',
                                     }}
                                 >
-                                    {product.cashbackInfo}
+                                    <span>3 x Rs 6,333 or 4.5% cashback with or pay 3 x Rs 6,333 with</span>
                                 </p>
 
 
@@ -258,18 +231,21 @@ export default function Cart() {
                                 </div>
 
                                 <div className="flex gap-2 mt-2">
-                                    {['S', 'M', 'L', 'XL'].map((size) => (
+                                    {product.sizes.map((size: string) => (
                                         <Button
                                             key={size}
                                             label={size}
                                             size="small"
-                                            severity="secondary"
-                                            outlined
+                                            severity={selectedSizes[product.id] === size ? "secondary" : "secondary"}
+                                            outlined={selectedSizes[product.id] !== size}
                                             style={{
                                                 fontSize: '10px',
                                                 padding: '0.25rem 0.5rem',
-                                                height: '2rem'
+                                                height: '2rem',
+                                                borderColor: selectedSizes[product.id] === size ? '#000' : undefined,
+                                                backgroundColor: selectedSizes[product.id] === size ? '#e5e5e5' : undefined,
                                             }}
+                                            onClick={() => handleSizeSelect(product.id, size)}
                                         />
                                     ))}
                                 </div>
