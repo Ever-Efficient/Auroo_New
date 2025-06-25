@@ -45,16 +45,16 @@ const Reviews = () => {
   ];
 
   return (
-    <div className="p-4 w-full mx-auto">
-      <div className="flex flex-column md:flex-row justify-content-between align-items-center mb-4 ml-7 mr-6">
-        <h2 className="text-3xl font-bold text-900 mb-3 md:mb-0">Customer Reviews</h2>
+    <div className="p-3 sm:p-4 md:px-6 lg:px-7 w-full max-w-7xl mx-auto">
+      <div className="flex flex-column md:flex-row justify-content-between align-items-center mb-4">
+        <h2 className="text-2xl md:text-3xl font-bold text-900 mb-3 md:mb-0">Customer Reviews</h2>
         <Button label="Write a Review" icon="pi pi-pencil" className="p-button-outlined p-button-secondary" />
       </div>
 
-      <div className="surface-0 border-round shadow-2 p-4 mb-5 ml-7 mr-6">
+      <div className="surface-0 border-round shadow-2 p-4 mb-5">
         <div className="flex flex-column md:flex-row gap-6">
           <div className="flex flex-column align-items-center md:align-items-start">
-            <span className="text-5xl font-bold mb-2">5.0</span>
+            <span className="text-4xl md:text-5xl font-bold mb-2">5.0</span>
             <Rating value={5} readOnly cancel={false} className="mb-2" />
             <span className="text-600 font-semibold">Overall Rating</span>
           </div>
@@ -83,18 +83,24 @@ const Reviews = () => {
         </div>
       </div>
 
-      <div className="flex flex-column sm:flex-row justify-content-between align-items-start sm:align-items-center gap-3 mb-4 ml-7 mr-6">
+      <div className="flex flex-column sm:flex-row justify-content-between align-items-start sm:align-items-center gap-3 mb-4">
         <div className="flex gap-2">
           <Button label="All Reviews" className="p-button-text font-medium" />
           <Button label="With Photos" className="p-button-text font-medium" />
         </div>
-        <Dropdown value={sortOptions[0]} options={sortOptions} optionLabel="label" className="w-full sm:w-20rem" placeholder="Sort by" />
+        <Dropdown
+          value={sortOptions[0]}
+          options={sortOptions}
+          optionLabel="label"
+          className="w-full sm:w-20rem"
+          placeholder="Sort by"
+        />
       </div>
 
-      <div className="flex flex-column gap-4 ml-7 mr-6">
+      <div className="flex flex-column gap-4">
         {reviews.map(review => (
           <div key={review.id} className="surface-0 p-4 border-round shadow-2">
-            <div className="flex justify-content-between align-items-start mb-2">
+            <div className="flex flex-column sm:flex-row justify-content-between align-items-start mb-2">
               <div>
                 <div className="flex align-items-center gap-2">
                   <span className="font-bold text-900">{review.name}</span>
@@ -106,7 +112,7 @@ const Reviews = () => {
                 </div>
               </div>
               {review.photo && (
-                <Button icon="pi pi-image" className="p-button-text text-500" tooltip="View photo" tooltipOptions={{ position: 'left' }} />
+                <Button icon="pi pi-image" className="p-button-text text-500 mt-2 sm:mt-0" tooltip="View photo" tooltipOptions={{ position: 'left' }} />
               )}
             </div>
 
@@ -123,7 +129,7 @@ const Reviews = () => {
               <div className="flex gap-2"><span className="text-500">Usual Size:</span> <span className="font-medium">{review.usualSize}</span></div>
             </div>
 
-            <div className="flex gap-3 mt-3">
+            <div className="flex flex-wrap gap-3 mt-3">
               <Button label="Helpful" icon="pi pi-thumbs-up" className="p-button-text text-sm" />
               <Button label="Report" icon="pi pi-flag" className="p-button-text text-sm" />
             </div>
@@ -131,7 +137,7 @@ const Reviews = () => {
         ))}
       </div>
 
-      <div className="text-center mt-5 ml-7 mr-6">
+      <div className="text-center mt-5">
         <Button label="Load More Reviews" className="p-button-outlined" />
       </div>
     </div>

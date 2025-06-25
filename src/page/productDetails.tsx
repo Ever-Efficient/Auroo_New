@@ -57,9 +57,9 @@ export default function ProductView() {
     return (
         <main className="flex flex-column min-h-screen">
             <TopBar />
-            
-            <div className="flex flex-row gap-7 p-4 max-w-6xl mx-auto mt-4">
-                <div className="relative w-6 ml-7">
+
+            <div className="flex flex-column md:flex-row gap-6 p-4 max-w-6xl mx-auto mt-4">
+                <div className="relative w-full md:w-6 md:ml-7">
                     <Image
                         src={product.image}
                         alt={product.name}
@@ -68,7 +68,7 @@ export default function ProductView() {
                     />
                 </div>
 
-                <div className="flex flex-column justify-content-between w-6 mr-6">
+                <div className="flex flex-column justify-content-between w-full md:w-6 md:mr-6 mt-4 md:mt-0">
                     <div>
                         <h2 className="text-2xl font-bold mt-4">{product.name}</h2>
                         <div className="flex align-items-center gap-2 text-sm text-500">
@@ -81,7 +81,7 @@ export default function ProductView() {
                             <span className="text-red-600">Rs {product.price}</span>
                         </div>
 
-                        <div className="flex gap-2 mt-4">
+                        <div className="flex gap-2 mt-4 flex-wrap">
                             {product.colors.map((color: any, i: any) => (
                                 <div
                                     key={i}
@@ -90,7 +90,7 @@ export default function ProductView() {
                             ))}
                         </div>
 
-                        <div className="flex gap-2 mt-4">
+                        <div className="flex gap-2 mt-4 flex-wrap">
                             {product.sizes.map((size: string) => (
                                 <Button
                                     key={size}
@@ -105,6 +105,7 @@ export default function ProductView() {
                                         width: '50px',
                                         borderColor: selectedSizes[product.id] === size ? '#FFE1E2' : '#000000',
                                         backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
+                                        color: selectedSizes[product.id] === size ? '#fff' : undefined
                                     }}
                                     onClick={() => handleSizeSelect(product.id, size)}
                                 />
@@ -113,7 +114,8 @@ export default function ProductView() {
 
                         <Button
                             label="ADD TO BAG"
-                            className="w-full mt-4 p-button-sm" style={{ background: 'black' }}
+                            className="w-full mt-4 p-button-sm"
+                            style={{ background: 'black' }}
                             onClick={() => addToCartHandler(product)}
                         />
 
@@ -132,8 +134,10 @@ export default function ProductView() {
             </div>
 
             <Divider className="my-5" />
-            <div className="flex justify-content-center">
-                <Reviews />
+            <div className="flex justify-content-center px-3 md:px-6">
+                <div className="w-full max-w-6xl">
+                    <Reviews />
+                </div>
             </div>
             <Footer />
         </main>
