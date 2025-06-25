@@ -10,20 +10,20 @@ export default function Footer() {
                     <p>Tel. +94 77 575 7735</p>
                     <p>Email. auroo@example.com</p>
                 </div>
-                <div className="">
+                <div className="mr-3">
                     <h4 className="font-bold">HELP</h4>
                     <p>How to Buy</p>
                     <p>Order Info</p>
                     <p>Shipping</p>
                     <p>Returns</p>
                 </div>
-                <div className="">
+                <div className="ml-5">
                     <h4 className="font-bold">POLICIES</h4>
                     <p>Privacy Policy</p>
                     <p>Return Policy</p>
                     <p>Terms & Conditions</p>
                 </div>
-                <div className="">
+                <div>
                     <h4 className="font-bold">COMPANY</h4>
                     <p>About Us</p>
                     <p>Work With Us</p>
