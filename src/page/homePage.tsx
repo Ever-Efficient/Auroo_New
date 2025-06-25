@@ -104,7 +104,7 @@ export default function HomePage() {
             </div>
 
             <div className="p-4">
-                <div className="flex justify-content-between align-items-center ml-8">
+                <div className="flex justify-content-between align-items-center ml-4">
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>NEW COLLECTION</h2>
                 </div>
 
@@ -257,7 +257,7 @@ export default function HomePage() {
             </div>
 
             <div className="p-4">
-                <div className="flex justify-content-between align-items-center mb-4 ml-8">
+                <div className="flex justify-content-between align-items-center mb-4 ml-4">
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>BEST SELLER</h2>
                 </div>
 
