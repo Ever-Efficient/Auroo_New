@@ -189,7 +189,7 @@ export default function HomePage() {
                 <p className="mb-4" style={{ fontFamily: 'Aboreto', fontSize: '1.5rem' }}>Get the latest news & updates from Aurao</p>
                 <div className="flex flex-column sm:flex-row gap-2">
                     <InputText placeholder="Your email address" className="p-inputtext-sm w-20rem text-center" style={{ borderRadius: '25rem' }} />
-                    <Button label="SUBSCRIBE" className="p-button-sm p-button-secondary" style={{ background: 'black', borderRadius: '25rem', height: '50px', width: '150px' }} />
+                    <Button label="SUBSCRIBE" className="p-button-sm p-button-secondary" style={{ background: 'black', borderRadius: '25rem', height: '45px', width: '325px' }} />
                 </div>
             </div>
 
