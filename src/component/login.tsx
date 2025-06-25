@@ -36,6 +36,8 @@ export default function Login({ visible, onHide, onLoginSuccess }: Props) {
         if (email === 'test@test.com' && password === 'test123') {
             setError('');
             onLoginSuccess(email);
+            clearState(); 
+            onHide();
         } else {
             setError('Invalid email or password.');
         }
@@ -49,6 +51,8 @@ export default function Login({ visible, onHide, onLoginSuccess }: Props) {
 
         setError('');
         onLoginSuccess(email);
+        clearState();
+        onHide();
     };
 
     const handleForgot = () => {
@@ -68,16 +72,17 @@ export default function Login({ visible, onHide, onLoginSuccess }: Props) {
         <Dialog
             header={
                 mode === 'register' ? 'Create an Account' :
-                    mode === 'forgot' ? 'Login' : 'Login'
+                    mode === 'forgot' ? 'Reset Password' : 'Login'
             }
             visible={visible}
             onHide={() => {
                 clearState();
                 onHide();
             }}
-            style={{ width: '400px' }}
+            style={{ width: '90vw', maxWidth: '400px' }}
             className="p-fluid text-center"
         >
+
             {mode === 'login' && (
                 <>
                     <p className="text-sm mb-4">If you have an account with us, please log in.</p>
@@ -109,7 +114,7 @@ export default function Login({ visible, onHide, onLoginSuccess }: Props) {
                     <p className="text-sm mb-4">
                         Enter your information below to proceed. If you already have an account, please log in instead.
                     </p>
-                    <div className="flex gap-2 mb-3">
+                    <div className="flex flex-column sm:flex-row gap-2 mb-3">
                         <InputText value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="First name" className="w-full" />
                         <InputText value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Last name" className="w-full" />
                     </div>

@@ -7,6 +7,7 @@ import Footer from '../component/footer';
 import { useCart } from '../context/cartContext';
 import { products } from "../data/womensProduct";
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function HomePage() {
     const { addToCart } = useCart();
@@ -58,8 +59,7 @@ export default function HomePage() {
             [productId]: size
         }));
     };
-
-
+    
     return (
         <div>
             <TopBar />
@@ -104,70 +104,76 @@ export default function HomePage() {
             </div>
 
             <div className="p-4">
-                <div className="flex justify-content-between align-items-center">
+                <div className="flex justify-content-between align-items-center ml-8">
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>NEW COLLECTION</h2>
                 </div>
 
                 <div className="flex flex-wrap justify-content-center gap-2">
                     {products.slice(-4).map((product) => (
-                        <Card key={product.id} style={{ width: '350px', minWidth: '250px' }}>
-                            <img
-                                src={product.image}
-                                alt={product.name}
-                                style={{ width: '100%', height: '25rem', objectFit: 'cover', borderRadius: '6px' }}
-                            />
-                            <div className="p-2" style={{ fontSize: '12px' }}>
-                                <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>
-                                    {product.name}
-                                </p>
-                                <div className="flex align-items-center gap-2 mt-1">
-                                    <span style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>
-                                        Rs {product.originalPrice.toLocaleString()}
-                                    </span>
-                                    <span style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>
-                                        Rs {product.price.toLocaleString()}
-                                    </span>
-                                </div>
-                                <div className="flex gap-2 mt-2">
-                                    {product.colors.map((color, i) => (
-                                        <div
-                                            key={i}
-                                            style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
-                                        />
-                                    ))}
-                                </div>
-                                <div className="flex gap-2 mt-2">
-                                    {product.sizes.map((size: string) => (
-                                        <Button
-                                            key={size}
-                                            label={size}
-                                            size="small"
-                                            severity={selectedSizes[product.id] === size ? "secondary" : "secondary"}
-                                            outlined={selectedSizes[product.id] !== size}
-                                            style={{
-                                                fontSize: '10px',
-                                                padding: '0.25rem 0.5rem',
-                                                height: '30px',
-                                                width: '40px',
-                                                borderColor: selectedSizes[product.id] === size ? '#FFE1E2' : '#000000',
-                                                backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
-                                            }}
-                                            onClick={() => handleSizeSelect(product.id, size)}
-                                        />
-                                    ))}
-                                </div>
-
-                                <Button
-                                    label="ADD TO CART"
-                                    size="small"
-                                    severity="contrast"
-                                    className="mt-3"
-                                    rounded
-                                    style={{ width: '65%', fontSize: '12px', marginTop: '0.75rem', background: '#000000' }}
-                                    onClick={() => addToCartHandler(product)}
+                        <Link
+                            to={`/product/${product.id}`}
+                            state={{ product }}
+                            className="no-underline text-color-inherit"
+                        >
+                            <Card key={product.id} style={{ width: '300px', minWidth: '200px' }}>
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    style={{ width: '100%', height: '25rem', objectFit: 'cover', borderRadius: '6px' }}
                                 />
-                            </div>
-                        </Card>
+                                <div className="p-2" style={{ fontSize: '12px' }}>
+                                    <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>
+                                        {product.name}
+                                    </p>
+                                    <div className="flex align-items-center gap-2 mt-1">
+                                        <span style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>
+                                            Rs {product.originalPrice.toLocaleString()}
+                                        </span>
+                                        <span style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>
+                                            Rs {product.price.toLocaleString()}
+                                        </span>
+                                    </div>
+                                    <div className="flex gap-2 mt-2">
+                                        {product.colors.map((color, i) => (
+                                            <div
+                                                key={i}
+                                                style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
+                                            />
+                                        ))}
+                                    </div>
+                                    <div className="flex gap-2 mt-2">
+                                        {product.sizes.map((size: string) => (
+                                            <Button
+                                                key={size}
+                                                label={size}
+                                                size="small"
+                                                severity={selectedSizes[product.id] === size ? "secondary" : "secondary"}
+                                                outlined={selectedSizes[product.id] !== size}
+                                                style={{
+                                                    fontSize: '10px',
+                                                    padding: '0.25rem 0.5rem',
+                                                    height: '30px',
+                                                    width: '40px',
+                                                    borderColor: selectedSizes[product.id] === size ? '#FFE1E2' : '#000000',
+                                                    backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
+                                                }}
+                                                onClick={() => handleSizeSelect(product.id, size)}
+                                            />
+                                        ))}
+                                    </div>
+
+                                    <Button
+                                        label="ADD TO CART"
+                                        size="small"
+                                        severity="contrast"
+                                        className="mt-3"
+                                        rounded
+                                        style={{ width: '65%', fontSize: '12px', marginTop: '0.75rem', background: '#000000' }}
+                                        onClick={() => addToCartHandler(product)}
+                                    />
+                                </div>
+                            </Card>
+                        </Link>
                     ))}
                 </div>
             </div>
@@ -211,7 +217,7 @@ export default function HomePage() {
                 ))}
             </div>
 
-            <div className="flex justify-content-center gap-4 px-4 py-6 flex-wrap-none">
+            <div className="flex flex-wrap justify-content-center gap-4 px-4 py-6">
                 {[
                     {
                         icon: 'pi pi-clock',
@@ -231,153 +237,158 @@ export default function HomePage() {
                 ].map((item, idx) => (
                     <Card
                         key={idx}
-                        className="flex-grow-0"
+                        className="flex-grow-1 sm:w-full md:w-6 lg:w-3"
                         style={{
                             backgroundColor: '#000000',
                             color: '#FFE1E2',
                             textAlign: 'center',
-                            width: '400px',
+                            minWidth: '250px',
+                            maxWidth: '400px',
+                            width: '100%',
                         }}
                     >
                         <i className={`${item.icon} text-3xl mb-2`}></i>
                         <div style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
-                            {item.title}</div>
+                            {item.title}
+                        </div>
                         <div>{item.subtitle}</div>
                     </Card>
                 ))}
             </div>
 
             <div className="p-4">
-                <div className="flex justify-content-between align-items-center mb-4">
+                <div className="flex justify-content-between align-items-center mb-4 ml-8">
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>BEST SELLER</h2>
                 </div>
 
                 <div className="flex flex-wrap justify-content-center gap-2">
                     {products.slice(7, 11).map((product) => (
-                        <Card
-                            key={product.id}
-                            className="relative"
-                            style={{ width: '350px', minWidth: '250px' }}
+                        <Link
+                            to={`/product/${product.id}`}
+                            state={{ product }}
+                            className="no-underline text-color-inherit"
                         >
-                            <div className="absolute top-3 left-3 z-10 bg-black text-white text-[11px] px-2 py-1 rounded-full mt-2 ml-2"
-                                style={{ background: 'black', borderRadius: '25rem' }}>
-                                Save 50%
-                            </div>
-
-                            <img
-                                src={product.image}
-                                alt={product.name}
-                                style={{
-                                    width: '100%',
-                                    height: '25rem',
-                                    objectFit: 'cover',
-                                    borderRadius: '6px'
-                                }}
-                            />
-
-                            <div className="p-2" style={{ fontSize: '12px' }}>
-                                <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>
-                                    {product.name}
-                                </p>
-
-                                <div className="flex align-items-center gap-2 mt-1">
-                                    {product.originalPrice && (
-                                        <span style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>
-                                            Rs {product.originalPrice}
-                                        </span>
-                                    )}
-                                    <span style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>
-                                        Rs {product.price}
-                                    </span>
+                            <Card
+                                key={product.id}
+                                className="relative"
+                                style={{ width: '300px', minWidth: '200px' }}
+                            >
+                                <div className="absolute top-3 left-3 z-10 bg-black text-white text-[11px] px-2 py-1 rounded-full mt-2 ml-2"
+                                    style={{ background: 'black', borderRadius: '25rem' }}>
+                                    Save 50%
                                 </div>
 
-                                <p
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
                                     style={{
-                                        fontSize: '10px',
-                                        color: '#6b7280',
-                                        marginTop: '0.25rem',
-                                        lineHeight: '1.2',
-                                        width: '200px',
-                                        minHeight: '2.4em',
-                                        whiteSpace: 'normal',
-                                        wordBreak: 'break-word',
-                                        textAlign: 'left',
+                                        width: '100%',
+                                        height: '25rem',
+                                        objectFit: 'cover',
+                                        borderRadius: '6px'
                                     }}
-                                >
-                                    <span>3 x Rs 6,333 or 4.5% cashback with or pay 3 x Rs 6,333 with</span>
-                                </p>
-
-                                <div className="flex gap-2 mt-2">
-                                    {product.colors.map((color, i) => (
-                                        <div
-                                            key={i}
-                                            style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
-                                        />
-                                    ))}
-                                </div>
-                                <div className="flex gap-2 mt-2">
-                                    {product.sizes.map((size: string) => (
-                                        <Button
-                                            key={size}
-                                            label={size}
-                                            size="small"
-                                            severity={selectedSizes[product.id] === size ? "secondary" : "secondary"}
-                                            outlined={selectedSizes[product.id] !== size}
-                                            style={{
-                                                fontSize: '10px',
-                                                padding: '0.25rem 0.5rem',
-                                                height: '30px',
-                                                width: '40px',
-                                                borderColor: selectedSizes[product.id] === size ? '#FFE1E2' : '#000000',
-                                                backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
-                                            }}
-                                            onClick={() => handleSizeSelect(product.id, size)}
-                                        />
-                                    ))}
-                                </div>
-                                <Button
-                                    label="ADD TO CART"
-                                    size="small"
-                                    severity="contrast"
-                                    className="mt-3"
-                                    rounded
-                                    style={{ width: '65%', fontSize: '12px', marginTop: '0.75rem', background: '#000000' }}
-                                    onClick={() => addToCartHandler(product)}
                                 />
-                            </div>
-                        </Card>
+
+                                <div className="p-2" style={{ fontSize: '12px' }}>
+                                    <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>
+                                        {product.name}
+                                    </p>
+
+                                    <div className="flex align-items-center gap-2 mt-1">
+                                        {product.originalPrice && (
+                                            <span style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>
+                                                Rs {product.originalPrice}
+                                            </span>
+                                        )}
+                                        <span style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>
+                                            Rs {product.price}
+                                        </span>
+                                    </div>
+
+                                    <p
+                                        style={{
+                                            fontSize: '10px',
+                                            color: '#6b7280',
+                                            marginTop: '0.25rem',
+                                            lineHeight: '1.2',
+                                            width: '200px',
+                                            minHeight: '2.4em',
+                                            whiteSpace: 'normal',
+                                            wordBreak: 'break-word',
+                                            textAlign: 'left',
+                                        }}
+                                    >
+                                        <span>3 x Rs 6,333 or 4.5% cashback with or pay 3 x Rs 6,333 with</span>
+                                    </p>
+
+                                    <div className="flex gap-2 mt-2">
+                                        {product.colors.map((color, i) => (
+                                            <div
+                                                key={i}
+                                                style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
+                                            />
+                                        ))}
+                                    </div>
+                                    <div className="flex gap-2 mt-2">
+                                        {product.sizes.map((size: string) => (
+                                            <Button
+                                                key={size}
+                                                label={size}
+                                                size="small"
+                                                severity={selectedSizes[product.id] === size ? "secondary" : "secondary"}
+                                                outlined={selectedSizes[product.id] !== size}
+                                                style={{
+                                                    fontSize: '10px',
+                                                    padding: '0.25rem 0.5rem',
+                                                    height: '30px',
+                                                    width: '40px',
+                                                    borderColor: selectedSizes[product.id] === size ? '#FFE1E2' : '#000000',
+                                                    backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
+                                                }}
+                                                onClick={() => handleSizeSelect(product.id, size)}
+                                            />
+                                        ))}
+                                    </div>
+                                    <Button
+                                        label="ADD TO CART"
+                                        size="small"
+                                        severity="contrast"
+                                        className="mt-3"
+                                        rounded
+                                        style={{ width: '65%', fontSize: '12px', marginTop: '0.75rem', background: '#000000' }}
+                                        onClick={() => addToCartHandler(product)}
+                                    />
+                                </div>
+                            </Card>
+                        </Link>
                     ))}
                 </div>
             </div>
 
-            <div
-                className="flex flex-row align-items-start justify-content-start py-6 px-4 w-full"
-                style={{ backgroundColor: '#F1F1F1' }}
-            >
-                <div style={{ width: '600px', height: 'auto', flexShrink: 0 }}>
+            <div className="flex flex-column md:flex-row align-items-start justify-content-start gap-4 py-6 px-4 w-full" style={{ backgroundColor: '#F1F1F1' }}>
+                <div className="w-full md:w-6 flex justify-content-center">
                     <Image
                         src="/images/homeimage5.png"
                         alt="Denim"
                         preview={false}
-                        imageStyle={{ width: '550px', height: 'auto', objectFit: 'fill' }}
+                        imageStyle={{ width: '100%', height: 'auto', objectFit: 'cover' }}
                         className="border-round-lg"
                     />
                 </div>
 
-                <div className="p-4 flex flex-column text-left" style={{ maxWidth: '700px' }}>
+                <div className="w-full md:w-6 p-4 flex flex-column text-left denim-section">
                     <h2 className="text-xl font-bold mb-2">Denim & Jeans</h2>
                     <p className="mb-4">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non sapien in ligula malesuada semper. In non quam ex.
                     </p>
                     <Button
                         label="SHOP NOW"
-                        className="p-button-rounded p-button-secondary"
+                        className="p-button-rounded p-button-secondary w-full sm:w-10 md:w-8 lg:w-6"
                         style={{
                             backgroundColor: isHovered ? '#FFE1E2' : '#000000',
                             color: isHovered ? '#000000' : '#FFE1E2',
                             border: '1px solid black',
-                            transition: 'all 0.3s ease',
-                            width: '250px'
+                            transition: 'all 0.3s ease'
                         }}
                         onMouseEnter={() => setIsHovered(true)}
                         onMouseLeave={() => setIsHovered(false)}
@@ -387,7 +398,6 @@ export default function HomePage() {
 
             <div className="p-4 text-left">
                 <h2 className="text-2xl font-bold mb-4">BLOG UPDATES</h2>
-
                 <div className="grid md:col-12">
                     {blogPosts.map((post) => (
                         <div key={post.id} className="col-12 md:col-6">

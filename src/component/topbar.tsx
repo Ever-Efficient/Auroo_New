@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Login from "./login";
-import { Tooltip } from 'primereact/tooltip'; // Optional for hover hint
+import { Tooltip } from 'primereact/tooltip';
 
 export default function TopBar() {
     const navigate = useNavigate();
@@ -19,9 +19,10 @@ export default function TopBar() {
     };
 
     return (
-        <div className="surface-100 border-bottom px-2 py-3">
-            <div className="flex items-center justify-content-center text-center justify-content-between mr-8 ml-6">
-                <div className="flex gap-4 font-bold text-md mt-3 cursor-pointer ml-5">
+        <div className="surface-100 border-bottom px-3 py-3">
+            <div className="flex flex-column md:flex-row align-items-center justify-content-between gap-4 w-full">
+
+                <div className="flex flex-wrap justify-content-center md:justify-content-start gap-3 font-bold text-sm md:text-md cursor-pointer ml-3">
                     <span onClick={() => navigate("/")}>HOME</span>
                     <span onClick={() => navigate("/womens")}>WOMENS</span>
                     <span onClick={() => navigate("/kids")}>KIDS</span>
@@ -30,15 +31,17 @@ export default function TopBar() {
                     <span onClick={() => navigate("/contact")}>CONTACT</span>
                 </div>
 
-                <img
-                    src="/logos/Auro_o_fashion_01.png"
-                    alt="Auroo Fashion Logo"
-                    className="mr-8 cursor-pointer"
-                    style={{ width: '150px', height: '50px' }}
-                    onClick={() => navigate("/")}
-                />
+                <div className="flex justify-content-center md:justify-content-center mr-4">
+                    <img
+                        src="/logos/Auro_o_fashion_01.png"
+                        alt="Auroo Fashion Logo"
+                        className="cursor-pointer"
+                        style={{ width: '150px', height: '50px' }}
+                        onClick={() => navigate("/")}
+                    />
+                </div>
 
-                <div className="flex gap-4 font-bold text-md mr-6 mt-1 cursor-pointer align-items-center">
+                <div className="flex flex-wrap align-items-center justify-content-center gap-3 font-bold text-sm md:text-md cursor-pointer mr-4">
                     {!username ? (
                         <span onClick={() => setLoginVisible(true)}>LOGIN</span>
                     ) : (
@@ -53,8 +56,8 @@ export default function TopBar() {
                             <Tooltip target=".pi-sign-out" />
                         </>
                     )}
-                    <i className="pi pi-search mt-1" onClick={() => navigate("/search")}></i>
-                    <i className="pi pi-shopping-cart mt-1" onClick={() => navigate("/cart")}></i>
+                    <i className="pi pi-search" onClick={() => navigate("/search")}></i>
+                    <i className="pi pi-shopping-cart" onClick={() => navigate("/cart")}></i>
                 </div>
             </div>
 
@@ -65,4 +68,5 @@ export default function TopBar() {
             />
         </div>
     );
+
 }

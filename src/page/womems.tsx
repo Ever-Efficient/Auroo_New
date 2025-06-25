@@ -69,9 +69,8 @@ const Womens = () => {
     return (
         <>
             <TopBar />
-
             <div className="p-fluid flex flex-column md:flex-row">
-                <div className="p-4 shadow-0 surface-50 ml-6 mt-4" style={{ width: "250px" }}>
+                <div className="p-4 shadow-0 surface-50 ml-3 mt-4" style={{ width: "250px" }}>
                     <h5>PRICE RANGE</h5>
                     <div className="mb-4">
                         <Slider

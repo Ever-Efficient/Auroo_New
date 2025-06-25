@@ -89,8 +89,7 @@ const Kids = () => {
         <>
             <TopBar />
             <div className="flex flex-column md:flex-row">
-                {/* Sidebar */}
-                <div className="p-4 shadow-0 surface-50 ml-6 mt-4" style={{ width: "250px" }}>
+                <div className="p-4 shadow-0 surface-50 ml-3 mt-4" style={{ width: "250px" }}>
                     <h5>PRICE RANGE</h5>
                     <div className="mb-4">
                         <Slider
@@ -147,7 +146,6 @@ const Kids = () => {
                     />
                 </div>
 
-                {/* Products Section */}
                 <div className="flex-1 p-4">
                     <div className="flex flex-wrap justify-content-center gap-3 mr-5">
                         {paginatedProducts.map((product) => (

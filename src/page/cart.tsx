@@ -57,24 +57,21 @@ export default function Cart() {
         <div>
             <TopBar />
             <Toast ref={toast} />
-
-            <div className="flex flex-column justify-content-between mt-4">
+            <div className="flex flex-column justify-content-between mt-4 px-3 md:px-6">
                 <div className="grid justify-content-center gap-4">
 
-                    {/* Header Row */}
-                    <div className="col-10 flex justify-content-between px-3 py-2 border-bottom-1 surface-border text-sm font-semibold text-color-secondary">
-                        <div style={{ flex: 2 }}>Item</div>
-                        <div style={{ flex: 1, textAlign: 'center' }}>Quantity</div>
-                        <div style={{ flex: 1, textAlign: 'right' }}>Total</div>
+                    <div className="col-12 md:col-10 flex justify-content-between px-3 py-2 border-bottom-1 surface-border text-sm font-semibold text-color-secondary">
+                        <div className="flex-2">Item</div>
+                        <div className="flex-1 text-center">Quantity</div>
+                        <div className="flex-1 text-right">Total</div>
                     </div>
 
-                    {/* Cart Items */}
                     {cartItems.map((item) => (
                         <div
                             key={item.id}
-                            className="col-10 surface-card p-3 border-round shadow-2 flex align-items-center justify-content-between gap-4"
+                            className="col-12 md:col-10 surface-card p-3 border-round shadow-2 flex flex-column md:flex-row align-items-start md:align-items-center justify-content-between gap-4"
                         >
-                            <div className="flex gap-3 align-items-center" style={{ flex: 2 }}>
+                            <div className="flex gap-3 align-items-start md:align-items-center flex-2">
                                 <Image
                                     src={item.image}
                                     alt={item.name}
@@ -84,9 +81,7 @@ export default function Cart() {
                                 />
                                 <div>
                                     <div className="text-sm font-bold mb-1">{item.name}</div>
-                                    <div className="text-xs text-color-secondary mb-1">
-                                        {item.size} | {item.color}
-                                    </div>
+                                    <div className="text-xs text-color-secondary mb-1">{item.size} | {item.color}</div>
                                     <div className="text-xs text-color-secondary line-through mb-1">
                                         RS {item.originalPrice.toFixed(2)}
                                     </div>
@@ -95,33 +90,14 @@ export default function Cart() {
                                 </div>
                             </div>
 
-                            <div className="flex align-items-center gap-3 justify-content-center ml-8" style={{ flex: 1 }}>
-                                <Button
-                                    icon="pi pi-minus"
-                                    size="small"
-                                    className="surface-border"
-                                    text
-                                    onClick={() => updateQuantity(item.id, -1)}
-                                />
+                            <div className="flex align-items-center gap-3 justify-content-center md:ml-8 mt-3 md:mt-0 flex-1">
+                                <Button icon="pi pi-minus" size="small" className="surface-border" text onClick={() => updateQuantity(item.id, -1)} />
                                 <span className="text-base font-medium">{item.quantity}</span>
-                                <Button
-                                    icon="pi pi-plus"
-                                    size="small"
-                                    className="surface-border"
-                                    text
-                                    onClick={() => updateQuantity(item.id, 1)}
-                                />
-                                <Button
-                                    icon="pi pi-trash"
-                                    size="small"
-                                    severity="danger"
-                                    text
-                                    onClick={() => removeFromCart(item.id)}
-                                    tooltip="Remove item"
-                                />
+                                <Button icon="pi pi-plus" size="small" className="surface-border" text onClick={() => updateQuantity(item.id, 1)} />
+                                <Button icon="pi pi-trash" size="small" severity="danger" text onClick={() => removeFromCart(item.id)} tooltip="Remove item" />
                             </div>
 
-                            <div className="text-right" style={{ flex: 1 }}>
+                            <div className="text-left md:text-right mt-3 md:mt-0 flex-1">
                                 <div className="text-xs text-color-secondary">Total</div>
                                 <div className="text-lg font-bold">RS {(item.price * item.quantity).toFixed(2)}</div>
                             </div>
@@ -129,40 +105,35 @@ export default function Cart() {
                     ))}
                 </div>
 
-                <div className="mt-4 mr-8 ml-8">
+                <div className="mt-4 px-3 md:px-6">
                     <Divider />
-                    <div className="flex justify-content-between text-sm mb-1">
-                        <span className='text-xl ml-4'>Subtotal ({cartItems.length} items)</span>
-                        <span className='mr-5' style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>RS {calculateSubtotal().toFixed(2)}</span>
+                    <div className="flex flex-column sm:flex-row justify-content-between text-sm mb-1 gap-2">
+                        <span className="text-xl">Subtotal ({cartItems.length} items)</span>
+                        <span style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>RS {calculateSubtotal().toFixed(2)}</span>
                     </div>
-                    <div className="text-sm text-color-secondary mb-3 ml-4">
+                    <div className="text-sm text-color-secondary mb-3">
                         Taxes and shipping calculated at checkout
                     </div>
                     <Divider />
-                    <div className="flex align-items-center gap-2 mb-3 ml-4">
+                    <div className="flex align-items-center gap-2 mb-3">
                         <Checkbox inputId="agree" checked={checked} onChange={e => setChecked(e.checked ?? false)} />
                         <label htmlFor="agree" className="text-md mb-1">I agree with the terms and conditions.</label>
                     </div>
-
                     <div className="flex justify-content-center mb-2">
                         <Button
                             label="CHECKOUT"
                             disabled={!checked}
-                            style={{ background: 'black', width: '250px' }}
-                            onClick={() => {
-                                if (checked) {
-                                    alert("Proceeding to checkout...");
-                                }
-                            }}
+                            style={{ background: 'black', width: '100%', maxWidth: '300px' }}
+                            onClick={() => checked && alert("Proceeding to checkout...")}
                         />
                     </div>
                 </div>
             </div>
+
             <div className="p-4">
                 <div className="text-center">
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>YOU MAY ALSO LIKE</h2>
                 </div>
-
                 <div className="flex flex-wrap justify-content-center gap-2">
                     {products.slice(11, 15).map((product) => (
                         <Card
@@ -180,12 +151,10 @@ export default function Cart() {
                                     borderRadius: '6px'
                                 }}
                             />
-
                             <div className="p-2" style={{ fontSize: '12px' }}>
                                 <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>
                                     {product.name}
                                 </p>
-
                                 <div className="flex align-items-center gap-2 mt-1">
                                     {product.originalPrice && (
                                         <span style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>
@@ -196,7 +165,6 @@ export default function Cart() {
                                         Rs {product.price}
                                     </span>
                                 </div>
-
                                 <p
                                     style={{
                                         fontSize: '10px',
@@ -212,7 +180,6 @@ export default function Cart() {
                                 >
                                     <span>3 x Rs 6,333 or 4.5% cashback with or pay 3 x Rs 6,333 with</span>
                                 </p>
-
 
                                 <div className="flex gap-2 mt-2">
                                     {product.colors.map((color, i) => (
