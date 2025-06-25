@@ -38,7 +38,7 @@ export default function TopBar() {
                     onClick={() => navigate("/")}
                 />
 
-                <div className="flex gap-4 font-bold text-md mr-6 mt-3 cursor-pointer align-items-center">
+                <div className="flex gap-4 font-bold text-md mr-6 mt-1 cursor-pointer align-items-center">
                     {!username ? (
                         <span onClick={() => setLoginVisible(true)}>LOGIN</span>
                     ) : (

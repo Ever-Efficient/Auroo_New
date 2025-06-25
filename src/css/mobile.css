@@ -1,0 +1,56 @@
+/* responsive.css */
+
+/* Base styles for mobile (default) */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Responsive container */
+.container {
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Headings */
+h1, h2, h3 {
+  margin: 0.5rem 0;
+}
+
+/* Media query for tablets (≥ 768px) */
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 720px;
+    margin: auto;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* Media query for desktops (≥ 1024px) */
+@media screen and (min-width: 1024px) {
+  .container {
+    max-width: 960px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Media query for large desktops (≥ 1440px) */
+@media screen and (min-width: 1440px) {
+  .container {
+    max-width: 1200px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
