@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Login from "./login";
-import { Tooltip } from 'primereact/tooltip';
+import { Tooltip } from "primereact/tooltip";
 
 export default function TopBar() {
     const navigate = useNavigate();
@@ -20,9 +20,9 @@ export default function TopBar() {
 
     return (
         <div className="surface-100 border-bottom px-3 py-3">
-            <div className="flex flex-column md:flex-row align-items-center justify-content-between gap-4 w-full">
-
-                <div className="flex flex-wrap justify-content-center md:justify-content-start gap-3 font-bold text-sm md:text-md cursor-pointer ml-3">
+            <div className="flex flex-column md:flex-row align-items-center justify-content-between w-full gap-3">
+                {/* Left Section */}
+                <div className="flex flex-wrap gap-3 font-bold text-sm cursor-pointer justify-content-center md:justify-content-start w-full md:w-4">
                     <span onClick={() => navigate("/")}>HOME</span>
                     <span onClick={() => navigate("/womens")}>WOMENS</span>
                     <span onClick={() => navigate("/kids")}>KIDS</span>
@@ -31,7 +31,8 @@ export default function TopBar() {
                     <span onClick={() => navigate("/contact")}>CONTACT</span>
                 </div>
 
-                <div className="flex justify-content-center md:justify-content-center mr-4">
+                {/* Center Section (Logo) */}
+                <div className="flex justify-content-center w-full md:w-4">
                     <img
                         src="/logos/Auro_o_fashion_01.png"
                         alt="Auroo Fashion Logo"
@@ -41,7 +42,8 @@ export default function TopBar() {
                     />
                 </div>
 
-                <div className="flex flex-wrap align-items-center justify-content-center gap-3 font-bold text-sm md:text-md cursor-pointer mr-4">
+                {/* Right Section */}
+                <div className="flex align-items-center justify-content-center md:justify-content-end gap-3 font-bold text-sm cursor-pointer w-full md:w-4">
                     {!username ? (
                         <span onClick={() => setLoginVisible(true)}>LOGIN</span>
                     ) : (
@@ -61,6 +63,7 @@ export default function TopBar() {
                 </div>
             </div>
 
+            {/* Login Dialog */}
             <Login
                 visible={loginVisible}
                 onHide={() => setLoginVisible(false)}
@@ -68,5 +71,4 @@ export default function TopBar() {
             />
         </div>
     );
-
 }
