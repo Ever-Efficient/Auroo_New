@@ -2,12 +2,14 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Image } from 'primereact/image';
 import { Card } from 'primereact/card';
-import TopBar from '../component/topbar';
-import Footer from '../component/footer';
 import { useCart } from '../context/cartContext';
 import { products } from "../data/womensProduct";
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import TopBar from '../component/topbar';
+import Footer from '../component/footer';
+
 
 export default function HomePage() {
     const { addToCart } = useCart();
@@ -59,7 +61,7 @@ export default function HomePage() {
             [productId]: size
         }));
     };
-    
+
     return (
         <div>
             <TopBar />
