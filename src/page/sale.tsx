@@ -58,7 +58,7 @@ export default function SalePage() {
     return (
         <div className="flex flex-column min-h-screen">
             <TopBar />
-            <div className="px-4 py-2 flex justify-content-between align-items-center border-bottom-1 border-300 mr-5 ml-6 mt-3">
+            <div className="px-4 py-2 flex justify-content-between align-items-center border-bottom-1 border-300 mr-3 ml-3 mt-3">
                 <div className="flex align-items-center gap-2">
                     <i className="pi pi-sliders-h"></i>
                     <span className="font-medium">FILTER & SORT</span>
@@ -67,8 +67,8 @@ export default function SalePage() {
 
             </div>
 
-            <div className="flex-1 p-4">
-                <div className="flex flex-wrap justify-content-center gap-3 mr-2">
+            <div>
+                <div className="flex flex-wrap justify-content-center gap-3">
                     {paginatedProducts.map((product) => (
                         <Link
                             to={`/product/${product.id}`}
