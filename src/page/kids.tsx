@@ -124,7 +124,6 @@ const Kids = () => {
                         </div>
                     </div>
 
-
                     <h5>AVAILABILITY</h5>
                     <Dropdown
                         placeholder="Select"
@@ -132,7 +131,7 @@ const Kids = () => {
                             { label: "In Stock", value: "in" },
                             { label: "Out of Stock", value: "out" }
                         ]}
-                        className="mb-3 w-full"
+                        className="w-full"
                     />
 
                     <h5>SORT BY</h5>
