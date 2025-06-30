@@ -153,7 +153,7 @@ export default function TopBar() {
             >
                 <div className="flex flex-column h-full justify-between">
                     <div className="overflow-y-auto p-4" style={{ flexGrow: 1, maxHeight: 'calc(100vh - 230px)' }}>
-                        <h2 className="text-xl font-bold mb-4" style={{color: '#000000'}}>YOUR CART</h2>
+                        <h2 className="text-xl font-bold mb-4" style={{ color: '#000000' }}>YOUR CART</h2>
                         {cartItems.length === 0 ? (
                             <p className="text-center text-sm text-500">Your cart is empty.</p>
                         ) : (
@@ -174,13 +174,13 @@ export default function TopBar() {
                                             <div className="text-md font-bold">RS {item.price.toLocaleString('en-IN')}.00</div>
                                             <div className="text-red-500 text-sm">({item.discount} Off)</div>
                                         </div>
-                                        <div className="flex align-items-center justify-content-between mt-2">
-                                            <div>
-                                                <Button icon="pi pi-minus" onClick={() => updateQuantity(item.id, -1)} className="p-button-text p-button-sm" />
-                                                <span className="px-3">{item.quantity}</span>
-                                                <Button icon="pi pi-plus" onClick={() => updateQuantity(item.id, 1)} className="p-button-text p-button-sm" />
+                                        <div className="flex align-items-center justify-content-between">
+                                            <div className="flex align-items-center gap-3 justify-content-center md:ml-8 mt-3 md:mt-0 flex-1">
+                                                <Button icon="pi pi-minus" size="small" className="surface-border" text onClick={() => updateQuantity(item.id, -1)} />
+                                                <span className="text-base font-medium">{item.quantity}</span>
+                                                <Button icon="pi pi-plus" size="small" className="surface-border" text onClick={() => updateQuantity(item.id, 1)} />
+                                                <Button icon="pi pi-trash" size="small" severity="danger" text onClick={() => removeFromCart(item.id)} tooltip="" />
                                             </div>
-                                            <Button icon="pi pi-trash" className="p-button-text p-button-sm text-red-500" onClick={() => removeFromCart(item.id)} />
                                         </div>
                                     </div>
                                 </div>
@@ -230,7 +230,7 @@ export default function TopBar() {
                         />
                         <Button
                             label="VIEW CART"
-                            style={{color: '#000000'}}
+                            style={{ color: '#000000' }}
                             className="w-full p-button-text p-button-sm text-sm"
                             onClick={() => navigate('/cart')}
                         />
