@@ -38,6 +38,7 @@ const Kids = () => {
     const [priceRange, setPriceRange] = useState<[number, number]>([0, 20000]);
     const { addToCart } = useCart();
     const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
+    const [sortOption, setSortOption] = useState<string>("");
 
 
     const addToCartHandler = (product: any) => {
@@ -83,7 +84,19 @@ const Kids = () => {
         setFirst(e.first);
     };
 
-    const paginatedProducts = filteredProducts.slice(first, first + rows);
+    const sortedProducts = [...filteredProducts].sort((a, b) => {
+        const priceA = Number(a.price.replace(/[^0-9.]/g, ""));
+        const priceB = Number(b.price.replace(/[^0-9.]/g, ""));
+
+        if (sortOption === "low") {
+            return priceA - priceB;
+        } else if (sortOption === "high") {
+            return priceB - priceA;
+        }
+        return 0;
+    });
+
+    const paginatedProducts = sortedProducts.slice(first, first + rows);
 
     return (
         <>
@@ -136,10 +149,12 @@ const Kids = () => {
 
                     <h5>SORT BY</h5>
                     <Dropdown
+                        value={sortOption}
+                        onChange={(e) => setSortOption(e.value)}
                         placeholder="Select"
                         options={[
                             { label: "Price Low to High", value: "low" },
-                            { label: "High to Low", value: "high" }
+                            { label: "Price High to Low", value: "high" }
                         ]}
                         className="w-full"
                     />

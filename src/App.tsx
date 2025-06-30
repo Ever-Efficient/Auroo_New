@@ -6,6 +6,11 @@ import Cart from './page/cart';
 import Contact from './page/contact';
 import Sale from './page/sale';
 import Product from './page/productDetails';
+import Info from './page/info';
+import Terms from './page/terms';
+import Policy from './page/policy';
+import Careers from './page/careers';
+import AboutUs from './page/aboutus';
 
 export default function App() {
   return (
@@ -18,6 +23,11 @@ export default function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path='/sale' element={<Sale />} />
         <Route path="/product/:id" element={<Product />} />
+        <Route path="/info" element={<Info />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/policy" element={<Policy />} />
+        <Route path="/careers" element={<Careers />} />
+        <Route path="/aboutus" element={<AboutUs />} />
       </Routes>
     </Router>
   );

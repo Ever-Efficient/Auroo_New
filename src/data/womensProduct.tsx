@@ -12,16 +12,16 @@ export const products: Product[] = [
     {
         id: 'W1',
         name: "CORT WITH WOOL WRAPAROUND COLLAR",
-        price: "Rs 10,999.00",
+        price: "Rs 9,999.00",
         originalPrice: "Rs 18,999.00",
         image: "/images/product1.jpg",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: ["S", "M"],
         colors: ["#5B1E1E", "#EAD6D6", "#F3E1DC"]
     },
     {
         id: 'W2',
         name: "CORT WITH WOOL WRAPAROUND COLLAR",
-        price: "Rs 10,999.00",
+        price: "Rs 8000.00",
         originalPrice: "Rs 18,999.00",
         image: "/images/product2.jpg",
         sizes: ["S", "M", "L", "XL"],
@@ -39,7 +39,7 @@ export const products: Product[] = [
     {
         id: 'W4',
         name: "CORT WITH WOOL WRAPAROUND COLLAR",
-        price: "Rs 10,999.00",
+        price: "Rs 11,999.00",
         originalPrice: "Rs 18,999.00",
         image: "/images/product4.jpg",
         sizes: ["S", "M", "L", "XL"],

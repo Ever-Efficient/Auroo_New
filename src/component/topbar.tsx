@@ -27,7 +27,7 @@ export default function TopBar() {
                     <span onClick={() => navigate("/womens")}>WOMENS</span>
                     <span onClick={() => navigate("/kids")}>KIDS</span>
                     <span onClick={() => navigate("/sale")}>SALE</span>
-                    <span onClick={() => navigate("/blog")}>BLOG</span>
+                    {/*<span onClick={() => navigate("/blog")}>BLOG</span>*/}
                     <span onClick={() => navigate("/contact")}>CONTACT</span>
                 </div>
 

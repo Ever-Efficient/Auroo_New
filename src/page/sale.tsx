@@ -7,6 +7,7 @@ import { useCart } from '../context/cartContext';
 import { Paginator } from 'primereact/paginator';
 import { products } from '../data/womensProduct';
 import { Link } from 'react-router-dom';
+import { Dropdown } from 'primereact/dropdown';
 
 export default function SalePage() {
 
@@ -14,6 +15,9 @@ export default function SalePage() {
     const rows = 12;
     const { addToCart } = useCart();
     const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
+    const [sortOption, setSortOption] = useState<string>("");
+    const [priceRange] = useState<[number, number]>([0, 20000]);
+
 
 
     const addToCartHandler = (product: any) => {
@@ -53,16 +57,42 @@ export default function SalePage() {
         setFirst(e.first);
     };
 
-    const paginatedProducts = products.slice(first, first + rows);
+    const filteredProducts = products.filter(product => {
+        const price = Number(product.price.replace(/[^0-9.]/g, ""));
+        return price >= priceRange[0] && price <= priceRange[1];
+    });
+
+    const sortedProducts = [...filteredProducts].sort((a, b) => {
+        const priceA = Number(a.price.replace(/[^0-9.]/g, ""));
+        const priceB = Number(b.price.replace(/[^0-9.]/g, ""));
+
+        if (sortOption === "low") return priceA - priceB;
+        if (sortOption === "high") return priceB - priceA;
+        return 0;
+    });
+
+    const paginatedProducts = sortedProducts.slice(first, first + rows);
 
     return (
         <div className="flex flex-column min-h-screen">
             <TopBar />
-            <div className="px-4 py-2 flex justify-content-between align-items-center border-bottom-1 border-300 mr-3 ml-3 mt-3 mb-3">
+            <div className="px-4 py-3 flex flex-column md:flex-row justify-content-between align-items-start md:align-items-center border-bottom-1 border-300 gap-3 mt-3 mb-3 mx-3">
+                {/* Sort Section */}
                 <div className="flex align-items-center gap-2">
-                    <i className="pi pi-sliders-h"></i>
-                    <span className="font-medium">FILTER & SORT</span>
+                    <label className="text-sm font-medium white-space-nowrap">Sort By:</label>
+                    <Dropdown
+                        value={sortOption}
+                        onChange={(e) => setSortOption(e.value)}
+                        options={[
+                            { label: 'Price Low to High', value: 'low' },
+                            { label: 'Price High to Low', value: 'high' }
+                        ]}
+                        placeholder="Select"
+                        className="w-15rem"
+                    />
                 </div>
+
+                {/* Product Count */}
                 <span className="text-sm">{products.length} PRODUCTS</span>
             </div>
 

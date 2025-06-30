@@ -4,8 +4,10 @@ import { Image } from 'primereact/image';
 import { Card } from 'primereact/card';
 import { useCart } from '../context/cartContext';
 import { products } from "../data/womensProduct";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 import TopBar from '../component/topbar';
 import Footer from '../component/footer';
@@ -15,6 +17,8 @@ export default function HomePage() {
     const { addToCart } = useCart();
     const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
     const [isHovered, setIsHovered] = useState(false);
+    const navigate = useNavigate();
+
 
     const blogPosts = [
         {
@@ -62,48 +66,55 @@ export default function HomePage() {
         }));
     };
 
+    const backgroundImages = [
+        '/images/homeFrame1.png',
+        '/images/homeFrame2.png',
+        '/images/homeFrame3.png'
+    ];
+
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentIndex((prev) => (prev + 1) % backgroundImages.length);
+        }, 4000);
+        return () => clearInterval(interval);
+    }, [backgroundImages.length]);
+
+
     return (
         <div>
             <TopBar />
             <div
-                className="relative flex align-items-center justify-content-center text-center"
+                className="relative flex flex-column justify-content-end align-items-center"
                 style={{
                     height: '40rem',
-                    backgroundImage: "url('/images/homeimage1.png')",
+                    backgroundImage: `url(${backgroundImages[currentIndex]})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     position: 'relative',
-                    overflow: 'hidden'
+                    transition: 'background-image 1s ease-in-out',
+                    paddingBottom: '4rem'
                 }}
             >
-                <div
-                    className="absolute w-full h-full"
+                <Button
+                    label="SHOP NOW"
+                    className="p-button-rounded p-button-secondary mb-8"
                     style={{
-                        backgroundColor: '#FFE1E2',
-                        opacity: 0.4,
-                        top: 0,
-                        left: 0,
-                        zIndex: 1
+                        backgroundColor: isHovered ? '#FFE1E2' : '#000000',
+                        color: isHovered ? '#000000' : '#FFE1E2',
+                        border: '1px solid black',
+                        transition: 'all 0.3s ease',
+                    }}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    onClick={() => {
+                        navigate('/sale');
+                        window.scrollTo(0, 0);
                     }}
                 />
-
-                <div className="text-black" style={{ zIndex: 2, fontFamily: 'Aboreto' }}>
-                    <h2 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>UPTO 70%</h2>
-                    <h1 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem' }}>YOUR DRESS UP CLOTHES FIRST</h1>
-                    <Button
-                        label="SHOP NOW"
-                        className="p-button-rounded p-button-secondary"
-                        style={{
-                            backgroundColor: isHovered ? '#FFE1E2' : '#000000',
-                            color: isHovered ? '#000000' : '#FFE1E2',
-                            border: '1px solid black',
-                            transition: 'all 0.3s ease',
-                        }}
-                        onMouseEnter={() => setIsHovered(true)}
-                        onMouseLeave={() => setIsHovered(false)}
-                    />
-                </div>
             </div>
+
 
             <div className="p-4">
                 <div className="flex justify-content-between align-items-center ml-4">
@@ -385,15 +396,20 @@ export default function HomePage() {
                     </p>
                     <Button
                         label="SHOP NOW"
-                        className="p-button-rounded p-button-secondary w-full sm:w-10 md:w-8 lg:w-6"
+                        className="p-button-rounded p-button-secondary"
                         style={{
                             backgroundColor: isHovered ? '#FFE1E2' : '#000000',
                             color: isHovered ? '#000000' : '#FFE1E2',
                             border: '1px solid black',
-                            transition: 'all 0.3s ease'
+                            transition: 'all 0.3s ease',
                         }}
                         onMouseEnter={() => setIsHovered(true)}
                         onMouseLeave={() => setIsHovered(false)}
+                        onClick={() => {
+                            navigate('/sale');
+                            window.scrollTo(0, 0);
+                        }}
+
                     />
                 </div>
             </div>
