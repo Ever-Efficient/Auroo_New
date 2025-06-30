@@ -85,15 +85,14 @@ const Womens = () => {
             <div className="p-fluid flex flex-column md:flex-row">
                 <div className="p-4 shadow-0 surface-50 ml-3 mt-4" style={{ width: "250px" }}>
                     <h5>PRICE RANGE</h5>
-                    <div className="mb-4">
+                    <div className="relative mb-4">
                         <Slider
-                            value={priceRange}
+                            value={priceRange[1]}
                             onChange={(e) => {
-                                if (Array.isArray(e.value) && e.value.length === 2) {
-                                    setPriceRange(e.value as [number, number]);
+                                if (typeof e.value === 'number') {
+                                    setPriceRange([0, e.value]);
                                 }
                             }}
-                            range
                             min={0}
                             max={20000}
                             step={100}
@@ -112,9 +111,19 @@ const Womens = () => {
                                 }
                             }}
                         />
-                        <div className="flex justify-content-between mt-2">
-                            <span className="p-1" style={{ background: '#000000', color: '#FFE1E2', borderRadius: '5px' }}>Rs {priceRange[0].toLocaleString()}</span>
-                            <span className="p-1" style={{ background: '#000000', color: '#FFE1E2', borderRadius: '5px' }}>Rs {priceRange[1].toLocaleString()}</span>
+
+                        <div
+                            className="absolute -top-6 text-xs font-bold px-2 py-1 rounded mt-2"
+                            style={{
+                                backgroundColor: '#000000',
+                                color: '#FFE1E2',
+                                transform: 'translateX(-50%)',
+                                width: '80px',
+                                borderRadius: '25rem',
+                                left: `${(priceRange[1] / 20000) * 100}%`
+                            }}
+                        >
+                            Rs {priceRange[1].toLocaleString()}
                         </div>
                     </div>
 
@@ -194,25 +203,25 @@ const Womens = () => {
                                         ))}
                                     </div>
 
-                                <Button
-                                    label="ADD TO CART"
-                                    size="small"
-                                    severity="contrast"
-                                    className="mt-3"
-                                    rounded
-                                    style={{
-                                        width: '65%',
-                                        fontSize: '12px',
-                                        marginTop: '0.75rem',
-                                        backgroundColor: hoveredProductId === product.id ? '#FFE1E2' : '#000000',
-                                        color: hoveredProductId === product.id ? '#000000' : '#FFE1E2',
-                                        transition: 'all 0.3s ease',
-                                        border: '1px solid black',
-                                    }}
-                                    onMouseEnter={() => setHoveredProductId(product.id)}
-                                    onMouseLeave={() => setHoveredProductId(null)}
-                                    onClick={() => addToCartHandler(product)}
-                                />
+                                    <Button
+                                        label="ADD TO CART"
+                                        size="small"
+                                        severity="contrast"
+                                        className="mt-3"
+                                        rounded
+                                        style={{
+                                            width: '65%',
+                                            fontSize: '12px',
+                                            marginTop: '0.75rem',
+                                            backgroundColor: hoveredProductId === product.id ? '#FFE1E2' : '#000000',
+                                            color: hoveredProductId === product.id ? '#000000' : '#FFE1E2',
+                                            transition: 'all 0.3s ease',
+                                            border: '1px solid black',
+                                        }}
+                                        onMouseEnter={() => setHoveredProductId(product.id)}
+                                        onMouseLeave={() => setHoveredProductId(null)}
+                                        onClick={() => addToCartHandler(product)}
+                                    />
                                 </div>
                             </Card>
                         ))}
