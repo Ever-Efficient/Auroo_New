@@ -40,7 +40,7 @@ const Kids = () => {
     const { addToCart } = useCart();
     const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
     const [sortOption, setSortOption] = useState<string>("");
-
+    const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
 
     const addToCartHandler = (product: any) => {
         const price = Number(product.price.replace(/[^0-9.]/g, ""));
@@ -215,13 +215,24 @@ const Kids = () => {
                                         ))}
                                     </div>
 
+
                                     <Button
                                         label="ADD TO CART"
                                         size="small"
                                         severity="contrast"
                                         className="mt-3"
                                         rounded
-                                        style={{ width: '65%', fontSize: '12px', marginTop: '0.75rem', background: '#000000' }}
+                                        style={{
+                                            width: '65%',
+                                            fontSize: '12px',
+                                            marginTop: '0.75rem',
+                                            backgroundColor: hoveredProductId === product.id ? '#FFE1E2' : '#000000',
+                                            color: hoveredProductId === product.id ? '#000000' : '#FFE1E2',
+                                            transition: 'all 0.3s ease',
+                                            border: '1px solid black',
+                                        }}
+                                        onMouseEnter={() => setHoveredProductId(product.id)}
+                                        onMouseLeave={() => setHoveredProductId(null)}
                                         onClick={() => addToCartHandler(product)}
                                     />
                                 </div>

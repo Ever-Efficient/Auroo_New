@@ -16,6 +16,7 @@ export default function Cart() {
     const toast = useRef<Toast>(null);
     const { cartItems, updateQuantity, addToCart, removeFromCart } = useCart();
     const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
+    const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
 
 
     const calculateSubtotal = () => {
@@ -60,7 +61,7 @@ export default function Cart() {
             <div className="flex flex-column justify-content-between mt-4 px-3 md:px-6">
                 <div className="grid justify-content-center gap-4">
 
-                    <div className="col-12 md:col-10 flex justify-content-between px-3 py-2 border-bottom-1 surface-border text-sm font-semibold text-color-secondary">
+                    <div className="col-12 md:col-11 flex justify-content-between px-3 py-2 border-bottom-1 surface-border text-sm font-semibold text-color-secondary">
                         <div className="flex-2">Item</div>
                         <div className="flex-1 text-center">Quantity</div>
                         <div className="flex-1 text-right">Total</div>
@@ -213,7 +214,17 @@ export default function Cart() {
                                     severity="contrast"
                                     className="mt-3"
                                     rounded
-                                    style={{ width: '65%', fontSize: '12px', marginTop: '0.75rem', background: '#000000' }}
+                                    style={{
+                                        width: '65%',
+                                        fontSize: '12px',
+                                        marginTop: '0.75rem',
+                                        backgroundColor: hoveredProductId === product.id ? '#FFE1E2' : '#000000',
+                                        color: hoveredProductId === product.id ? '#000000' : '#FFE1E2',
+                                        transition: 'all 0.3s ease',
+                                        border: '1px solid black',
+                                    }}
+                                    onMouseEnter={() => setHoveredProductId(product.id)}
+                                    onMouseLeave={() => setHoveredProductId(null)}
                                     onClick={() => addToCartHandler(product)}
                                 />
                             </div>

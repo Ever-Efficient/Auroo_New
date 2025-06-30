@@ -14,6 +14,7 @@ export default function ProductView() {
     const product = state?.product;
     const { addToCart } = useCart();
     const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
+    const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -115,7 +116,14 @@ export default function ProductView() {
                         <Button
                             label="ADD TO BAG"
                             className="w-full mt-4 p-button-sm"
-                            style={{ background: 'black' }}
+                            style={{
+                                backgroundColor: isHovered ? '#FFE1E2' : '#000000',
+                                color: isHovered ? '#000000' : '#FFE1E2',
+                                border: '1px solid black',
+                                transition: 'all 0.3s ease',
+                            }}
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
                             onClick={() => addToCartHandler(product)}
                         />
 

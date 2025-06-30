@@ -52,6 +52,7 @@ export default function HomePage() {
     const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
+    const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
     const navigate = useNavigate();
 
     const addToCartHandler = (product: any) => {
@@ -151,66 +152,76 @@ export default function HomePage() {
 
                 <div className="flex flex-wrap justify-content-center gap-2">
                     {products.slice(-4).map((product) => (
-                            <Card key={product.id} style={{ width: '300px', minWidth: '200px' }}>
-                                <Link to={`/product/${product.id}`} state={{ product }}>
-                                    <img
-                                        src={product.image}
-                                        alt={product.name}
-                                        style={{ width: '100%', height: '25rem', objectFit: 'cover', borderRadius: '6px', cursor: 'pointer' }}
-                                    />
-                                </Link>
-                                <div className="p-2" style={{ fontSize: '12px' }}>
-                                    <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>
-                                        {product.name}
-                                    </p>
-                                    <div className="flex align-items-center gap-2 mt-1">
-                                        <span style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>
-                                            Rs {product.originalPrice.toLocaleString()}
-                                        </span>
-                                        <span style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>
-                                            Rs {product.price.toLocaleString()}
-                                        </span>
-                                    </div>
-                                    <div className="flex gap-2 mt-2">
-                                        {product.colors.map((color, i) => (
-                                            <div
-                                                key={i}
-                                                style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
-                                            />
-                                        ))}
-                                    </div>
-                                    <div className="flex gap-2 mt-2">
-                                        {product.sizes.map((size: string) => (
-                                            <Button
-                                                key={size}
-                                                label={size}
-                                                size="small"
-                                                severity={selectedSizes[product.id] === size ? "secondary" : "secondary"}
-                                                outlined={selectedSizes[product.id] !== size}
-                                                style={{
-                                                    fontSize: '10px',
-                                                    padding: '0.25rem 0.5rem',
-                                                    height: '30px',
-                                                    width: '40px',
-                                                    borderColor: selectedSizes[product.id] === size ? '#FFE1E2' : '#000000',
-                                                    backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
-                                                }}
-                                                onClick={() => handleSizeSelect(product.id, size)}
-                                            />
-                                        ))}
-                                    </div>
-
-                                    <Button
-                                        label="ADD TO CART"
-                                        size="small"
-                                        severity="contrast"
-                                        className="mt-3"
-                                        rounded
-                                        style={{ width: '65%', fontSize: '12px', marginTop: '0.75rem', background: '#000000' }}
-                                        onClick={() => addToCartHandler(product)}
-                                    />
+                        <Card key={product.id} style={{ width: '300px', minWidth: '200px' }}>
+                            <Link to={`/product/${product.id}`} state={{ product }}>
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    style={{ width: '100%', height: '25rem', objectFit: 'cover', borderRadius: '6px', cursor: 'pointer' }}
+                                />
+                            </Link>
+                            <div className="p-2" style={{ fontSize: '12px' }}>
+                                <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>
+                                    {product.name}
+                                </p>
+                                <div className="flex align-items-center gap-2 mt-1">
+                                    <span style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>
+                                        Rs {product.originalPrice.toLocaleString()}
+                                    </span>
+                                    <span style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>
+                                        Rs {product.price.toLocaleString()}
+                                    </span>
                                 </div>
-                            </Card>
+                                <div className="flex gap-2 mt-2">
+                                    {product.colors.map((color, i) => (
+                                        <div
+                                            key={i}
+                                            style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
+                                        />
+                                    ))}
+                                </div>
+                                <div className="flex gap-2 mt-2">
+                                    {product.sizes.map((size: string) => (
+                                        <Button
+                                            key={size}
+                                            label={size}
+                                            size="small"
+                                            severity={selectedSizes[product.id] === size ? "secondary" : "secondary"}
+                                            outlined={selectedSizes[product.id] !== size}
+                                            style={{
+                                                fontSize: '10px',
+                                                padding: '0.25rem 0.5rem',
+                                                height: '30px',
+                                                width: '40px',
+                                                borderColor: selectedSizes[product.id] === size ? '#FFE1E2' : '#000000',
+                                                backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
+                                            }}
+                                            onClick={() => handleSizeSelect(product.id, size)}
+                                        />
+                                    ))}
+                                </div>
+
+                                <Button
+                                    label="ADD TO CART"
+                                    size="small"
+                                    severity="contrast"
+                                    className="mt-3"
+                                    rounded
+                                    style={{
+                                        width: '65%',
+                                        fontSize: '12px',
+                                        marginTop: '0.75rem',
+                                        backgroundColor: hoveredProductId === product.id ? '#FFE1E2' : '#000000',
+                                        color: hoveredProductId === product.id ? '#000000' : '#FFE1E2',
+                                        transition: 'all 0.3s ease',
+                                        border: '1px solid black',
+                                    }}
+                                    onMouseEnter={() => setHoveredProductId(product.id)}
+                                    onMouseLeave={() => setHoveredProductId(null)}
+                                    onClick={() => addToCartHandler(product)}
+                                />
+                            </div>
+                        </Card>
                     ))}
                 </div>
             </div>
@@ -300,95 +311,105 @@ export default function HomePage() {
 
                 <div className="flex flex-wrap justify-content-center gap-2">
                     {products.slice(7, 11).map((product) => (
-                            <Card
-                                key={product.id}
-                                className="relative"
-                                style={{ width: '300px', minWidth: '200px' }}
-                            >
-                                <div className="absolute top-3 left-3 z-10 bg-black text-white text-[11px] px-2 py-1 rounded-full mt-2 ml-2"
-                                    style={{ background: 'black', borderRadius: '25rem' }}>
-                                    Save 50%
-                                </div>
+                        <Card
+                            key={product.id}
+                            className="relative"
+                            style={{ width: '300px', minWidth: '200px' }}
+                        >
+                            <div className="absolute top-3 left-3 z-10 bg-black text-white text-[11px] px-2 py-1 rounded-full mt-2 ml-2"
+                                style={{ background: 'black', borderRadius: '25rem' }}>
+                                Save 50%
+                            </div>
 
-                                <Link to={`/product/${product.id}`} state={{ product }}>
-                                    <img
-                                        src={product.image}
-                                        alt={product.name}
-                                        style={{ width: '100%', height: '25rem', objectFit: 'cover', borderRadius: '6px', cursor: 'pointer' }}
-                                    />
-                                </Link>
+                            <Link to={`/product/${product.id}`} state={{ product }}>
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    style={{ width: '100%', height: '25rem', objectFit: 'cover', borderRadius: '6px', cursor: 'pointer' }}
+                                />
+                            </Link>
 
-                                <div className="p-2" style={{ fontSize: '12px' }}>
-                                    <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>
-                                        {product.name}
-                                    </p>
+                            <div className="p-2" style={{ fontSize: '12px' }}>
+                                <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>
+                                    {product.name}
+                                </p>
 
-                                    <div className="flex align-items-center gap-2 mt-1">
-                                        {product.originalPrice && (
-                                            <span style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>
-                                                Rs {product.originalPrice}
-                                            </span>
-                                        )}
-                                        <span style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>
-                                            Rs {product.price}
+                                <div className="flex align-items-center gap-2 mt-1">
+                                    {product.originalPrice && (
+                                        <span style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>
+                                            Rs {product.originalPrice}
                                         </span>
-                                    </div>
-
-                                    <p
-                                        style={{
-                                            fontSize: '10px',
-                                            color: '#6b7280',
-                                            marginTop: '0.25rem',
-                                            lineHeight: '1.2',
-                                            width: '200px',
-                                            minHeight: '2.4em',
-                                            whiteSpace: 'normal',
-                                            wordBreak: 'break-word',
-                                            textAlign: 'left',
-                                        }}
-                                    >
-                                        <span>3 x Rs 6,333 or 4.5% cashback with or pay 3 x Rs 6,333 with</span>
-                                    </p>
-
-                                    <div className="flex gap-2 mt-2">
-                                        {product.colors.map((color, i) => (
-                                            <div
-                                                key={i}
-                                                style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
-                                            />
-                                        ))}
-                                    </div>
-                                    <div className="flex gap-2 mt-2">
-                                        {product.sizes.map((size: string) => (
-                                            <Button
-                                                key={size}
-                                                label={size}
-                                                size="small"
-                                                severity={selectedSizes[product.id] === size ? "secondary" : "secondary"}
-                                                outlined={selectedSizes[product.id] !== size}
-                                                style={{
-                                                    fontSize: '10px',
-                                                    padding: '0.25rem 0.5rem',
-                                                    height: '30px',
-                                                    width: '40px',
-                                                    borderColor: selectedSizes[product.id] === size ? '#FFE1E2' : '#000000',
-                                                    backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
-                                                }}
-                                                onClick={() => handleSizeSelect(product.id, size)}
-                                            />
-                                        ))}
-                                    </div>
-                                    <Button
-                                        label="ADD TO CART"
-                                        size="small"
-                                        severity="contrast"
-                                        className="mt-3"
-                                        rounded
-                                        style={{ width: '65%', fontSize: '12px', marginTop: '0.75rem', background: '#000000' }}
-                                        onClick={() => addToCartHandler(product)}
-                                    />
+                                    )}
+                                    <span style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>
+                                        Rs {product.price}
+                                    </span>
                                 </div>
-                            </Card>
+
+                                <p
+                                    style={{
+                                        fontSize: '10px',
+                                        color: '#6b7280',
+                                        marginTop: '0.25rem',
+                                        lineHeight: '1.2',
+                                        width: '200px',
+                                        minHeight: '2.4em',
+                                        whiteSpace: 'normal',
+                                        wordBreak: 'break-word',
+                                        textAlign: 'left',
+                                    }}
+                                >
+                                    <span>3 x Rs 6,333 or 4.5% cashback with or pay 3 x Rs 6,333 with</span>
+                                </p>
+
+                                <div className="flex gap-2 mt-2">
+                                    {product.colors.map((color, i) => (
+                                        <div
+                                            key={i}
+                                            style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
+                                        />
+                                    ))}
+                                </div>
+                                <div className="flex gap-2 mt-2">
+                                    {product.sizes.map((size: string) => (
+                                        <Button
+                                            key={size}
+                                            label={size}
+                                            size="small"
+                                            severity={selectedSizes[product.id] === size ? "secondary" : "secondary"}
+                                            outlined={selectedSizes[product.id] !== size}
+                                            style={{
+                                                fontSize: '10px',
+                                                padding: '0.25rem 0.5rem',
+                                                height: '30px',
+                                                width: '40px',
+                                                borderColor: selectedSizes[product.id] === size ? '#FFE1E2' : '#000000',
+                                                backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
+                                            }}
+                                            onClick={() => handleSizeSelect(product.id, size)}
+                                        />
+                                    ))}
+                                </div>
+                                <Button
+                                    label="ADD TO CART"
+                                    size="small"
+                                    severity="contrast"
+                                    className="mt-3"
+                                    rounded
+                                    style={{
+                                        width: '65%',
+                                        fontSize: '12px',
+                                        marginTop: '0.75rem',
+                                        backgroundColor: hoveredProductId === product.id ? '#FFE1E2' : '#000000',
+                                        color: hoveredProductId === product.id ? '#000000' : '#FFE1E2',
+                                        transition: 'all 0.3s ease',
+                                        border: '1px solid black',
+                                    }}
+                                    onMouseEnter={() => setHoveredProductId(product.id)}
+                                    onMouseLeave={() => setHoveredProductId(null)}
+                                    onClick={() => addToCartHandler(product)}
+                                />
+                            </div>
+                        </Card>
                     ))}
                 </div>
             </div>
