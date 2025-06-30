@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
     return (
-        <div className="p-4" style={{ background: '#F4E7E7', color: '#4B5563' }}>
+        <div className="p-4" style={{ background: '#F4E7E7', color: '#4B5563',}}>
             <div className="grid mt-2">
                 <div className="col-12 md:col-3 text-center md:text-center mb-2">
                     <h4 className="font-bold mb-2">LOCATION</h4>
@@ -53,7 +53,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-medium"
-                    style={{ color: '#6366F1' }}
+                    style={{ color: '#4B5563' }}
                 >
                     EVER EFFICIENT Business Management (Pvt) Ltd
                 </a>
