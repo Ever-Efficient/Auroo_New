@@ -11,6 +11,7 @@ import Terms from './page/terms';
 import Policy from './page/policy';
 import Careers from './page/careers';
 import AboutUs from './page/aboutus';
+import Error404 from './component/404error';
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
         <Route path="/policy" element={<Policy />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/404" element={<Error404 />} />
       </Routes>
     </Router>
   );
