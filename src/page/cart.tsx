@@ -136,97 +136,88 @@ export default function Cart() {
                 </div>
                 <div className="flex flex-wrap justify-content-center gap-2">
                     {products.slice(11, 15).map((product) => (
-                        <Link
-                            to={`/product/${product.id}`}
-                            state={{ product }}
-                            className="no-underline text-color-inherit"
+                        <Card
+                            key={product.id}
+                            className="relative"
+                            style={{ width: '310px', minWidth: '190px' }}
                         >
-                            <Card
-                                key={product.id}
-                                className="relative"
-                                style={{ width: '310px', minWidth: '190px' }}
-                            >
+                            <Link to={`/product/${product.id}`} state={{ product }}>
                                 <img
                                     src={product.image}
                                     alt={product.name}
-                                    style={{
-                                        width: '100%',
-                                        height: '25rem',
-                                        objectFit: 'cover',
-                                        borderRadius: '6px'
-                                    }}
+                                    style={{ width: '100%', height: '25rem', objectFit: 'cover', borderRadius: '6px', cursor: 'pointer' }}
                                 />
-                                <div className="p-2" style={{ fontSize: '12px' }}>
-                                    <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>
-                                        {product.name}
-                                    </p>
-                                    <div className="flex align-items-center gap-2 mt-1">
-                                        {product.originalPrice && (
-                                            <span style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>
-                                                Rs {product.originalPrice}
-                                            </span>
-                                        )}
-                                        <span style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>
-                                            Rs {product.price}
+                            </Link>
+                            <div className="p-2" style={{ fontSize: '12px' }}>
+                                <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>
+                                    {product.name}
+                                </p>
+                                <div className="flex align-items-center gap-2 mt-1">
+                                    {product.originalPrice && (
+                                        <span style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>
+                                            Rs {product.originalPrice}
                                         </span>
-                                    </div>
-                                    <p
-                                        style={{
-                                            fontSize: '10px',
-                                            color: '#6b7280',
-                                            marginTop: '0.25rem',
-                                            lineHeight: '1.2',
-                                            width: '200px',
-                                            minHeight: '2.4em',
-                                            whiteSpace: 'normal',
-                                            wordBreak: 'break-word',
-                                            textAlign: 'left',
-                                        }}
-                                    >
-                                        <span>3 x Rs 6,333 or 4.5% cashback with or pay 3 x Rs 6,333 with</span>
-                                    </p>
-
-                                    <div className="flex gap-2 mt-2">
-                                        {product.colors.map((color, i) => (
-                                            <div
-                                                key={i}
-                                                style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
-                                            />
-                                        ))}
-                                    </div>
-                                    <div className="flex gap-2 mt-2">
-                                        {product.sizes.map((size: string) => (
-                                            <Button
-                                                key={size}
-                                                label={size}
-                                                size="small"
-                                                severity={selectedSizes[product.id] === size ? "secondary" : "secondary"}
-                                                outlined={selectedSizes[product.id] !== size}
-                                                style={{
-                                                    fontSize: '10px',
-                                                    padding: '0.25rem 0.5rem',
-                                                    height: '30px',
-                                                    width: '40px',
-                                                    borderColor: selectedSizes[product.id] === size ? '#FFE1E2' : '#000000',
-                                                    backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
-                                                }}
-                                                onClick={() => handleSizeSelect(product.id, size)}
-                                            />
-                                        ))}
-                                    </div>
-
-                                    <Button
-                                        label="ADD TO CART"
-                                        size="small"
-                                        severity="contrast"
-                                        className="mt-3"
-                                        rounded
-                                        style={{ width: '65%', fontSize: '12px', marginTop: '0.75rem', background: '#000000' }}
-                                        onClick={() => addToCartHandler(product)}
-                                    />
+                                    )}
+                                    <span style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>
+                                        Rs {product.price}
+                                    </span>
                                 </div>
-                            </Card>
-                        </Link>
+                                <p
+                                    style={{
+                                        fontSize: '10px',
+                                        color: '#6b7280',
+                                        marginTop: '0.25rem',
+                                        lineHeight: '1.2',
+                                        width: '200px',
+                                        minHeight: '2.4em',
+                                        whiteSpace: 'normal',
+                                        wordBreak: 'break-word',
+                                        textAlign: 'left',
+                                    }}
+                                >
+                                    <span>3 x Rs 6,333 or 4.5% cashback with or pay 3 x Rs 6,333 with</span>
+                                </p>
+
+                                <div className="flex gap-2 mt-2">
+                                    {product.colors.map((color, i) => (
+                                        <div
+                                            key={i}
+                                            style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
+                                        />
+                                    ))}
+                                </div>
+                                <div className="flex gap-2 mt-2">
+                                    {product.sizes.map((size: string) => (
+                                        <Button
+                                            key={size}
+                                            label={size}
+                                            size="small"
+                                            severity={selectedSizes[product.id] === size ? "secondary" : "secondary"}
+                                            outlined={selectedSizes[product.id] !== size}
+                                            style={{
+                                                fontSize: '10px',
+                                                padding: '0.25rem 0.5rem',
+                                                height: '30px',
+                                                width: '40px',
+                                                borderColor: selectedSizes[product.id] === size ? '#FFE1E2' : '#000000',
+                                                backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
+                                            }}
+                                            onClick={() => handleSizeSelect(product.id, size)}
+                                        />
+                                    ))}
+                                </div>
+
+                                <Button
+                                    label="ADD TO CART"
+                                    size="small"
+                                    severity="contrast"
+                                    className="mt-3"
+                                    rounded
+                                    style={{ width: '65%', fontSize: '12px', marginTop: '0.75rem', background: '#000000' }}
+                                    onClick={() => addToCartHandler(product)}
+                                />
+                            </div>
+                        </Card>
                     ))}
                 </div>
             </div>

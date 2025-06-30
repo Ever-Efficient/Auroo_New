@@ -151,17 +151,14 @@ export default function HomePage() {
 
                 <div className="flex flex-wrap justify-content-center gap-2">
                     {products.slice(-4).map((product) => (
-                        <Link
-                            to={`/product/${product.id}`}
-                            state={{ product }}
-                            className="no-underline text-color-inherit"
-                        >
                             <Card key={product.id} style={{ width: '300px', minWidth: '200px' }}>
-                                <img
-                                    src={product.image}
-                                    alt={product.name}
-                                    style={{ width: '100%', height: '25rem', objectFit: 'cover', borderRadius: '6px' }}
-                                />
+                                <Link to={`/product/${product.id}`} state={{ product }}>
+                                    <img
+                                        src={product.image}
+                                        alt={product.name}
+                                        style={{ width: '100%', height: '25rem', objectFit: 'cover', borderRadius: '6px', cursor: 'pointer' }}
+                                    />
+                                </Link>
                                 <div className="p-2" style={{ fontSize: '12px' }}>
                                     <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>
                                         {product.name}
@@ -214,7 +211,6 @@ export default function HomePage() {
                                     />
                                 </div>
                             </Card>
-                        </Link>
                     ))}
                 </div>
             </div>
@@ -304,11 +300,6 @@ export default function HomePage() {
 
                 <div className="flex flex-wrap justify-content-center gap-2">
                     {products.slice(7, 11).map((product) => (
-                        <Link
-                            to={`/product/${product.id}`}
-                            state={{ product }}
-                            className="no-underline text-color-inherit"
-                        >
                             <Card
                                 key={product.id}
                                 className="relative"
@@ -319,16 +310,13 @@ export default function HomePage() {
                                     Save 50%
                                 </div>
 
-                                <img
-                                    src={product.image}
-                                    alt={product.name}
-                                    style={{
-                                        width: '100%',
-                                        height: '25rem',
-                                        objectFit: 'cover',
-                                        borderRadius: '6px'
-                                    }}
-                                />
+                                <Link to={`/product/${product.id}`} state={{ product }}>
+                                    <img
+                                        src={product.image}
+                                        alt={product.name}
+                                        style={{ width: '100%', height: '25rem', objectFit: 'cover', borderRadius: '6px', cursor: 'pointer' }}
+                                    />
+                                </Link>
 
                                 <div className="p-2" style={{ fontSize: '12px' }}>
                                     <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>
@@ -401,7 +389,6 @@ export default function HomePage() {
                                     />
                                 </div>
                             </Card>
-                        </Link>
                     ))}
                 </div>
             </div>

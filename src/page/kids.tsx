@@ -9,6 +9,7 @@ import { Slider } from "primereact/slider";
 import { useCart } from "../context/cartContext";
 import TopBar from "../component/topbar";
 import Footer from "../component/footer";
+import { Link } from "react-router-dom";
 
 const products = [
     {
@@ -164,16 +165,13 @@ const Kids = () => {
                     <div className="flex flex-wrap justify-content-center gap-3 mr-5">
                         {paginatedProducts.map((product) => (
                             <Card key={product.id} style={{ width: '350px', minWidth: '250px' }}>
-                                <img
-                                    src={product.image}
-                                    alt={product.name}
-                                    style={{
-                                        width: '100%',
-                                        height: '25rem',
-                                        objectFit: 'cover',
-                                        borderRadius: '6px'
-                                    }}
-                                />
+                                <Link to={`/product/${product.id}`} state={{ product }}>
+                                    <img
+                                        src={product.image}
+                                        alt={product.name}
+                                        style={{ width: '100%', height: '25rem', objectFit: 'cover', borderRadius: '6px', cursor: 'pointer' }}
+                                    />
+                                </Link>
                                 <div className="p-2" style={{ fontSize: '12px' }}>
                                     <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>
                                         {product.name}

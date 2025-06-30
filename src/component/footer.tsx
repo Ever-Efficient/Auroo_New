@@ -9,7 +9,7 @@ export default function Footer() {
                     <h4 className="font-bold mb-2">LOCATION</h4>
                     <p>Peradeniya Road, Kandy</p>
                     <p>Tel. +94 77 575 7735</p>
-                    <p>Email. auroo@example.com</p>
+                    <p>Email. info@auroofashion.com</p>
                 </div>
 
                 <div className="col-12 md:col-3 text-center md:text-center mb-3">

@@ -99,70 +99,66 @@ export default function SalePage() {
             <div>
                 <div className="flex flex-wrap justify-content-center gap-3">
                     {paginatedProducts.map((product) => (
-                        <Link
-                            to={`/product/${product.id}`}
-                            state={{ product }}
-                            className="no-underline text-color-inherit"
-                        >
-                            <Card key={product.id} style={{ width: '300px', minWidth: '200px' }}>
+                        <Card key={product.id} style={{ width: '300px', minWidth: '200px' }}>
+                            <Link to={`/product/${product.id}`} state={{ product }}>
                                 <img
                                     src={product.image}
                                     alt={product.name}
-                                    style={{ width: '100%', height: '25rem', objectFit: 'cover', borderRadius: '6px' }}
+                                    style={{ width: '100%', height: '25rem', objectFit: 'cover', borderRadius: '6px', cursor: 'pointer' }}
                                 />
-                                <div className="p-2" style={{ fontSize: '12px' }}>
-                                    <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>{product.name}</p>
-                                    <div className="flex align-items-center gap-2 mt-1">
-                                        <span
-                                            style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>Rs
-                                            {product.originalPrice.toLocaleString()}
-                                        </span>
-                                        <span
-                                            style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>Rs
-                                            {product.price.toLocaleString()}
-                                        </span>
-                                    </div>
-                                    <div className="flex gap-2 mt-2">
-                                        {product.colors.map((color, i) => (
-                                            <div
-                                                key={i}
-                                                style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
-                                            />
-                                        ))}
-                                    </div>
-                                    <div className="flex gap-2 mt-2">
-                                        {product.sizes.map((size: string) => (
-                                            <Button
-                                                key={size}
-                                                label={size}
-                                                size="small"
-                                                severity={selectedSizes[product.id] === size ? "secondary" : "secondary"}
-                                                outlined={selectedSizes[product.id] !== size}
-                                                style={{
-                                                    fontSize: '10px',
-                                                    padding: '0.25rem 0.5rem',
-                                                    height: '30px',
-                                                    width: '40px',
-                                                    borderColor: selectedSizes[product.id] === size ? '#FFE1E2' : '#000000',
-                                                    backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
-                                                }}
-                                                onClick={() => handleSizeSelect(product.id, size)}
-                                            />
-                                        ))}
-                                    </div>
-
-                                    <Button
-                                        label="ADD TO CART"
-                                        size="small"
-                                        severity="contrast"
-                                        className="mt-3"
-                                        rounded
-                                        style={{ width: '65%', fontSize: '12px', marginTop: '0.75rem', background: '#000000' }}
-                                        onClick={() => addToCartHandler(product)}
-                                    />
+                            </Link>
+                            <div className="p-2" style={{ fontSize: '12px' }}>
+                                <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>{product.name}</p>
+                                <div className="flex align-items-center gap-2 mt-1">
+                                    <span
+                                        style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>Rs
+                                        {product.originalPrice.toLocaleString()}
+                                    </span>
+                                    <span
+                                        style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>Rs
+                                        {product.price.toLocaleString()}
+                                    </span>
                                 </div>
-                            </Card>
-                        </Link>
+                                <div className="flex gap-2 mt-2">
+                                    {product.colors.map((color, i) => (
+                                        <div
+                                            key={i}
+                                            style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
+                                        />
+                                    ))}
+                                </div>
+                                <div className="flex gap-2 mt-2">
+                                    {product.sizes.map((size: string) => (
+                                        <Button
+                                            key={size}
+                                            label={size}
+                                            size="small"
+                                            severity={selectedSizes[product.id] === size ? "secondary" : "secondary"}
+                                            outlined={selectedSizes[product.id] !== size}
+                                            style={{
+                                                fontSize: '10px',
+                                                padding: '0.25rem 0.5rem',
+                                                height: '30px',
+                                                width: '40px',
+                                                borderColor: selectedSizes[product.id] === size ? '#FFE1E2' : '#000000',
+                                                backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
+                                            }}
+                                            onClick={() => handleSizeSelect(product.id, size)}
+                                        />
+                                    ))}
+                                </div>
+
+                                <Button
+                                    label="ADD TO CART"
+                                    size="small"
+                                    severity="contrast"
+                                    className="mt-3"
+                                    rounded
+                                    style={{ width: '65%', fontSize: '12px', marginTop: '0.75rem', background: '#000000' }}
+                                    onClick={() => addToCartHandler(product)}
+                                />
+                            </div>
+                        </Card>
                     ))}
                 </div>
                 <div className="flex justify-content-center mt-5 mb-4">
