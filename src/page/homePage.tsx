@@ -13,27 +13,46 @@ import TopBar from '../component/topbar';
 import Footer from '../component/footer';
 
 
+const backgroundSlides = [
+    {
+        image: "/images/homeFrame1.jpg",
+        title: "UPTO 70%",
+        subtitle: "YOUR DRESS UP CLOTHES FIRST",
+    },
+    {
+        image: "/images/homeFrame2.png",
+        title: "KID COLLECTION",
+        subtitle: "CHILDHOOD",
+    },
+    {
+        image: "/images/homeFrame3.png",
+        title: "UPTO 70%",
+        subtitle: "NEW YEAR SPECIAL SALE OFF!!!",
+    }
+];
+
+const blogPosts = [
+    {
+        id: 1,
+        title: 'MIX & MATCH WEEKEND',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac tincidunt eros ...',
+        image: '/images/blog1.png'
+    },
+    {
+        id: 2,
+        title: 'LONDON FASHION WEEK 2015',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac tincidunt eros ...',
+        image: '/images/blog2.png'
+    }
+];
+
+
 export default function HomePage() {
     const { addToCart } = useCart();
     const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
+    const [currentIndex, setCurrentIndex] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
     const navigate = useNavigate();
-
-
-    const blogPosts = [
-        {
-            id: 1,
-            title: 'MIX & MATCH WEEKEND',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac tincidunt eros ...',
-            image: '/images/blog1.png'
-        },
-        {
-            id: 2,
-            title: 'LONDON FASHION WEEK 2015',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac tincidunt eros ...',
-            image: '/images/blog2.png'
-        }
-    ];
 
     const addToCartHandler = (product: any) => {
         const price = Number(product.price.replace(/[^0-9.]/g, ""));
@@ -66,55 +85,64 @@ export default function HomePage() {
         }));
     };
 
-    const backgroundImages = [
-        '/images/homeFrame1.png',
-        '/images/homeFrame2.png',
-        '/images/homeFrame3.png'
-    ];
-
-    const [currentIndex, setCurrentIndex] = useState(0);
-
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentIndex((prev) => (prev + 1) % backgroundImages.length);
-        }, 4000);
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % backgroundSlides.length);
+        }, 5000);
         return () => clearInterval(interval);
-    }, [backgroundImages.length]);
+    }, []);
+
+    const currentSlide = backgroundSlides[currentIndex];
 
 
     return (
         <div>
             <TopBar />
             <div
-                className="relative flex flex-column justify-content-end align-items-center"
+                className="relative flex align-items-center justify-content-center text-center"
                 style={{
                     height: '40rem',
-                    backgroundImage: `url(${backgroundImages[currentIndex]})`,
+                    backgroundImage: `url(${currentSlide.image})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    position: 'relative',
+                    overflow: 'hidden',
                     transition: 'background-image 1s ease-in-out',
-                    paddingBottom: '4rem'
                 }}
             >
-                <Button
-                    label="SHOP NOW"
-                    className="p-button-rounded p-button-secondary mb-8"
+                <div
+                    className="absolute w-full h-full"
                     style={{
-                        backgroundColor: isHovered ? '#FFE1E2' : '#000000',
-                        color: isHovered ? '#000000' : '#FFE1E2',
-                        border: '1px solid black',
-                        transition: 'all 0.3s ease',
-                    }}
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
-                    onClick={() => {
-                        navigate('/sale');
-                        window.scrollTo(0, 0);
+                        backgroundColor: '#FFE1E2',
+                        opacity: 0.4,
+                        top: 0,
+                        left: 0,
+                        zIndex: 1,
                     }}
                 />
-            </div>
 
+                <div className="text-black px-4" style={{ zIndex: 2, fontFamily: 'Aboreto' }}>
+                    <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{currentSlide.title}</h2>
+                    <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>
+                        {currentSlide.subtitle}
+                    </h1>
+                    <Button
+                        label="SHOP NOW"
+                        className="p-button-rounded p-button-secondary"
+                        style={{
+                            backgroundColor: isHovered ? '#FFE1E2' : '#000000',
+                            color: isHovered ? '#000000' : '#FFE1E2',
+                            border: '1px solid black',
+                            transition: 'all 0.3s ease',
+                        }}
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
+                        onClick={() => {
+                            navigate('/sale');
+                            window.scrollTo(0, 0);
+                        }}
+                    />
+                </div>
+            </div>
 
             <div className="p-4">
                 <div className="flex justify-content-between align-items-center ml-4">
