@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-
 import TopBar from '../component/topbar';
 import Footer from '../component/footer';
 
@@ -45,7 +44,6 @@ const blogPosts = [
         image: '/images/blog2.png'
     }
 ];
-
 
 export default function HomePage() {
     const { addToCart } = useCart();
@@ -94,7 +92,6 @@ export default function HomePage() {
     }, []);
 
     const currentSlide = backgroundSlides[currentIndex];
-
 
     return (
         <div>

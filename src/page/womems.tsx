@@ -22,9 +22,6 @@ const Womens = () => {
     const [sortOption, setSortOption] = useState<string>("");
     const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
 
-
-
-
     const addToCartHandler = (product: any) => {
         const price = Number(product.price.replace(/[^0-9.]/g, ""));
         const originalPrice = Number(product.originalPrice.replace(/[^0-9.]/g, ""));
@@ -81,7 +78,6 @@ const Womens = () => {
     });
 
     const paginatedProducts = sortedProducts.slice(first, first + rows);
-
 
     return (
         <>
