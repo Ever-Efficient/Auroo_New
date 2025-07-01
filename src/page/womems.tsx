@@ -48,7 +48,6 @@ const Womens = () => {
         }));
     };
 
-
     const filteredProducts = products.filter(product => {
         const priceNum = Number(product.price.replace(/[^0-9.]/g, ""));
         return priceNum >= priceRange[0] && priceNum <= priceRange[1];

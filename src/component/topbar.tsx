@@ -16,6 +16,9 @@ export default function TopBar() {
     const [isHovered, setIsHovered] = useState(false);
     const { cartItems, updateQuantity, removeFromCart, subtotal } = useCart();
     const [termsChecked, setTermsChecked] = useState(false);
+    const [searchVisible, setSearchVisible] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+
 
 
     const handleLoginSuccess = (email: string) => {
@@ -57,6 +60,14 @@ export default function TopBar() {
         color: 'white',
     };
 
+    const handleSearch = () => {
+        if (searchQuery.trim()) {
+            navigate(`/search?query=${encodeURIComponent(searchQuery.trim())}`);
+            setSearchVisible(false);
+            setSearchQuery('');
+        }
+    };
+
     return (
         <div className="surface-100 border-bottom px-3 py-3">
             <div className="flex flex-column md:flex-row align-items-center justify-content-between w-full gap-3">
@@ -64,24 +75,26 @@ export default function TopBar() {
                     {[
                         { label: "HOME", path: "/" },
                         { label: "WOMENS", path: "/womens" },
-                        { label: "KIDS", path: "/kids" },
+                        // { label: "KIDS", path: "/kids" }, // commented out to avoid undefined path
                         { label: "SALE", path: "/sale" },
                         { label: "CONTACT", path: "/contact" },
-                    ].map((item) => (
-                        <span
-                            key={item.path}
-                            onClick={() => navigate(item.path)}
-                            className="p-2 border-round cursor-pointer transition-duration-200"
-                            style={{
-                                color: '#000',
-                                transition: 'all 0.3s ease',
-                            }}
-                            onMouseEnter={(e) => (e.currentTarget.style.color = '#FFE1E2')}
-                            onMouseLeave={(e) => (e.currentTarget.style.color = '#000')}
-                        >
-                            {item.label}
-                        </span>
-                    ))}
+                    ]
+                        .filter(item => !!item.path)
+                        .map((item) => (
+                            <span
+                                key={item.path}
+                                onClick={() => navigate(item.path!)}
+                                className="p-2 border-round cursor-pointer transition-duration-200"
+                                style={{
+                                    color: '#000',
+                                    transition: 'all 0.3s ease',
+                                }}
+                                onMouseEnter={(e) => (e.currentTarget.style.color = '#FFE1E2')}
+                                onMouseLeave={(e) => (e.currentTarget.style.color = '#000')}
+                            >
+                                {item.label}
+                            </span>
+                        ))}
                 </div>
 
                 <div className="flex justify-content-center w-full md:w-4">
@@ -122,12 +135,26 @@ export default function TopBar() {
                         </>
                     )}
 
+                    {searchVisible && (
+                        <input
+                            type="text"
+                            placeholder="Search products..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                            className="p-1 text-sm border-round border-1 border-300"
+                            style={{ width: '200px' }}
+                        />
+                    )}
+
                     <i
                         className="pi pi-search p-2 border-round"
                         style={{ fontSize: '1.2rem', cursor: 'pointer', color: '#000', transition: 'all 0.3s ease' }}
+                        onClick={() => setSearchVisible(!searchVisible)}
                         onMouseEnter={e => (e.currentTarget.style.color = '#FFE1E2')}
                         onMouseLeave={e => (e.currentTarget.style.color = '#000')}
                     />
+
 
                     <i
                         className="pi pi-shopping-cart p-2 border-round"
