@@ -18,11 +18,11 @@ const backgroundSlides = [
         title: "UPTO 70%",
         subtitle: "YOUR DRESS UP CLOTHES FIRST",
     },
-    {
-        image: "/images/homeFrame2.png",
-        title: "KID COLLECTION",
-        subtitle: "CHILDHOOD",
-    },
+    //{
+        //image: "/images/homeFrame2.png",
+        //title: "KID COLLECTION",
+        //subtitle: "CHILDHOOD",
+    //},
     {
         image: "/images/homeFrame3.png",
         title: "UPTO 70%",
@@ -239,7 +239,7 @@ export default function HomePage() {
             </div>
 
             <div className="flex flex-wrap justify-content-center align-items-center px-4 py-6 gap-4">
-                {['FEATURES', 'WOMEN', 'KIDS'].map((label, i) => (
+                {['FEATURES', 'WOMEN', /*'KIDS'*/].map((label, i) => (
                     <div key={label} className="w-12 sm:w-4 md:w-3 lg:w-3">
                         <div className="relative">
                             <Image

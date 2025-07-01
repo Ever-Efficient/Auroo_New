@@ -49,7 +49,7 @@ const Womens = () => {
     };
 
     const filteredProducts = products.filter(product => {
-        const priceNum = Number(product.price.replace(/[^0-9.]/g, ""));
+        const priceNum = Number(String(product.price).replace(/[^0-9.]/g, ""));
         return priceNum >= priceRange[0] && priceNum <= priceRange[1];
     });
 
@@ -65,8 +65,8 @@ const Womens = () => {
     };
 
     const sortedProducts = [...filteredProducts].sort((a, b) => {
-        const priceA = Number(a.price.replace(/[^0-9.]/g, ""));
-        const priceB = Number(b.price.replace(/[^0-9.]/g, ""));
+        const priceA = Number(String(a.price).replace(/[^0-9.]/g, ""));
+        const priceB = Number(String(b.price).replace(/[^0-9.]/g, ""));
 
         if (sortOption === "low") {
             return priceA - priceB;
@@ -147,7 +147,6 @@ const Womens = () => {
                         ]}
                         className="w-full"
                     />
-
                 </div>
 
                 <div className="flex-1 p-4">
@@ -165,11 +164,11 @@ const Womens = () => {
                                     <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>{product.name}</p>
                                     <div className="flex align-items-center gap-2 mt-1">
                                         <span
-                                            style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>Rs
+                                            style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>Rs.
                                             {product.originalPrice.toLocaleString()}
                                         </span>
                                         <span
-                                            style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>Rs
+                                            style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>Rs.
                                             {product.price.toLocaleString()}
                                         </span>
                                     </div>

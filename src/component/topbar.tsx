@@ -19,8 +19,6 @@ export default function TopBar() {
     const [searchVisible, setSearchVisible] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
 
-
-
     const handleLoginSuccess = (email: string) => {
         const name = email.split("@")[0];
         setUsername(name);
@@ -75,7 +73,7 @@ export default function TopBar() {
                     {[
                         { label: "HOME", path: "/" },
                         { label: "WOMENS", path: "/womens" },
-                        // { label: "KIDS", path: "/kids" }, // commented out to avoid undefined path
+                        // { label: "KIDS", path: "/kids" },
                         { label: "SALE", path: "/sale" },
                         { label: "CONTACT", path: "/contact" },
                     ]
@@ -134,7 +132,7 @@ export default function TopBar() {
                             <Tooltip target=".pi-sign-out" />
                         </>
                     )}
-
+                    
                     {searchVisible && (
                         <input
                             type="text"
@@ -154,7 +152,6 @@ export default function TopBar() {
                         onMouseEnter={e => (e.currentTarget.style.color = '#FFE1E2')}
                         onMouseLeave={e => (e.currentTarget.style.color = '#000')}
                     />
-
 
                     <i
                         className="pi pi-shopping-cart p-2 border-round"

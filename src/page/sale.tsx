@@ -58,14 +58,20 @@ export default function SalePage() {
         setFirst(e.first);
     };
 
-    const filteredProducts = products.filter(product => {
-        const price = Number(product.price.replace(/[^0-9.]/g, ""));
+    const filteredProducts = products.filter((product: { price: string | number }) => {
+        const price = typeof product.price === "string"
+            ? Number(product.price.replace(/[^0-9.]/g, ""))
+            : Number(product.price);
         return price >= priceRange[0] && price <= priceRange[1];
     });
 
-    const sortedProducts = [...filteredProducts].sort((a, b) => {
-        const priceA = Number(a.price.replace(/[^0-9.]/g, ""));
-        const priceB = Number(b.price.replace(/[^0-9.]/g, ""));
+    const sortedProducts = [...filteredProducts].sort((a: { price: string | number }, b: { price: string | number }) => {
+        const priceA = typeof a.price === "string"
+            ? Number(a.price.replace(/[^0-9.]/g, ""))
+            : Number(a.price);
+        const priceB = typeof b.price === "string"
+            ? Number(b.price.replace(/[^0-9.]/g, ""))
+            : Number(b.price);
 
         if (sortOption === "low") return priceA - priceB;
         if (sortOption === "high") return priceB - priceA;
@@ -112,11 +118,11 @@ export default function SalePage() {
                                 <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>{product.name}</p>
                                 <div className="flex align-items-center gap-2 mt-1">
                                     <span
-                                        style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>Rs
+                                        style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>Rs. 
                                         {product.originalPrice.toLocaleString()}
                                     </span>
                                     <span
-                                        style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>Rs
+                                        style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>Rs.
                                         {product.price.toLocaleString()}
                                     </span>
                                 </div>
