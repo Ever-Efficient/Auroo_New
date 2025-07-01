@@ -1,173 +1,169 @@
-@media (max-width: 768px) {
-  .responsive-heading {
-    font-size: 1.2rem !important;
-    text-align: center;
-  }
-
-  .responsive-subheading {
-    font-size: 1rem !important;
-    text-align: center;
-  }
-
-  .responsive-section {
-    padding: 1rem !important;
-  }
-
-  .responsive-button {
-    width: 100% !important;
-    font-size: 0.9rem !important;
-  }
-
-  .subscribe-container {
-    flex-direction: column !important;
-    align-items: center !important;
-  }
-
-  .subscribe-container input,
-  .subscribe-container button {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .blog-card {
-    flex-direction: column !important;
-    text-align: center !important;
-  }
-
-  .blog-card img {
-    width: 100% !important;
-    height: auto !important;
-    margin-bottom: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .responsive-card {
-    max-width: 100%;
-  }
-
-  .responsive-section {
-    padding: 0.5rem !important;
-  }
-
-  .responsive-button {
-    padding: 0.5rem !important;
-  }
-
-  .product-title {
-    font-size: 1rem !important;
-  }
-
-  .product-price {
-    font-size: 0.9rem !important;
-  }
-}
-
-.denim-section {
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  max-width: 700px;
-  width: 100%;
-}
-
-.denim-section h2 {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.denim-section p {
-  margin-bottom: 1rem;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.denim-section .p-button {
-  width: 100%;
-  max-width: 250px;
-}
-
-@media (min-width: 768px) {
-  .denim-section {
-    padding: 2rem;
-  }
-
-  .denim-section h2 {
-    font-size: 1.5rem;
-  }
-
-  .denim-section p {
-    font-size: 1.1rem;
-  }
-
-  .denim-section .p-button {
-    width: 250px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .footer-section {
-    text-align: center !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
-  .footer-section h4 {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .footer-section p {
-    font-size: 0.85rem;
-    margin: 0.25rem 0;
-  }
-
-  .footer-powered {
-    font-size: 0.75rem;
-    margin-left: 0 !important;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .contact-form-container {
-    padding: 1rem !important;
-    margin: 0 1rem !important;
-  }
-
-  .contact-title {
-    font-size: 1.25rem !important;
-    margin-left: 0 !important;
-    text-align: center !important;
-  }
-
-  .contact-label {
-    justify-content: start !important;
-    text-align: left !important;
-    padding-left: 0.5rem;
-  }
-
-  .contact-button-wrapper {
-    margin-left: 0 !important;
-  }
-
-  .contact-input {
-    font-size: 0.9rem !important;
-  }
-}
-
 img {
     max-width: 100%;
     height: auto;
 }
 
-@media (max-width: 768px) {
-    .text-right {
-        text-align: left !important;
+.responsive-heading {
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.responsive-subheading {
+    font-size: 1rem;
+    text-align: center;
+}
+
+.responsive-section {
+    padding: 1rem;
+}
+
+.responsive-button {
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+.subscribe-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.subscribe-container input,
+.subscribe-container button {
+    width: 100%;
+    max-width: 100%;
+}
+
+.blog-card {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.blog-card img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+.responsive-card {
+    max-width: 100%;
+}
+
+.product-title {
+    font-size: 1rem;
+}
+
+.product-price {
+    font-size: 0.9rem;
+}
+
+.footer-section {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.footer-section h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer-section p {
+    font-size: 0.85rem;
+    margin: 0.25rem 0;
+}
+
+.footer-powered {
+    font-size: 0.75rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contact-form-container {
+    padding: 1rem;
+    margin: 0 1rem;
+}
+
+.contact-title {
+    font-size: 1.25rem;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.contact-label {
+    justify-content: start;
+    text-align: left;
+    padding-left: 0.5rem;
+}
+
+.contact-button-wrapper {
+    margin-left: 0;
+}
+
+.contact-input {
+    font-size: 0.9rem;
+}
+
+.text-right {
+    text-align: left;
+}
+
+.text-lg {
+    font-size: 1.1rem;
+}
+
+.topbar-search {
+    width: 100% !important;
+    margin-top: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .responsive-heading {
+        font-size: 1.5rem;
     }
 
-    .text-lg {
-        font-size: 1.1rem !important;
+    .responsive-subheading {
+        font-size: 1.25rem;
+    }
+
+    .responsive-section {
+        padding: 2rem;
+    }
+
+    .responsive-button {
+        font-size: 1rem;
+        width: auto;
+    }
+
+    .denim-section {
+        padding: 2rem;
+        max-width: 700px;
+    }
+
+    .denim-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .denim-section p {
+        font-size: 1.1rem;
+    }
+
+    .denim-section .p-button {
+        width: 250px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .subscribe-container {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .blog-card {
+        flex-direction: row;
+        text-align: left;
+        gap: 2rem;
     }
 }

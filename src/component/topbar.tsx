@@ -73,7 +73,7 @@ export default function TopBar() {
                     {[
                         { label: "HOME", path: "/" },
                         { label: "WOMENS", path: "/womens" },
-                        // { label: "KIDS", path: "/kids" },
+                        //{ label: "KIDS", path: "/kids" },
                         { label: "SALE", path: "/sale" },
                         { label: "CONTACT", path: "/contact" },
                     ]
@@ -132,7 +132,7 @@ export default function TopBar() {
                             <Tooltip target=".pi-sign-out" />
                         </>
                     )}
-                    
+
                     {searchVisible && (
                         <input
                             type="text"
@@ -140,8 +140,13 @@ export default function TopBar() {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                            className="p-1 text-sm border-round border-1 border-300"
-                            style={{ width: '200px' }}
+                            className="text-sm border-1 border-300 px-3 py-2"
+                            style={{
+                                width: '200px',
+                                borderRadius: '999px',
+                                outline: 'none',
+                                borderColor: '#ccc',
+                            }}
                         />
                     )}
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Image } from 'primereact/image';
