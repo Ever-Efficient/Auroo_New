@@ -97,10 +97,10 @@ export default function TopBar() {
 
                 <div className="flex justify-content-center w-full md:w-4">
                     <img
-                        src="/logos/Auro_o_fashion_01.png"
+                        src="/logos/Auro_o_fashion_02.png"
                         alt="Auroo Fashion Logo"
                         className="cursor-pointer"
-                        style={{ width: '150px', height: '50px' }}
+                        style={{ width: '150px', height: '60px' }}
                         onClick={() => navigate("/")}
                     />
                 </div>
