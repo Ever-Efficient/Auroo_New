@@ -92,10 +92,10 @@ export default function Cart() {
                             </div>
 
                             <div className="flex align-items-center gap-3 justify-content-center md:ml-8 mt-3 md:mt-0 flex-1">
-                                <Button icon="pi pi-minus" size="small" className="surface-border" text onClick={() => updateQuantity(item.id, -1)} />
+                                <Button icon="pi pi-minus" size="small" className="surface-border" text onClick={() => updateQuantity(item.id, item.size, item.color, -1)} />
                                 <span className="text-base font-medium">{item.quantity}</span>
-                                <Button icon="pi pi-plus" size="small" className="surface-border" text onClick={() => updateQuantity(item.id, 1)} />
-                                <Button icon="pi pi-trash" size="small" severity="danger" text onClick={() => removeFromCart(item.id)} tooltip="Remove item" />
+                                <Button icon="pi pi-plus" size="small" className="surface-border" text onClick={() => updateQuantity(item.id, item.size, item.color, 1)} />
+                                <Button icon="pi pi-trash" size="small" severity="danger" text onClick={() => removeFromCart(item.id, item.size, item.color)} tooltip="Remove item" />
                             </div>
 
                             <div className="text-left md:text-right mt-3 md:mt-0 flex-1">

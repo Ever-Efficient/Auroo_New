@@ -15,10 +15,10 @@ export interface CartItem {
 interface CartContextType {
   cartItems: CartItem[];
   addToCart: (item: CartItem) => void;
-  updateQuantity: (id: number, delta: number) => void;
+  updateQuantity: (id: number, size: string, color: string, delta: number) => void;
   subtotal: number;
   clearCart: () => void;
-  removeFromCart: (id: number) => void;
+  removeFromCart: (id: number, size: string, color: string) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -39,24 +39,41 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   const addToCart = (product: CartItem) => {
     setCartItems((prevItems) => {
-      const existing = prevItems.find((item) => item.id === product.id);
+      const existing = prevItems.find(
+        (item) =>
+          item.id === product.id &&
+          item.size === product.size &&
+          item.color === product.color
+      );
+
       if (existing) {
         return prevItems.map((item) =>
-          item.id === product.id
+          item.id === product.id &&
+          item.size === product.size &&
+          item.color === product.color
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
+
       return [...prevItems, { ...product, quantity: 1 }];
     });
   };
 
-  const updateQuantity = (id: number, delta: number) => {
+  const updateQuantity = (id: number, size: string, color: string, delta: number) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === id
+        item.id === id && item.size === size && item.color === color
           ? { ...item, quantity: Math.max(1, item.quantity + delta) }
           : item
+      )
+    );
+  };
+
+  const removeFromCart = (id: number, size: string, color: string) => {
+    setCartItems((prevItems) =>
+      prevItems.filter(
+        (item) => !(item.id === id && item.size === size && item.color === color)
       )
     );
   };
@@ -69,11 +86,6 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     (total, item) => total + item.price * item.quantity,
     0
   );
-
-  const removeFromCart = (id: number) => {
-    setCartItems(prevItems => prevItems.filter(item => item.id !== id));
-  };
-
 
   return (
     <CartContext.Provider
