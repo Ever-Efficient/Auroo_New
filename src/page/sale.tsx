@@ -15,6 +15,7 @@ export default function SalePage() {
     const rows = 12;
     const { addToCart } = useCart();
     const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
+    const [selectedColors, setSelectedColors] = useState<Record<string, string>>({});
     const [sortOption, setSortOption] = useState<string>("");
     const [priceRange] = useState<[number, number]>([0, 20000]);
     const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
@@ -53,6 +54,13 @@ export default function SalePage() {
         setSelectedSizes((prev) => ({
             ...prev,
             [productId]: size
+        }));
+    };
+
+    const handleColorSelect = (productId: string, color: string) => {
+        setSelectedColors((prev) => ({
+            ...prev,
+            [productId]: color
         }));
     };
 
@@ -127,7 +135,7 @@ export default function SalePage() {
                                 <p style={{ fontWeight: '600', textTransform: 'uppercase', color: '#1f2937', marginTop: '0.5rem' }}>{product.name}</p>
                                 <div className="flex align-items-center gap-2 mt-1">
                                     <span
-                                        style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>Rs. 
+                                        style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>Rs.
                                         {product.originalPrice.toLocaleString()}
                                     </span>
                                     <span
@@ -136,12 +144,24 @@ export default function SalePage() {
                                     </span>
                                 </div>
                                 <div className="flex gap-2 mt-2">
-                                    {product.colors.map((color, i) => (
-                                        <div
-                                            key={i}
-                                            style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
-                                        />
-                                    ))}
+                                    {product.colors.map((color: any, i: any) => {
+                                        const isSelected = selectedColors[product.id] === color;
+                                        return (
+                                            <div
+                                                key={i}
+                                                onClick={() => handleColorSelect(product.id, color)}
+                                                style={{
+                                                    width: '30px',
+                                                    height: '30px',
+                                                    borderRadius: '50%',
+                                                    border: isSelected ? '2px solid black' : '1px solid #ccc',
+                                                    backgroundColor: color,
+                                                    cursor: 'pointer',
+                                                    boxShadow: isSelected ? '0 0 0 2px #FFE1E2' : 'none',
+                                                }}
+                                            />
+                                        );
+                                    })}
                                 </div>
                                 <div className="flex gap-2 mt-2">
                                     {product.sizes.map((size: string) => (

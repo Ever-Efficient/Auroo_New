@@ -14,6 +14,7 @@ export default function ProductView() {
     const product = state?.product;
     const { addToCart } = useCart();
     const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
+    const [selectedColors, setSelectedColors] = useState<Record<string, string>>({});
     const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
@@ -61,6 +62,13 @@ export default function ProductView() {
         }));
     };
 
+    const handleColorSelect = (productId: string, color: string) => {
+        setSelectedColors((prev) => ({
+            ...prev,
+            [productId]: color
+        }));
+    };
+
     return (
         <main className="flex flex-column min-h-screen">
             <TopBar />
@@ -88,13 +96,25 @@ export default function ProductView() {
                             <span className="text-red-600">Rs {product.price}</span>
                         </div>
 
-                        <div className="flex gap-2 mt-4 flex-wrap">
-                            {product.colors.map((color: any, i: any) => (
-                                <div
-                                    key={i}
-                                    style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
-                                />
-                            ))}
+                        <div className="flex gap-2 mt-2">
+                            {product.colors.map((color:any, i:any) => {
+                                const isSelected = selectedColors[product.id] === color;
+                                return (
+                                    <div
+                                        key={i}
+                                        onClick={() => handleColorSelect(product.id, color)}
+                                        style={{
+                                            width: '30px',
+                                            height: '30px',
+                                            borderRadius: '50%',
+                                            border: isSelected ? '2px solid black' : '1px solid #ccc',
+                                            backgroundColor: color,
+                                            cursor: 'pointer',
+                                            boxShadow: isSelected ? '0 0 0 2px #FFE1E2' : 'none',
+                                        }}
+                                    />
+                                );
+                            })}
                         </div>
 
                         <div className="flex gap-2 mt-4 flex-wrap">
