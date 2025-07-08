@@ -19,9 +19,9 @@ const backgroundSlides = [
         subtitle: "YOUR DRESS UP CLOTHES FIRST",
     },
     //{
-        //image: "/images/homeFrame2.png",
-        //title: "KID COLLECTION",
-        //subtitle: "CHILDHOOD",
+    //image: "/images/homeFrame2.png",
+    //title: "KID COLLECTION",
+    //subtitle: "CHILDHOOD",
     //},
     {
         image: "/images/homeFrame3.png",
@@ -54,8 +54,14 @@ export default function HomePage() {
     const navigate = useNavigate();
 
     const addToCartHandler = (product: any) => {
-        const price = Number(product.price.replace(/[^0-9.]/g, ""));
-        const originalPrice = Number((product.oldPrice ?? product.price).replace(/[^0-9.]/g, ""));
+        const price = typeof product.price === 'string'
+            ? Number(product.price.replace(/[^0-9.]/g, ""))
+            : Number(product.price);
+
+        const originalPrice = typeof product.oldPrice === 'string'
+            ? Number(product.oldPrice.replace(/[^0-9.]/g, ""))
+            : Number(product.oldPrice ?? product.price);
+
         const selectedSize = selectedSizes[product.id] || product.sizes[0];
 
         const discountPercentage = originalPrice > price

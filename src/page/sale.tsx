@@ -19,24 +19,33 @@ export default function SalePage() {
     const [priceRange] = useState<[number, number]>([0, 20000]);
     const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
 
-
-
     const addToCartHandler = (product: any) => {
-        const price = Number(product.price.replace(/[^0-9.]/g, ""));
-        const originalPrice = Number(product.originalPrice.replace(/[^0-9.]/g, ""));
+        const price = typeof product.price === 'string'
+            ? Number(product.price.replace(/[^0-9.]/g, ""))
+            : Number(product.price);
+
+        const originalPrice = typeof product.oldPrice === 'string'
+            ? Number(product.oldPrice.replace(/[^0-9.]/g, ""))
+            : Number(product.oldPrice ?? product.price);
+
         const selectedSize = selectedSizes[product.id] || product.sizes[0];
+
+        const discountPercentage = originalPrice > price
+            ? `${Math.round(((originalPrice - price) / originalPrice) * 100)}%`
+            : "0%";
 
         const cartItem = {
             id: product.id,
             name: product.name,
             size: selectedSize,
-            color: product.colors[0],
+            color: product.colors?.[0] ?? '#000000',
             price,
             originalPrice,
-            discount: `${Math.round(((originalPrice - price) / originalPrice) * 100)}%`,
+            discount: discountPercentage,
             quantity: 1,
             image: product.image
         };
+
         addToCart(cartItem);
     };
 
