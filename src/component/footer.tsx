@@ -3,16 +3,16 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
     return (
-        <div className="p-4" style={{ background: '#F4E7E7', color: '#4B5563',}}>
-            <div className="grid mt-2">
-                <div className="col-12 md:col-3 text-center md:text-center mb-2">
+        <div className="p-4 mt-5 flex-column" style={{ background: '#F4E7E7', color: '#4B5563',}}>
+            <div className="grid ml-8">
+                <div className="col-12 md:col-3">
                     <h4 className="font-bold mb-2">LOCATION</h4>
                     <p>Peradeniya Road, Kandy</p>
                     <p>Tel. +94 77 575 7735</p>
                     <p>Email. info@auroofashion.com</p>
                 </div>
 
-                <div className="col-12 md:col-3 text-center md:text-center mb-3">
+                <div className="col-12 md:col-3">
                     <h4 className="font-bold mb-3">HELP</h4>
                     <Link to="/info" className="block mb-3 text-color">HOW TO BUY</Link>
                     <Link to="/info" className="block mb-3 text-color">GENERAL INFORMATION</Link>
@@ -25,7 +25,7 @@ export default function Footer() {
                     <Link to="/info" className="block mb-3 text-color">WATCHES</Link>
                 </div>
 
-                <div className="col-12 md:col-3 text-center md:text-center mb-3">
+                <div className="col-12 md:col-3">
                     <h4 className="font-bold mb-3">POLICIES</h4>
                     <Link to="/policy" className="block mb-3 text-color">ENVIRONMENTAL POLICY</Link>
                     <Link to="/terms" className="block mb-3 text-color">ANIMAL WELFARE</Link>
@@ -35,7 +35,7 @@ export default function Footer() {
                     <Link to="/policy" className="block mb-3 text-color">WARRANTY ON WATCHES</Link>
                 </div>
 
-                <div className="col-12 md:col-3 text-center md:text-center mb-3">
+                <div className="col-12 md:col-3">
                     <h4 className="font-bold mb-3">COMPANY</h4>
                     <Link to="/aboutus" className="block mb-3 text-color">ABOUT US</Link>
                     <Link to="/contact" className="block mb-3 text-color">OFFICES</Link>
