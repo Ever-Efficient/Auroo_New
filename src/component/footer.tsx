@@ -1,9 +1,11 @@
 import { Divider } from "primereact/divider";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
+    const navigate = useNavigate();
+
     return (
-        <div className="p-4 mt-5 flex-column" style={{ background: '#F4E7E7', color: '#4B5563',}}>
+        <div className="p-4 mt-5 flex-column" style={{ background: '#F4E7E7', color: '#4B5563' }}>
             <div className="grid ml-8">
                 <div className="col-12 md:col-3">
                     <h4 className="font-bold mb-2">LOCATION</h4>
@@ -14,36 +16,55 @@ export default function Footer() {
 
                 <div className="col-12 md:col-3">
                     <h4 className="font-bold mb-3">HELP</h4>
-                    <Link to="/info" className="block mb-3 text-color">HOW TO BUY</Link>
-                    <Link to="/info" className="block mb-3 text-color">GENERAL INFORMATION</Link>
-                    <Link to="/info" className="block mb-3 text-color">PAYMENT</Link>
-                    <Link to="/info" className="block mb-3 text-color">SHIPPING</Link>
-                    <Link to="/info" className="block mb-3 text-color">RETURNS</Link>
-                    <Link to="/info" className="block mb-3 text-color">EXCHANGES</Link>
-                    <Link to="/info" className="block mb-3 text-color">GIFT CARD</Link>
-                    <Link to="/info" className="block mb-3 text-color">MY ACCOUNT</Link>
-                    <Link to="/info" className="block mb-3 text-color">WATCHES</Link>
+                    {[
+                        { label: 'HOW TO BUY', path: '/info' },
+                        { label: 'GENERAL INFORMATION', path: '/info' },
+                        { label: 'PAYMENT', path: '/info' },
+                        { label: 'SHIPPING', path: '/info' },
+                        { label: 'RETURNS', path: '/info' },
+                        { label: 'EXCHANGES', path: '/info' },
+                        { label: 'GIFT CARD', path: '/info' },
+                        { label: 'MY ACCOUNT', path: '/info' },
+                        { label: 'WATCHES', path: '/info' }
+                    ].map((item, i) => (
+                        <span key={i} className="block mb-3 text-color cursor-pointer" onClick={() => navigate(item.path)}>
+                            {item.label}
+                        </span>
+                    ))}
                 </div>
 
                 <div className="col-12 md:col-3">
                     <h4 className="font-bold mb-3">POLICIES</h4>
-                    <Link to="/policy" className="block mb-3 text-color">ENVIRONMENTAL POLICY</Link>
-                    <Link to="/terms" className="block mb-3 text-color">ANIMAL WELFARE</Link>
-                    <Link to="/policy" className="block mb-3 text-color">PRIVACY POLICY</Link>
-                    <Link to="/terms" className="block mb-3 text-color">PURCHASE CONDITIONS</Link>
-                    <Link to="/terms" className="block mb-3 text-color">GIFT CARD CONDITIONS</Link>
-                    <Link to="/policy" className="block mb-3 text-color">WARRANTY ON WATCHES</Link>
+                    {[
+                        { label: 'ENVIRONMENTAL POLICY', path: '/policy' },
+                        { label: 'ANIMAL WELFARE', path: '/terms' },
+                        { label: 'PRIVACY POLICY', path: '/policy' },
+                        { label: 'PURCHASE CONDITIONS', path: '/terms' },
+                        { label: 'GIFT CARD CONDITIONS', path: '/terms' },
+                        { label: 'WARRANTY ON WATCHES', path: '/policy' }
+                    ].map((item, i) => (
+                        <span key={i} className="block mb-3 text-color cursor-pointer" onClick={() => navigate(item.path)}>
+                            {item.label}
+                        </span>
+                    ))}
                 </div>
 
                 <div className="col-12 md:col-3">
                     <h4 className="font-bold mb-3">COMPANY</h4>
-                    <Link to="/aboutus" className="block mb-3 text-color">ABOUT US</Link>
-                    <Link to="/contact" className="block mb-3 text-color">OFFICES</Link>
-                    <Link to="/contact" className="block mb-3 text-color">STORES</Link>
-                    <Link to="/careers" className="block mb-3 text-color">WORK WITH US</Link>
-                    <Link to="/contact" className="block mb-3 text-color">CONTACT</Link>
+                    {[
+                        { label: 'ABOUT US', path: '/aboutus' },
+                        { label: 'OFFICES', path: '/contact' },
+                        { label: 'STORES', path: '/contact' },
+                        { label: 'WORK WITH US', path: '/careers' },
+                        { label: 'CONTACT', path: '/contact' }
+                    ].map((item, i) => (
+                        <span key={i} className="block mb-3 text-color cursor-pointer" onClick={() => navigate(item.path)}>
+                            {item.label}
+                        </span>
+                    ))}
                 </div>
             </div>
+
             <Divider className="my-4" />
 
             <div className="text-center mt-2">
