@@ -67,13 +67,13 @@ export default function Footer() {
 
             <Divider className="my-4" />
 
-            <div className="text-center mt-2">
+            <div className="text-center text-sm mt-2">
                 Powered by{" "}
                 <a
                     href="https://everefficient.lk"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-medium"
+                    className="text-sm no-underline"
                     style={{ color: '#4B5563' }}
                 >
                     EVER EFFICIENT Business Management (Pvt) Ltd
