@@ -4,21 +4,25 @@ export interface Product {
     price: number;
     originalPrice: number;
     image: string;
+    images?: string[];
     sizes: string[];
-    colors: string[];
+    colors: string;
     category?: string;
 }
 
 export const products: Product[] = [
     {
-        id: 'W1',
-        name: "CORT WITH WOOL WRAPAROUND COLLAR",
-        price: 9999,
-        originalPrice: 18999,
+        id: "W1",
+        name: "Red Dress",
+        price: 3500,
+        originalPrice: 4500,
         image: "/images/product1.jpg",
-        sizes: ["S", "M"],
-        colors: ["#5B1E1E", "#EAD6D6", "#F3E1DC"],
-        category: "WOMENS",
+        images: [
+            "/images/product1.jpg",
+            "/images/product2.jpg",
+        ],
+        colors: "Color Name",
+        sizes: ["S", "M", "L"]
     },
     {
         id: 'W2',
@@ -27,7 +31,7 @@ export const products: Product[] = [
         originalPrice: 18999,
         image: "/images/product2.jpg",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["#5B1E1E", "#EAD6D6", "#F3E1DC"],
+        colors: "Color Name",
         category: "WOMENS",
     },
     {
@@ -37,7 +41,7 @@ export const products: Product[] = [
         originalPrice: 18999,
         image: "/images/product3.jpg",
         sizes: ["S", "M", "L"],
-        colors: ["#5B1E1E", "#EAD6D6", "#F3E1DC"],
+        colors: "Color Name",
         category: "WOMENS",
     },
     {
@@ -47,7 +51,7 @@ export const products: Product[] = [
         originalPrice: 8999,
         image: "/images/product4.jpg",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["#5B1E1E", "#EAD6D6", "#F3E1DC"],
+        colors: "Color Name",
         category: "WOMENS",
     },
     {
@@ -57,7 +61,7 @@ export const products: Product[] = [
         originalPrice: 18999,
         image: "/images/product5.jpg",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["#5B1E1E", "#EAD6D6", "#F3E1DC"],
+        colors: "Color Name",
         category: "WOMENS",
     },
     {
@@ -67,7 +71,7 @@ export const products: Product[] = [
         originalPrice: 18999,
         image: "/images/product6.jpg",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["#5B1E1E", "#EAD6D6", "#F3E1DC"],
+        colors: "Color Name",
         category: "WOMENS",
     },
     {
@@ -77,7 +81,7 @@ export const products: Product[] = [
         originalPrice: 18999,
         image: "/images/product7.jpg",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["#5B1E1E", "#EAD6D6", "#F3E1DC"],
+        colors: "Color Name",
         category: "WOMENS",
     },
     {
@@ -87,7 +91,7 @@ export const products: Product[] = [
         originalPrice: 18999,
         image: "/images/product8.jpg",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["#5B1E1E", "#EAD6D6", "#F3E1DC"],
+        colors: "Color Name",
         category: "WOMENS",
     },
     {
@@ -97,7 +101,7 @@ export const products: Product[] = [
         originalPrice: 18999,
         image: "/images/product9.jpg",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["#5B1E1E", "#EAD6D6", "#F3E1DC"],
+        colors: "Color Name",
         category: "WOMENS",
     },
     {
@@ -107,7 +111,7 @@ export const products: Product[] = [
         originalPrice: 18999,
         image: "/images/product10.jpg",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["#5B1E1E", "#EAD6D6", "#F3E1DC"],
+        colors: "Color Name",
         category: "WOMENS",
     },
     {
@@ -117,7 +121,7 @@ export const products: Product[] = [
         originalPrice: 18999,
         image: "/images/product11.jpg",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["#5B1E1E", "#EAD6D6", "#F3E1DC"],
+        colors: "Color Name",
         category: "WOMENS",
     },
     {
@@ -127,7 +131,7 @@ export const products: Product[] = [
         originalPrice: 18999,
         image: "/images/product12.jpg",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["#5B1E1E", "#EAD6D6", "#F3E1DC"],
+        colors: "Color Name",
         category: "WOMENS",
     },
     {
@@ -137,7 +141,7 @@ export const products: Product[] = [
         originalPrice: 18999,
         image: "/images/product13.jpg",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["#5B1E1E", "#EAD6D6", "#F3E1DC"],
+        colors: "Color Name",
         category: "WOMENS",
     },
     {
@@ -147,7 +151,7 @@ export const products: Product[] = [
         originalPrice: 18999,
         image: "/images/product14.jpg",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["#5B1E1E", "#EAD6D6", "#F3E1DC"],
+        colors: "Color Name",
         category: "WOMENS",
     },
     {
@@ -157,7 +161,7 @@ export const products: Product[] = [
         originalPrice: 18999,
         image: "/images/product15.jpg",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["#5B1E1E", "#EAD6D6", "#F3E1DC"],
+        colors: "Color Name",
         category: "WOMENS",
     },
     {
@@ -167,7 +171,7 @@ export const products: Product[] = [
         originalPrice: 18999,
         image: "/images/product16.jpg",
         sizes: ["S", "M", "L", "XL"],
-        colors: ["#5B1E1E", "#EAD6D6", "#F3E1DC"],
+        colors: "Color Name",
         category: "WOMENS",
     },
 ];

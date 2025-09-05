@@ -14,8 +14,8 @@ export default function ProductView() {
     const product = state?.product;
     const { addToCart } = useCart();
     const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
-    const [selectedColors, setSelectedColors] = useState<Record<string, string>>({});
     const [isHovered, setIsHovered] = useState(false);
+    const [currentImage, setCurrentImage] = useState(0);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -44,7 +44,7 @@ export default function ProductView() {
             id: product.id,
             name: product.name,
             size: selectedSize,
-            color: product.colors?.[0] ?? '#000000',
+            color: product.colors,
             price,
             originalPrice,
             discount: discountPercentage,
@@ -62,12 +62,7 @@ export default function ProductView() {
         }));
     };
 
-    const handleColorSelect = (productId: string, color: string) => {
-        setSelectedColors((prev) => ({
-            ...prev,
-            [productId]: color
-        }));
-    };
+    const images = product.images?.length ? product.images : [product.image];
 
     return (
         <main className="flex flex-column min-h-screen">
@@ -76,16 +71,26 @@ export default function ProductView() {
             <div className="flex flex-column md:flex-row gap-6 p-4 max-w-6xl mx-auto mt-4">
                 <div className="relative w-full md:w-6 md:ml-7">
                     <Image
-                        src={product.image}
+                        src={images[currentImage]}
                         alt={product.name}
-                        imageClassName="w-full border-round-xl object-cover"
+                        imageClassName="w-full h-full border-round-xl object-cover"
+                        style={{ width: '30rem', height: '42rem', objectFit: 'cover' }}
                         preview
                     />
+                    {images.map((_: string, index: number) => (
+                        <button
+                            key={index}
+                            onClick={() => setCurrentImage(index)}
+                            className={`w-6 rounded-full transition ${index === currentImage ? 'bg-black' : 'bg-gray-300'
+                                }`}
+                            aria-label={`Go to image ${index + 1}`}
+                        />
+                    ))}
                 </div>
 
                 <div className="flex flex-column justify-content-between w-full md:w-6 md:mr-6 mt-4 md:mt-0">
                     <div>
-                        <h2 className="text-2xl font-bold mt-4">{product.name}</h2>
+                        <h2 className="text-2xl font-bold">{product.name}</h2>
                         <div className="flex align-items-center gap-2 text-sm text-500">
                             <Rating value={5} readOnly cancel={false} />
                             <span>(5 Reviews)</span>
@@ -96,25 +101,8 @@ export default function ProductView() {
                             <span className="text-red-600">Rs {product.price}</span>
                         </div>
 
-                        <div className="flex gap-2 mt-2">
-                            {product.colors.map((color:any, i:any) => {
-                                const isSelected = selectedColors[product.id] === color;
-                                return (
-                                    <div
-                                        key={i}
-                                        onClick={() => handleColorSelect(product.id, color)}
-                                        style={{
-                                            width: '30px',
-                                            height: '30px',
-                                            borderRadius: '50%',
-                                            border: isSelected ? '2px solid black' : '1px solid #ccc',
-                                            backgroundColor: color,
-                                            cursor: 'pointer',
-                                            boxShadow: isSelected ? '0 0 0 2px #FFE1E2' : 'none',
-                                        }}
-                                    />
-                                );
-                            })}
+                        <div className="flex gap-2">
+                            <div className="text-lg font-bold mt-4">{product.colors}</div>
                         </div>
 
                         <div className="flex gap-2 mt-4 flex-wrap">

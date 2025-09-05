@@ -13,7 +13,6 @@ export default function ContactPage() {
                     <h2 className="text-center text-2xl font-bold mb-6">GET IN TOUCH NOW!</h2>
 
                     <div className="grid formgrid p-fluid">
-                        {/* Name */}
                         <div className="col-12 md:col-3 flex align-items-center justify-content-start md:justify-content-center font-semibold mb-2 md:mb-5">
                             Name:
                         </div>
@@ -25,7 +24,6 @@ export default function ContactPage() {
                             />
                         </div>
 
-                        {/* Email */}
                         <div className="col-12 md:col-3 flex align-items-center justify-content-start md:justify-content-center font-semibold mb-2 md:mb-5">
                             Email:
                         </div>
@@ -37,7 +35,6 @@ export default function ContactPage() {
                             />
                         </div>
 
-                        {/* Message */}
                         <div className="col-12 md:col-3 flex align-items-start justify-content-start md:justify-content-center font-semibold mb-2 md:mb-0">
                             Message:
                         </div>
@@ -50,7 +47,6 @@ export default function ContactPage() {
                             />
                         </div>
 
-                        {/* Submit Button */}
                         <div className="col-12 flex justify-content-center mt-2">
                             <Button
                                 label="SEND"

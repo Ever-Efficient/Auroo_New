@@ -48,7 +48,6 @@ const blogPosts = [
 export default function HomePage() {
     const { addToCart } = useCart();
     const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
-    const [selectedColors, setSelectedColors] = useState<Record<string, string>>({});
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
     const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
@@ -73,7 +72,7 @@ export default function HomePage() {
             id: product.id,
             name: product.name,
             size: selectedSize,
-            color: product.colors?.[0] ?? '#000000',
+            color: product.colors,
             price,
             originalPrice,
             discount: discountPercentage,
@@ -88,13 +87,6 @@ export default function HomePage() {
         setSelectedSizes((prev) => ({
             ...prev,
             [productId]: size
-        }));
-    };
-
-    const handleColorSelect = (productId: string, color: string) => {
-        setSelectedColors((prev) => ({
-            ...prev,
-            [productId]: color
         }));
     };
 
@@ -184,24 +176,7 @@ export default function HomePage() {
                                     </span>
                                 </div>
                                 <div className="flex gap-2 mt-2">
-                                    {product.colors.map((color, i) => {
-                                        const isSelected = selectedColors[product.id] === color;
-                                        return (
-                                            <div
-                                                key={i}
-                                                onClick={() => handleColorSelect(product.id, color)}
-                                                style={{
-                                                    width: '30px',
-                                                    height: '30px',
-                                                    borderRadius: '50%',
-                                                    border: isSelected ? '2px solid black' : '1px solid #ccc',
-                                                    backgroundColor: color,
-                                                    cursor: 'pointer',
-                                                    boxShadow: isSelected ? '0 0 0 2px #FFE1E2' : 'none',
-                                                }}
-                                            />
-                                        );
-                                    })}
+                                    <div className="text-lg font-bold">{product.colors}</div>
                                 </div>
                                 <div className="flex gap-2 mt-2">
                                     {product.sizes.map((size: string) => (
@@ -385,12 +360,7 @@ export default function HomePage() {
                                 </p>
 
                                 <div className="flex gap-2 mt-2">
-                                    {product.colors.map((color, i) => (
-                                        <div
-                                            key={i}
-                                            style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
-                                        />
-                                    ))}
+                                    <div className="text-lg font-bold">{product.colors}</div>
                                 </div>
                                 <div className="flex gap-2 mt-2">
                                     {product.sizes.map((size: string) => (

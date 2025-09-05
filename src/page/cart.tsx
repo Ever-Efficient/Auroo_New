@@ -36,7 +36,7 @@ export default function Cart() {
             id: product.id,
             name: product.name,
             size: selectedSize,
-            color: product.colors?.[0] ?? '#000000',
+            color: product.colors,
             price,
             originalPrice,
             discount: discountPercentage,
@@ -180,12 +180,7 @@ export default function Cart() {
                                 </p>
 
                                 <div className="flex gap-2 mt-2">
-                                    {product.colors.map((color, i) => (
-                                        <div
-                                            key={i}
-                                            style={{ width: '30px', height: '30px', borderRadius: '50%', border: '1px solid #ccc', backgroundColor: color }}
-                                        />
-                                    ))}
+                                    <div className="text-lg font-bold mt-4">{product.colors}</div>
                                 </div>
                                 <div className="flex gap-2 mt-2">
                                     {product.sizes.map((size: string) => (

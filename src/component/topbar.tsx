@@ -19,6 +19,8 @@ export default function TopBar() {
     const [searchVisible, setSearchVisible] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
 
+    const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
     const handleLoginSuccess = (email: string) => {
         const name = email.split("@")[0];
         setUsername(name);
@@ -158,13 +160,42 @@ export default function TopBar() {
                         onMouseLeave={e => (e.currentTarget.style.color = '#000')}
                     />
 
-                    <i
-                        className="pi pi-shopping-cart p-2 border-round"
-                        style={{ fontSize: '1.2rem', cursor: 'pointer', color: '#000', transition: 'all 0.3s ease' }}
-                        onClick={() => setCartVisible(true)}
-                        onMouseEnter={e => (e.currentTarget.style.color = '#FFE1E2')}
-                        onMouseLeave={e => (e.currentTarget.style.color = '#000')}
-                    />
+                    <div style={{ position: 'relative', display: 'inline-block' }}>
+                        {/* Cart Icon */}
+                        <i
+                            className="pi pi-shopping-cart p-2 border-round"
+                            style={{
+                                fontSize: '1.2rem',
+                                cursor: 'pointer',
+                                color: '#000',
+                                transition: 'all 0.3s ease'
+                            }}
+                            onClick={() => setCartVisible(true)}
+                            onMouseEnter={e => (e.currentTarget.style.color = '#FFE1E2')}
+                            onMouseLeave={e => (e.currentTarget.style.color = '#000')}
+                        />
+
+                        {/* Cart Count Badge */}
+                        {cartCount > 0 && (
+                            <span
+                                style={{
+                                    position: 'absolute',
+                                    top: '-4px',
+                                    right: '-4px',
+                                    background: '#ff4d4f',
+                                    color: '#fff',
+                                    borderRadius: '50%',
+                                    padding: '2px 6px',
+                                    fontSize: '0.7rem',
+                                    fontWeight: 'bold',
+                                    lineHeight: '1'
+                                }}
+                            >
+                                {cartCount}
+                            </span>
+                        )}
+                    </div>
+
                 </div>
             </div>
 
