@@ -15,22 +15,27 @@ export default function ProductView() {
     const { addToCart } = useCart();
     const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
     const [isHovered, setIsHovered] = useState(false);
-    const [currentImage, setCurrentImage] = useState(0);
+    const [currentImage] = useState(0);
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
     if (!product) {
-        return <div className="text-center mt-6">Product not found. Go back to <a href="/womens" className="text-blue-500">Womens</a></div>;
+        return (
+            <div className="text-center mt-6 px-4">
+                Product not found. Go back to{" "}
+                <a href="/womens" className="text-blue-500">Womens</a>
+            </div>
+        );
     }
 
     const addToCartHandler = (product: any) => {
-        const price = typeof product.price === 'string'
+        const price = typeof product.price === "string"
             ? Number(product.price.replace(/[^0-9.]/g, ""))
             : Number(product.price);
 
-        const originalPrice = typeof product.oldPrice === 'string'
+        const originalPrice = typeof product.oldPrice === "string"
             ? Number(product.oldPrice.replace(/[^0-9.]/g, ""))
             : Number(product.oldPrice ?? product.price);
 
@@ -49,7 +54,7 @@ export default function ProductView() {
             originalPrice,
             discount: discountPercentage,
             quantity: 1,
-            image: product.image
+            image: product.image,
         };
 
         addToCart(cartItem);
@@ -58,7 +63,7 @@ export default function ProductView() {
     const handleSizeSelect = (productId: string, size: string) => {
         setSelectedSizes((prev) => ({
             ...prev,
-            [productId]: size
+            [productId]: size,
         }));
     };
 
@@ -68,41 +73,32 @@ export default function ProductView() {
         <main className="flex flex-column min-h-screen">
             <TopBar />
 
-            <div className="flex flex-column md:flex-row gap-6 p-4 max-w-6xl mx-auto mt-4">
-                <div className="relative w-full md:w-6 md:ml-7">
+            <div className="flex justify-content-center flex-column md:flex-row gap-6 p-4 md:p-6 max-w-7xl mx-auto mt-4 w-full">
+                <div className="flex flex-column col-12 col-6 items-center w-full md:w-30rem">
                     <Image
                         src={images[currentImage]}
                         alt={product.name}
-                        imageClassName="w-full h-full border-round-xl object-cover"
-                        style={{ width: '30rem', height: '42rem', objectFit: 'cover' }}
+                        imageClassName="w-full h-auto border-round-3xl object-cover"
+                        style={{ maxHeight: "50rem", objectFit: "cover" }}
                         preview
                     />
-                    {images.map((_: string, index: number) => (
-                        <button
-                            key={index}
-                            onClick={() => setCurrentImage(index)}
-                            className={`w-6 rounded-full transition ${index === currentImage ? 'bg-black' : 'bg-gray-300'
-                                }`}
-                            aria-label={`Go to image ${index + 1}`}
-                        />
-                    ))}
                 </div>
 
-                <div className="flex flex-column justify-content-between w-full md:w-6 md:mr-6 mt-4 md:mt-0">
+                <div className="flex flex-column col-12 col-6 justify-content-between w-full md:w-30rem">
                     <div>
-                        <h2 className="text-2xl font-bold">{product.name}</h2>
-                        <div className="flex align-items-center gap-2 text-sm text-500">
+                        <h2 className="text-xl md:text-2xl font-bold">{product.name}</h2>
+                        <div className="flex align-items-center gap-2 text-sm text-500 mt-2">
                             <Rating value={5} readOnly cancel={false} />
                             <span>(5 Reviews)</span>
                         </div>
 
-                        <div className="mt-4 text-lg font-bold">
+                        <div className="mt-4 text-base md:text-lg font-bold">
                             <span className="line-through mr-2 text-400">Rs {product.originalPrice}</span>
                             <span className="text-red-600">Rs {product.price}</span>
                         </div>
 
-                        <div className="flex gap-2">
-                            <div className="text-lg font-bold mt-4">{product.colors}</div>
+                        <div className="flex gap-2 mt-4">
+                            <div className="text-base md:text-lg font-bold">{product.colors}</div>
                         </div>
 
                         <div className="flex gap-2 mt-4 flex-wrap">
@@ -111,16 +107,15 @@ export default function ProductView() {
                                     key={size}
                                     label={size}
                                     size="small"
-                                    severity={selectedSizes[product.id] === size ? "secondary" : "secondary"}
                                     outlined={selectedSizes[product.id] !== size}
                                     style={{
-                                        fontSize: '15px',
-                                        padding: '0.25rem 0.5rem',
-                                        height: '40px',
-                                        width: '50px',
-                                        borderColor: selectedSizes[product.id] === size ? '#FFE1E2' : '#000000',
-                                        backgroundColor: selectedSizes[product.id] === size ? '#000000' : undefined,
-                                        color: selectedSizes[product.id] === size ? '#fff' : undefined
+                                        fontSize: "15px",
+                                        padding: "0.25rem 0.5rem",
+                                        height: "40px",
+                                        width: "50px",
+                                        borderColor: selectedSizes[product.id] === size ? "#FFE1E2" : "#000000",
+                                        backgroundColor: selectedSizes[product.id] === size ? "#000000" : undefined,
+                                        color: selectedSizes[product.id] === size ? "#fff" : undefined,
                                     }}
                                     onClick={() => handleSizeSelect(product.id, size)}
                                 />
@@ -131,17 +126,17 @@ export default function ProductView() {
                             label="ADD TO BAG"
                             className="w-full mt-4 p-button-sm"
                             style={{
-                                backgroundColor: isHovered ? '#FFE1E2' : '#000000',
-                                color: isHovered ? '#000000' : '#FFE1E2',
-                                border: '1px solid black',
-                                transition: 'all 0.3s ease',
+                                backgroundColor: isHovered ? "#FFE1E2" : "#000000",
+                                color: isHovered ? "#000000" : "#FFE1E2",
+                                border: "1px solid black",
+                                transition: "all 0.3s ease",
                             }}
                             onMouseEnter={() => setIsHovered(true)}
                             onMouseLeave={() => setIsHovered(false)}
                             onClick={() => addToCartHandler(product)}
                         />
 
-                        <div className="mt-5 text-sm text-700">
+                        <div className="mt-5 text-sm md:text-base text-700">
                             <div className="flex align-items-center gap-3">
                                 <img src="https://cdn-icons-png.flaticon.com/512/71/71222.png" className="w-2rem" alt="Shipping" />
                                 <span>Free Shipping on all U.S. orders over $100</span>
