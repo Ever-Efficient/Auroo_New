@@ -8,6 +8,7 @@ import Footer from "../component/footer";
 import Reviews from "../component/Review";
 import { useCart } from "../context/cartContext";
 import { useEffect, useState } from "react";
+import { Galleria } from "primereact/galleria";
 
 export default function ProductView() {
     const { state } = useLocation();
@@ -26,6 +27,31 @@ export default function ProductView() {
 
         return () => clearInterval(interval);
     }, [product.images]);
+
+    const productImages = product.images.map((img: any) => ({
+        itemImageSrc: img,
+        alt: product.name,
+    }));
+
+    {/*const thumbnailTemplate = (item: any) => {
+        return (
+            <img
+                src={item.itemImageSrc}
+                alt={item.alt}
+                className="w-full h-10rem object-cover border-round"
+            />
+        );
+    };*/}
+
+    const itemTemplate = (item: any) => {
+        return (
+            <img
+                src={item.itemImageSrc}
+                alt={item.alt}
+                className="w-full h-full object-cover border-round-3xl"
+            />
+        );
+    };
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -85,12 +111,16 @@ export default function ProductView() {
 
             <div className="flex justify-content-center flex-column md:flex-row gap-6 p-4 md:p-6 max-w-7xl mx-auto mt-4 w-full">
                 <div className="flex flex-column col-12 col-6 items-center w-full md:w-30rem">
-                    <Image
-                        src={product.images[currentImage]}
-                        alt={product.name}
-                        imageClassName="w-full h-auto border-round-3xl object-cover"
-                        style={{ maxHeight: "50rem", objectFit: "cover" }}
-                        preview
+                    <Galleria
+                        value={productImages}
+                        //numVisible={1} // thumbnails visible
+                        //circular
+                        //showThumbnails={true}
+                        showIndicators
+                        showItemNavigators
+                        style={{ maxHeight: "50rem", width: "100%" }}
+                        item={itemTemplate}
+                        //thumbnail={thumbnailTemplate}
                     />
                 </div>
 
