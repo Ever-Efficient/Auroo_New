@@ -15,7 +15,17 @@ export default function ProductView() {
     const { addToCart } = useCart();
     const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
     const [isHovered, setIsHovered] = useState(false);
-    const [currentImage] = useState(0);
+    const [currentImage, setCurrentImage] = useState(0);
+
+    useEffect(() => {
+        if (!product.images || product.images.length === 0) return;
+
+        const interval = setInterval(() => {
+            setCurrentImage((prev) => (prev + 1) % product.images.length);
+        }, 3000);
+
+        return () => clearInterval(interval);
+    }, [product.images]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -67,7 +77,7 @@ export default function ProductView() {
         }));
     };
 
-    const images = product.images?.length ? product.images : [product.image];
+    //const images = product.images?.length ? product.images : [product.image];
 
     return (
         <main className="flex flex-column min-h-screen">
@@ -76,7 +86,7 @@ export default function ProductView() {
             <div className="flex justify-content-center flex-column md:flex-row gap-6 p-4 md:p-6 max-w-7xl mx-auto mt-4 w-full">
                 <div className="flex flex-column col-12 col-6 items-center w-full md:w-30rem">
                     <Image
-                        src={images[currentImage]}
+                        src={product.images[currentImage]}
                         alt={product.name}
                         imageClassName="w-full h-auto border-round-3xl object-cover"
                         style={{ maxHeight: "50rem", objectFit: "cover" }}
