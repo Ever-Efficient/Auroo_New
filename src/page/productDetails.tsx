@@ -1,3 +1,5 @@
+/* eslint-disable no-empty-pattern */
+/* eslint-disable no-lone-blocks */
 import { useLocation } from "react-router-dom";
 import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
@@ -8,7 +10,6 @@ import Footer from "../component/footer";
 import Reviews from "../component/Review";
 import { useCart } from "../context/cartContext";
 import { useEffect, useState } from "react";
-import { Galleria } from "primereact/galleria";
 
 export default function ProductView() {
     const { state } = useLocation();
@@ -16,17 +17,19 @@ export default function ProductView() {
     const { addToCart } = useCart();
     const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
     const [isHovered, setIsHovered] = useState(false);
-    const [currentImage, setCurrentImage] = useState(0);
+    const [currentIndex, setCurrentImage] = useState(0);
+    const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
     useEffect(() => {
         if (!product.images || product.images.length === 0) return;
+        if (isPreviewOpen) return;
 
         const interval = setInterval(() => {
             setCurrentImage((prev) => (prev + 1) % product.images.length);
-        }, 3000);
+        }, 10000);
 
         return () => clearInterval(interval);
-    }, [product.images]);
+    }, [product.images, isPreviewOpen]);
 
     const productImages = product.images.map((img: any) => ({
         itemImageSrc: img,
@@ -42,16 +45,6 @@ export default function ProductView() {
             />
         );
     };*/}
-
-    const itemTemplate = (item: any) => {
-        return (
-            <img
-                src={item.itemImageSrc}
-                alt={item.alt}
-                className="w-full h-full object-cover border-round-3xl"
-            />
-        );
-    };
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -110,20 +103,34 @@ export default function ProductView() {
             <TopBar />
 
             <div className="flex justify-content-center flex-column md:flex-row gap-6 p-4 md:p-6 max-w-7xl mx-auto mt-4 w-full">
-                <div className="flex flex-column col-12 col-6 items-center w-full md:w-30rem">
-                    <Galleria
-                        value={productImages}
-                        //numVisible={1} // thumbnails visible
-                        //circular
-                        //showThumbnails={true}
-                        showIndicators
-                        showItemNavigators
-                        style={{ maxHeight: "50rem", width: "100%" }}
-                        item={itemTemplate}
-                        //thumbnail={thumbnailTemplate}
+                <div className="flex col-12 col-6 w-full md:w-30rem">
+
+                    <div className="flex flex-column gap-2 justify-content-center mr-3">
+                        {productImages.map((img: { itemImageSrc: string }, index: number) => (
+                            <img
+                                key={index}
+                                src={img.itemImageSrc}
+                                alt={product.name}
+                                width={70}
+                                className={`border-round cursor-pointer w-2rem h-2.5rem md:w-4rem md:h-5rem transition-all ${index === currentIndex ? "border-2 border-black" : "border-1 border-300"
+                                    }`}
+                                onClick={() => setCurrentImage(index)}
+                            />
+                        ))}
+                    </div>
+
+                    <Image
+                        src={productImages[currentIndex]?.itemImageSrc}
+                        alt={product.name}
+                        className="w-full h-auto object-cover"
+                        style={{ borderRadius: "1rem" }}
+                        preview
+                        downloadable={false}
+                        onShow={() => setIsPreviewOpen(true)}
+                        onHide={() => setIsPreviewOpen(false)}
                     />
                 </div>
-
+                
                 <div className="flex flex-column col-12 col-6 justify-content-between w-full md:w-30rem">
                     <div>
                         <h2 className="text-xl md:text-2xl font-bold">{product.name}</h2>
