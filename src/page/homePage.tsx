@@ -169,10 +169,10 @@ export default function HomePage() {
                                 </p>
                                 <div className="flex align-items-center gap-2 mt-1">
                                     <span style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>
-                                        Rs {product.originalPrice.toLocaleString()}
+                                        Rs {product.originalPrice.toLocaleString()}.00
                                     </span>
                                     <span style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>
-                                        Rs {product.price.toLocaleString()}
+                                        Rs {product.price.toLocaleString()}.00
                                     </span>
                                 </div>
                                 <div className="flex gap-2 mt-2">
@@ -335,11 +335,11 @@ export default function HomePage() {
                                 <div className="flex align-items-center gap-2 mt-1">
                                     {product.originalPrice && (
                                         <span style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>
-                                            Rs {product.originalPrice}
+                                            Rs {product.originalPrice}.00
                                         </span>
                                     )}
                                     <span style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>
-                                        Rs {product.price}
+                                        Rs {product.price}.00
                                     </span>
                                 </div>
 

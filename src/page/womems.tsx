@@ -176,11 +176,11 @@ const Womens = () => {
                                     <div className="flex align-items-center gap-2 mt-1">
                                         <span
                                             style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '12px' }}>Rs.
-                                            {product.originalPrice.toLocaleString()}
+                                            {product.originalPrice.toLocaleString()}.00
                                         </span>
                                         <span
                                             style={{ fontWeight: 'bold', fontSize: '14px', color: '#000' }}>Rs.
-                                            {product.price.toLocaleString()}
+                                            {product.price.toLocaleString()}.00
                                         </span>
                                     </div>
                                     <div className="flex gap-2 mt-2">
