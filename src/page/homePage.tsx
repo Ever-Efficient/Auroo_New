@@ -18,13 +18,13 @@ const backgroundSlides = [
         title: "UPTO 70%",
         subtitle: "YOUR DRESS UP CLOTHES FIRST",
     },
-    //{
-    //image: "/images/homeFrame2.png",
-    //title: "KID COLLECTION",
-    //subtitle: "CHILDHOOD",
-    //},
     {
-        image: "/images/homeFrame3.png",
+        image: "/images/homeFrame2.jpg",
+        title: "UPTO 70%",
+        subtitle: "YOUR DRESS UP CLOTHES FIRST",
+    },
+    {
+        image: "/images/homeFrame3.jpg",
         title: "UPTO 70%",
         subtitle: "NEW YEAR SPECIAL SALE OFF!!!",
     }
@@ -103,9 +103,9 @@ export default function HomePage() {
         <div>
             <TopBar />
             <div
-                className="relative flex align-items-center justify-content-center text-center"
+                className="relative flex flex-wrap align-items-center justify-content-center text-center h-11rem md:h-30rem"
                 style={{
-                    height: '40rem',
+                    height: "100%",
                     backgroundImage: `url(${currentSlide.image})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
@@ -116,7 +116,7 @@ export default function HomePage() {
                 <div
                     className="absolute w-full h-full"
                     style={{
-                        backgroundColor: '#FFE1E2',
+                        //backgroundColor: '#FFE1E2',
                         opacity: 0.4,
                         top: 0,
                         left: 0,
@@ -125,10 +125,10 @@ export default function HomePage() {
                 />
 
                 <div className="text-black px-4" style={{ zIndex: 2, fontFamily: 'Aboreto' }}>
-                    <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{currentSlide.title}</h2>
-                    <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>
+                    <div className='text-xs md:text-3xl font-bold mb-2'>{currentSlide.title}</div>
+                    <div className='text-sm md:text-6xl font-bold mb-4'>
                         {currentSlide.subtitle}
-                    </h1>
+                    </div>
                     <Button
                         label="SHOP NOW"
                         className="p-button-rounded p-button-secondary"

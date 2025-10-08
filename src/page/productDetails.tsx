@@ -140,8 +140,8 @@ export default function ProductView() {
                         </div>
 
                         <div className="mt-4 text-base md:text-lg font-bold">
-                            <span className="line-through mr-2 text-400">Rs {product.originalPrice}</span>
-                            <span className="text-red-600">Rs {product.price}</span>
+                            <span className="line-through mr-2 text-400">Rs {product.originalPrice}.00</span>
+                            <span className="text-red-600">Rs {product.price}.00</span>
                         </div>
 
                         <div className="flex gap-2 mt-4">
@@ -186,7 +186,7 @@ export default function ProductView() {
                         <div className="mt-5 text-sm md:text-base text-700">
                             <div className="flex align-items-center gap-3">
                                 <img src="https://cdn-icons-png.flaticon.com/512/71/71222.png" className="w-2rem" alt="Shipping" />
-                                <span>Free Shipping on all U.S. orders over $100</span>
+                                <span>Free Shipping on all orders over Rs.100.00</span>
                             </div>
                             <div className="flex align-items-center gap-3 mt-3">
                                 <img src="https://cdn-icons-png.flaticon.com/512/150/150519.png" className="w-2rem" alt="Returns" />

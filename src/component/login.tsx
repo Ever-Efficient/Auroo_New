@@ -81,6 +81,7 @@ export default function Login({ visible, onHide, onLoginSuccess }: Props) {
             }}
             style={{ width: '90vw', maxWidth: '400px' }}
             className="p-fluid text-center"
+            draggable={false}
         >
 
             {mode === 'login' && (

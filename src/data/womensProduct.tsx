@@ -24,7 +24,7 @@ export const products: Product[] = [
             "/images/AVF5018W/4.png",
             "/images/AVF5018W/5.png",
         ],
-        colors: "Color Name",
+        colors: "White",
         sizes: ["S", "M", "L"]
     },
     {
@@ -40,7 +40,7 @@ export const products: Product[] = [
             "/images/AVJSS5003M/4.png",
             "/images/AVJSS5003M/5.png",
         ],
-        colors: "Color Name",
+        colors: "Pink",
         sizes: ["S", "M", "L"]
     },
     {
@@ -56,7 +56,7 @@ export const products: Product[] = [
             "/images/AVLF5014DBL/4.png",
             "/images/AVLF5014DBL/5.png",
         ],
-        colors: "Color Name",
+        colors: "Black",
         sizes: ["S", "M", "L"]
     },
     {
@@ -72,7 +72,7 @@ export const products: Product[] = [
             "/images/AVLF5020LBL/4.png",
             "/images/AVLF5020LBL/5.png",
         ],
-        colors: "Color Name",
+        colors: "Sky Blue",
         sizes: ["S", "M", "L"]
     },
     {
@@ -88,7 +88,7 @@ export const products: Product[] = [
             "/images/AVSB5007BR/4.png",
             "/images/AVSB5007BR/5.png",
         ],
-        colors: "Color Name",
+        colors: "Brown",
         sizes: ["S", "M", "L"]
     },
     {
@@ -104,7 +104,7 @@ export const products: Product[] = [
             "/images/AVSF5006SG/4.png",
             "/images/AVSF5006SG/5.png",
         ],
-        colors: "Color Name",
+        colors: "Gray",
         sizes: ["S", "M", "L"]
     },
     {
@@ -120,7 +120,7 @@ export const products: Product[] = [
             "/images/AVSF5013LG/4.png",
             "/images/AVSF5013LG/1.png",
         ],
-        colors: "Color Name",
+        colors: "Light Blue",
         sizes: ["S", "M", "L"]
     },
     {
@@ -136,7 +136,7 @@ export const products: Product[] = [
             "/images/AVSF5016BB/4.png",
             "/images/AVSF5016BB/5.png",
         ],
-        colors: "Color Name",
+        colors: "Black",
         sizes: ["S", "M", "L"]
     },
     {
@@ -152,7 +152,7 @@ export const products: Product[] = [
             "/images/AVSF5017B/4.png",
             "/images/AVSF5017B/1.png",
         ],
-        colors: "Color Name",
+        colors: "Black",
         sizes: ["S", "M", "L"]
     },
     {
@@ -168,7 +168,7 @@ export const products: Product[] = [
             "/images/AVSK5001W/4.png",
             "/images/AVSK5001W/1.png",
         ],
-        colors: "Color Name",
+        colors: "White",
         sizes: ["S", "M", "L"]
     },
 ];
